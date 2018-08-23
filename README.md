@@ -10,6 +10,7 @@ Sow words across the blank white page, invite the creative Muse for a quick romp
 #### Wireframe
 
 #### Working Prototype
+[Demo](https://writers-challenge.herokuapp.com/)
 
 #### Functionality
 
@@ -19,3 +20,12 @@ Sow words across the blank white page, invite the creative Muse for a quick romp
 
 #### Development Roadmap
 v1.0
+
+#  The typical command lines for capstone projects
+
+## Node command lines
+* npm install ==> install all node modules
+    * npm install --save bcrypt bcryptjs body-parser cors express mongodb mongoose passport passport-http unirest
+    * npm install --save-dev chai chai-http mocha faker
+* nodemon server.js ==> run node server
+* npm test ==> run the tests

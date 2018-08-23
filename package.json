@@ -1,0 +1,38 @@
+{
+  "name": "writers-challenge-node-capstone",
+  "version": "1.0.0",
+  "description": "Sow words across the blank white page, invite the creative Muse for a quick romp with a writing prompt, and allow new vocabulary to take root in memory with Word Seed, a writing goal app that is designed for writers who want to exercise their mind, hone their skills, and expand their vocabulary. Users can set a monthly goal, see their progress, and create different notebooks to fit their creative needs.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/azureowl/writers-challenge-node-capstone.git"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "mongodb": "^3.1.3",
+    "mongoose": "^5.2.9",
+    "passport": "^0.4.0",
+    "passport-http": "^0.3.0",
+    "unirest": "^0.5.1"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "faker": "^4.1.0",
+    "mocha": "^5.2.0"
+  },
+  "author": "Ro Langam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/azureowl/writers-challenge-node-capstone/issues"
+  },
+  "homepage": "https://github.com/azureowl/writers-challenge-node-capstone#readme"
+}
