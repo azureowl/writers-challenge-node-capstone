@@ -1,0 +1,39 @@
+* {
+    box-sizing: border-box;
+}
+
+.row {
+    max-width: 1400px;
+    padding: 0 20px 0 20px;
+    margin: 0 auto 5px auto;
+}
+
+.row::before,
+.row::after {
+    display: table;
+    content: '';
+}
+
+.row::after {
+    clear: both;
+}
+
+.col {
+    float: left;
+    padding: 0 1.04166667% 0 1.04166667%;
+}
+
+/* Mobile defaults */
+
+.col-12 {
+    width: 100%;
+}
+
+@media only screen and (min-width: 768px) {
+    .col-2 {
+        width: 16.6666667%;
+    }
+    .col-8 {
+        width: 66.6666667%;
+    }
+}

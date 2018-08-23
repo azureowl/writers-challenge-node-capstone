@@ -1,0 +1,73 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+    color: #45c34a;
+}
+
+h1, h2, h3, p {
+    margin: 0;
+}
+
+header {
+    height: 10vh;
+}
+
+main {
+    color: white;
+    height: 85vh;
+}
+
+footer {
+    height: 5vh;
+}
+
+main nav {
+    /* background-color: blue; */
+    background-color: #252525;
+}
+
+.pages {
+    background-color: #efefef;
+    color: black;
+}
+
+nav button {
+    background-color: rgb(193, 255, 183);
+    background-color: #252525;
+    color: white;
+    border: 0;
+}
+
+main button {
+    width: 100%;
+}
+
+form {
+    background-color: white;
+
+}
+
+textarea {
+    padding: 10px;
+    width: 100%;
+}
+
+nav > div:first-child, .pages > section:first-child {
+    padding-top: 20px;
+}
+
+@media (min-width: 768px) {
+    nav, .pages, form, textarea {
+        height: 100%;
+    }
+
+    textarea {
+        padding: 60px;
+    }
+}
