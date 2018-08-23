@@ -8,10 +8,20 @@ html {
 
 h1 {
     color: #45c34a;
+    padding-top: 2px;
 }
 
-h1, h2, h3, p {
+h1 img {
+    width: 30px;
+    transform: rotate(15deg);
+}
+
+h1, h2, p {
     margin: 0;
+}
+
+h3 {
+    margin: 5px 0 0 0;
 }
 
 header {
@@ -32,11 +42,6 @@ main nav {
     background-color: #252525;
 }
 
-.pages {
-    background-color: #efefef;
-    color: black;
-}
-
 nav button {
     background-color: rgb(193, 255, 183);
     background-color: #252525;
@@ -50,7 +55,6 @@ main button {
 
 form {
     background-color: white;
-
 }
 
 textarea {
@@ -60,6 +64,15 @@ textarea {
 
 nav > div:first-child, .pages > section:first-child {
     padding-top: 20px;
+}
+
+.pages, nav button:focus {
+    background-color: #efefef;
+    color: black;
+}
+
+nav button:focus {
+    outline: none;
 }
 
 @media (min-width: 768px) {

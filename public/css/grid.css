@@ -23,6 +23,10 @@
     padding: 0 1.04166667% 0 1.04166667%;
 }
 
+nav.col {
+    padding: 0;
+}
+
 /* Mobile defaults */
 
 .col-12 {
