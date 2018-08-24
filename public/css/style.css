@@ -3,25 +3,24 @@
 }
 
 html {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
 }
 
 h1 {
     color: #45c34a;
-    padding-top: 2px;
+    font-size: 20px;
 }
 
-h1 img {
-    width: 30px;
-    transform: rotate(15deg);
+h2 {
+    font-size: 18px;
+}
+
+h3 {
+    font-size: 16px;
 }
 
 h1, h2, p {
     margin: 0;
-}
-
-h3 {
-    margin: 5px 0 0 0;
 }
 
 header {
@@ -29,7 +28,6 @@ header {
 }
 
 main {
-    color: white;
     height: 85vh;
 }
 
@@ -37,33 +35,35 @@ footer {
     height: 5vh;
 }
 
-main nav {
-    /* background-color: blue; */
+main nav, nav button {
     background-color: #252525;
 }
 
 nav button {
-    background-color: rgb(193, 255, 183);
-    background-color: #252525;
     color: white;
     border: 0;
 }
 
 main button {
+    padding: 10px;
     width: 100%;
 }
 
 form {
     background-color: white;
+    border: 1px solid #acacac;
+    /* height: 100vh; */
 }
 
 textarea {
+    resize: none;
     padding: 10px;
+    height: 100%;
     width: 100%;
 }
 
-nav > div:first-child, .pages > section:first-child {
-    padding-top: 20px;
+nav button:focus {
+    outline: none;
 }
 
 .pages, nav button:focus {
@@ -71,9 +71,22 @@ nav > div:first-child, .pages > section:first-child {
     color: black;
 }
 
-nav button:focus {
-    outline: none;
+.header-mb, .single-line {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding-top: 10px;
 }
+
+.logo {
+    transform: rotate(15deg);
+    width: 25px;
+}
+
+.shelf {
+    padding-top: 10px;
+}
+
 
 @media (min-width: 768px) {
     nav, .pages, form, textarea {
