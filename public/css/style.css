@@ -6,10 +6,6 @@ html {
     font-family: 'M PLUS Rounded 1c', sans-serif;
 }
 
-button {
-    cursor: pointer;
-}
-
 h1 {
     color: #45c34a;
     font-size: 20px;
@@ -17,6 +13,10 @@ h1 {
 
 h2 {
     font-size: 18px;
+}
+
+section h2 {
+    padding: 10px;
 }
 
 h3 {
@@ -28,45 +28,55 @@ h1, h2, p {
 }
 
 header {
-    height: 10vh;
+    height: 70px;
 }
 
 main {
-    height: 85vh;
+    height: 100%;
 }
 
 footer {
-    height: 5vh;
+    height: 40px;
+}
+
+main button, form button, section h2 {
+    text-align: center;
 }
 
 main button, form button {
     all: inherit;
-    text-align: center;
 }
 
 main nav, nav button {
     background-color: #252525;
+    color: #fff;
 }
 
-main button {
+main button, .pages button {
     padding: 10px;
     width: 100%;
 }
 
-nav button {
-    color: white;
+nav, .pages {
+    overflow: auto;
+}
+
+button {
+    cursor: pointer;
 }
 
 form {
     background-color: white;
     border: 1px solid #acacac;
-    /* height: 100vh; */
+    height: 85vh;
+    overflow: hidden;
 }
 
 textarea {
+    border: 0;
     resize: none;
     padding: 10px;
-    height: 100%;
+    height: 90%;
     width: 100%;
 }
 
@@ -74,9 +84,13 @@ nav button:focus {
     outline: none;
 }
 
-.pages, nav button:focus {
+.pages, .pages button {
     background-color: #efefef;
     color: black;
+}
+
+.pages button:focus {
+    background-color: #45c34a;
 }
 
 .header-mb, .single-line {
@@ -84,6 +98,10 @@ nav button:focus {
     align-items: flex-end;
     justify-content: space-between;
     padding-top: 10px;
+}
+
+.editor-tools {
+    background-color: #acacac;
 }
 
 .logo {
@@ -104,7 +122,19 @@ nav button:focus {
 }
 
 @media (min-width: 768px) {
-    nav, .pages, form, textarea {
+    main {
+        height: 85vh;
+    }
+
+    header {
+        height: 75px;
+    }
+
+    footer {
+        height: 40px;
+    }
+
+    nav, .pages, form {
         height: 100%;
     }
 

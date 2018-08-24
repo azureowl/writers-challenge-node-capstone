@@ -18,7 +18,7 @@
             target.attr('hidden', expanded);
         });
     }
-    
+
     function main () {
         toggleCollapseMenu();
     }
