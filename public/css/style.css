@@ -6,6 +6,10 @@ html {
     font-family: 'M PLUS Rounded 1c', sans-serif;
 }
 
+button {
+    cursor: pointer;
+}
+
 h1 {
     color: #45c34a;
     font-size: 20px;
@@ -35,18 +39,22 @@ footer {
     height: 5vh;
 }
 
-main nav, nav button {
-    background-color: #252525;
+main button, form button {
+    all: inherit;
+    text-align: center;
 }
 
-nav button {
-    color: white;
-    border: 0;
+main nav, nav button {
+    background-color: #252525;
 }
 
 main button {
     padding: 10px;
     width: 100%;
+}
+
+nav button {
+    color: white;
 }
 
 form {
@@ -87,6 +95,13 @@ nav button:focus {
     padding-top: 10px;
 }
 
+[aria-expanded="true"] .fa-caret-right {
+    display: none;
+}
+
+[aria-expanded="false"] .fa-caret-down {
+    display: none;
+}
 
 @media (min-width: 768px) {
     nav, .pages, form, textarea {

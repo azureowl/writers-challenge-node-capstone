@@ -24,29 +24,29 @@
     <main role="main" class="row">
         <!-- login and landing page -->
         <!-- registration -->
-        <nav role="navigation" class="col col-12 col-2">
+        <nav role="navigation" class="col col-12 col-2 nav">
             <!-- notebook section -->
             <div class="shelf">
                 <!-- notebook shelf tab -->
-                <h2>
-                    <button class="item">
+                <h2 class="expandable">
+                    <button aria-expanded="false">
                         <i class="fa fa-caret-right" aria-hidden="true"></i>
-                        <i class="fa fa-caret-down" aria-hidden="true" hidden></i>
+                        <i class="fa fa-caret-down" aria-hidden="true"></i>
                         <i class="fa fa-book" aria-hidden="true"></i> Notebooks
                     </button>
                 </h2>
-                <button>+ Notebook</button>
-                <div>
+                <div class="collections" hidden>
+                    <button>+ Notebook</button>
                     <!-- notebook #1 -->
                     <h3>
-                        <button class="item notebooks">
+                        <button class="notebooks" aria-expanded="false">
                             Notebook #
                         </button>
                     </h3>
-        
+
                     <!-- notebook #2-->
                     <h3>
-                        <button class="item notebooks">
+                        <button class="notebooks" aria-expanded="false">
                             Notebook #
                         </button>
                     </h3>
@@ -55,25 +55,41 @@
             <!-- flash fiction section -->
             <div class="shelf">
                 <!-- flash fiction tab -->
-                <h2>
-                     <button class="item flash-fiction">
+                <h2 class="expandable">
+                     <button class="flash-fiction" aria-expanded="false">
                         <i class="fa fa-caret-right" aria-hidden="true"></i>
-                        <i class="fa fa-caret-down" aria-hidden="true" hidden></i>
+                        <i class="fa fa-caret-down" aria-hidden="true"></i>
                         <i class="fa fa-bolt" aria-hidden="true"></i> Flash Fiction
                      </button>
                 </h2>
+                <div class="collections" hidden>
+                    <button>+ Notebook</button>
+                    <!-- notebook #1 -->
+                    <h3>
+                        <button class="notebooks" aria-expanded="false">
+                            Notebook #
+                        </button>
+                    </h3>
+
+                    <!-- notebook #2-->
+                    <h3>
+                        <button class="notebooks" aria-expanded="false">
+                            Notebook #
+                        </button>
+                    </h3>
+                </div>
             </div>
             <!-- tools section -->
             <div class="shelf">
                 <!-- dictionary tab -->
                  <h2>
-                     <button class="item dictionary">
+                     <button class="dictionary">
                         Dictionary
                      </button>
                  </h2>
                  <!-- thesaurus tab -->
                  <h2>
-                     <button class="item thesaurus">
+                     <button class="thesaurus">
                         Thesaurus
                      </button>
                  </h2>
@@ -104,7 +120,9 @@
             </section>
         </div>
         <form class="col col-12 col-8">
-            <button>Close</button>
+            <div>
+                <button>Close</button>
+            </div>
             <textarea>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in pellentesque dui. Vivamus convallis elit id mauris egestas tristique. Nullam eget luctus mauris. Quisque aliquet egestas urna. Morbi eu mi ut dui finibus lacinia et faucibus orci. Fusce vel nulla nisi. Nullam vitae rhoncus orci, eget lobortis mi. Donec lobortis convallis neque, sit amet facilisis ex sagittis eget. Nam vitae risus sit amet leo aliquam fringilla tincidunt blandit risus.
                 Morbi aliquam, neque in pretium porta, elit mi viverra arcu, vel viverra felis nisl in sem. Pellentesque interdum id urna ultrices vehicula. Proin sed est in dolor pharetra tristique. Etiam molestie, nisi ut sodales molestie, leo augue maximus nisi, ac pulvinar tellus quam in sem. Donec quis porttitor augue, ac pellentesque lacus. Nullam tristique nunc eu dolor gravida, vulputate sollicitudin turpis semper. Nunc vitae felis ex. Cras sit amet est ligula. Pellentesque dictum eros et porta placerat. Aliquam erat volutpat. Sed vulputate, mauris at finibus vestibulum, augue nunc dignissim urna, id commodo orci erat quis eros. Mauris sodales magna laoreet, ullamcorper orci id, convallis elit. Integer non dapibus elit. Morbi consequat non diam ac gravida. Ut ultrices sem vel augue fermentum, eget venenatis nunc eleifend. Proin sed suscipit elit.
@@ -123,5 +141,8 @@
             </div>
         </div>
     </footer>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>
