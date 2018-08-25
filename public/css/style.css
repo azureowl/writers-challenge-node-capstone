@@ -89,6 +89,10 @@ nav button:focus {
     color: black;
 }
 
+.pages-lg {
+    display: none;
+}
+
 .pages button:focus {
     background-color: #45c34a;
 }
@@ -140,5 +144,13 @@ nav button:focus {
 
     textarea {
         padding: 60px;
+    }
+
+    .pages-mb {
+        display: none;
+    }
+
+    .pages-lg {
+        display: initial;
     }
 }
