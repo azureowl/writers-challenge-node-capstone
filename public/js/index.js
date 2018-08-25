@@ -26,9 +26,20 @@
         });
     }
 
+    // Remove new widths should user resize window while toggledPages is still on
+    function clearResize () {
+        $(window).resize(() => {
+            if ($('form.toggledPages').length === 1) {
+                $('.pages-lg').removeClass('toggledPages');
+                $('form').removeClass('toggledPages');
+            }
+        });
+    }
+
     function main () {
         toggleCollapseMenu();
         togglePagesMenu();
+        clearResize();
     }
     
     $(main);

@@ -155,15 +155,15 @@ textarea {
     top: 4px;
 }
 
-.toggledPages, .pages, form {
+.toggledPages, .pages-lg, form {
     transition: width .3s
 }
 
-.pages.toggledPages section button, .pages.toggledPages h2 {
+.pages-lg.toggledPages section button, .pages-lg.toggledPages h2 {
     color: #efefef;
 }
 
-.pages.toggledPages {
+.pages-lg.toggledPages {
     width: 24px;
 }
 
