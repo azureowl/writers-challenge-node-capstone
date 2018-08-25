@@ -1,9 +1,10 @@
 * {
     box-sizing: border-box;
+    font-weight: 100;
 }
 
 html {
-    font-family: 'M PLUS Rounded 1c', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 h1 {
@@ -107,8 +108,11 @@ form {
 
 textarea {
     border: 0;
+    font-weight: 400;
     resize: none;
     padding: 10px;
+    letter-spacing: .5px;
+    line-height: 35px;
     height: 90%;
     width: 100%;
 }
@@ -143,7 +147,15 @@ textarea {
 }
 
 .shelf {
-    padding-top: 10px;
+    padding-top: 28px;
+}
+
+.shelf h2 button, .collection > button {
+    padding-left: 15px;
+}
+
+.shelf h3 button {
+    padding-left: 30px;
 }
 
 [aria-expanded="true"] .fa-caret-right {
