@@ -19,8 +19,16 @@
         });
     }
 
+    function togglePagesMenu () {
+        $('#js-view').on('click', function () {
+            $('.pages-lg').toggleClass('toggledPages');
+            $('form').toggleClass('toggledPages');
+        });
+    }
+
     function main () {
         toggleCollapseMenu();
+        togglePagesMenu();
     }
     
     $(main);

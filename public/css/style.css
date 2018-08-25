@@ -155,6 +155,22 @@ textarea {
     top: 4px;
 }
 
+.toggledPages, .pages, form {
+    transition: width .3s
+}
+
+.pages.toggledPages section button, .pages.toggledPages h2 {
+    color: #efefef;
+}
+
+.pages.toggledPages {
+    width: 24px;
+}
+
+form.toggledPages {
+    width: 80%;
+}
+
 @media (min-width: 768px) {
 
     h1 {
