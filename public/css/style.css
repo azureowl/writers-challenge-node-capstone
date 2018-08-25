@@ -7,8 +7,11 @@ html {
 }
 
 h1 {
-    color: #45c34a;
     font-size: 20px;
+}
+
+h1, footer a {
+    color: #45c34a;
 }
 
 h2 {
@@ -40,7 +43,6 @@ footer {
 }
 
 footer a {
-    color: #45c34a;
     text-decoration: none;
 }
 
@@ -65,11 +67,14 @@ main nav, nav button {
     color: #fff;
 }
 
-
 main button {
     padding: 10px;
     width: 100%;
     transition: background-color .3s;
+}
+
+nav {
+    border-top: 12px solid #45c34a;
 }
 
 nav, .pages {
@@ -79,6 +84,10 @@ nav, .pages {
 
 nav button:hover {
     background-color: #373737;
+}
+
+.collections h3 button:hover {
+    border-bottom: 1px solid #45c34a;
 }
 
 nav button:focus {
