@@ -39,6 +39,19 @@ footer {
     height: 40px;
 }
 
+footer a {
+    color: #45c34a;
+    text-decoration: none;
+}
+
+footer i {
+    font-size: 24px;
+}
+
+footer p {
+    font-size: 18px;
+}
+
 main button, form button, section h2 {
     text-align: center;
 }
@@ -123,6 +136,10 @@ nav button:focus {
 
 [aria-expanded="false"] .fa-caret-down {
     display: none;
+}
+
+.fa-github {
+    transform: translateX(-24px);
 }
 
 @media (min-width: 768px) {
