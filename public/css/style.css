@@ -126,6 +126,11 @@ nav button:focus {
 }
 
 @media (min-width: 768px) {
+
+    h1 {
+        font-size: 28px;
+    }
+
     main {
         height: 85vh;
     }
