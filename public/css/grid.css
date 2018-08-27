@@ -33,6 +33,9 @@ nav.col, .pages.col, .pages section.col, form.col {
     .col-2 {
         width: 16.6666667%;
     }
+    .col-6 {
+        width: 50%;
+    }
     .col-8 {
         width: 66.6666667%;
     }

@@ -3,12 +3,12 @@
     font-weight: 100;
 }
 
-html {
-    font-family: 'Roboto', sans-serif;
+html, body {
+    height: 100%;
 }
 
-body {
-    position: relative;
+html {
+    font-family: 'Roboto', sans-serif;
 }
 
 h1 {
@@ -46,7 +46,6 @@ main {
 
 footer {
     height: 40px;
-    position: absolute;
     width: 100%;
 }
 
@@ -137,7 +136,11 @@ textarea {
 }
 
 .landing-page {
-    height: 80vh;
+    height: 80%;
+}
+
+.landing-page img {
+    display: none;
 }
 
 .login-form div, .login-form button {
@@ -157,6 +160,7 @@ textarea {
 
 .intro {
     line-height: 25px;
+    font-size: 18px;
 }
 
 .editor-form {
@@ -257,6 +261,16 @@ textarea {
 
     textarea {
         padding: 60px;
+    }
+
+    .container-md {
+        float: none;
+        margin: 0 auto;
+    }
+
+    .landing-page img {
+        display: initial;
+        width: 100%;
     }
 
     .pages-mb {

@@ -39,8 +39,8 @@
     function login () {
         $('#js-login').on('click', function (e) {
             e.preventDefault();
-            console.log('hi');
-            const test = $('main').prop('hidden', false);
+            $('main').attr('hidden', false);
+            $('.landing-page').attr('hidden', true);
         });
     }
 
