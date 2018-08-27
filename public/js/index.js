@@ -36,10 +36,19 @@
         });
     }
 
+    function login () {
+        $('#js-login').on('click', function (e) {
+            e.preventDefault();
+            console.log('hi');
+            const test = $('main').prop('hidden', false);
+        });
+    }
+
     function main () {
         toggleCollapseMenu();
         togglePagesMenu();
         clearResize();
+        login();
     }
     
     $(main);
