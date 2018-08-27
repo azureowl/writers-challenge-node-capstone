@@ -139,11 +139,6 @@ textarea {
     height: 80%;
 }
 
-.landing-page h2, .intro  {
-    font-size: 24px;
-    letter-spacing: 2px;
-}
-
 .landing-page img {
     display: none;
 }
@@ -164,6 +159,7 @@ textarea {
 }
 
 .intro {
+    font-size: 18px;
     line-height: 28px;
 }
 
@@ -275,6 +271,11 @@ textarea {
     .landing-page img {
         display: initial;
         width: 100%;
+    }
+
+    .landing-page h2, .intro  {
+        font-size: 24px;
+        letter-spacing: 2px;
     }
 
     .pages-mb {
