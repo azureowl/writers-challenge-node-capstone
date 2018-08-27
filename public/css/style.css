@@ -7,6 +7,10 @@ html {
     font-family: 'Roboto', sans-serif;
 }
 
+body {
+    position: relative;
+}
+
 h1 {
     font-size: 20px;
 }
@@ -36,24 +40,14 @@ header {
     height: 70px;
 }
 
-header button {
-    background-color: #45c34a;
-    border-radius: 3px;
-    font-weight: 400;
-    padding: 4px 8px;
-    border: 0;
-}
-
-header button:hover {
-    background-color: #5edb62;
-}
-
 main {
     height: 100%;
 }
 
 footer {
     height: 40px;
+    position: absolute;
+    width: 100%;
 }
 
 footer a {
@@ -68,11 +62,11 @@ footer p {
     font-size: 18px;
 }
 
-main button, form button, section h2 {
+main button, .editor-form button, section h2 {
     text-align: center;
 }
 
-main button, form button {
+main button, .editor-form button {
     all: inherit;
 }
 
@@ -80,7 +74,7 @@ main nav, nav button {
     background-color: #252525;
 }
 
-main nav, nav button, header button {
+main nav, nav button, .login-form button {
     color: #fff;
 }
 
@@ -103,23 +97,12 @@ nav button:hover {
     background-color: #373737;
 }
 
-.collections h3 button:hover {
-    border-bottom: 1px solid #45c34a;
-}
-
 nav button:focus {
     outline: none;
 }
 
 button {
     cursor: pointer !important;
-}
-
-form {
-    background-color: white;
-    border: 1px solid #acacac;
-    height: 85vh;
-    overflow: hidden;
 }
 
 textarea {
@@ -153,6 +136,36 @@ textarea {
     padding-top: 10px;
 }
 
+.landing-page {
+    height: 80vh;
+}
+
+.login-form div, .login-form button {
+    margin-top: 5px;
+}
+
+.login-form label {
+    display: block;
+}
+
+.login-form input {
+    border: 1px solid #acacac;
+    height: 35px;
+    padding-left: 5px;
+    width: 100%;
+}
+
+.intro {
+    line-height: 25px;
+}
+
+.editor-form {
+    background-color: white;
+    border: 1px solid #acacac;
+    height: 85vh;
+    overflow: hidden;
+}
+
 .editor-tools {
     background-color: #acacac;
 }
@@ -160,6 +173,22 @@ textarea {
 .logo {
     transform: rotate(15deg);
     width: 25px;
+}
+
+.collections h3 button:hover {
+    border-bottom: 1px solid #45c34a;
+}
+
+.login-form button {
+    background-color: #45c34a;
+    border-radius: 3px;
+    font-weight: 400;
+    padding: 4px 8px;
+    border: 0;
+}
+
+.login-form button:hover {
+    background-color: #5edb62;
 }
 
 .shelf {
@@ -192,7 +221,7 @@ textarea {
     top: 4px;
 }
 
-.toggledPages, .pages-lg, form {
+.toggledPages, .pages-lg, .editor-form {
     transition: width .3s
 }
 
@@ -204,7 +233,7 @@ textarea {
     width: 24px;
 }
 
-form.toggledPages {
+.editor-form.toggledPages {
     width: 80%;
 }
 
@@ -222,11 +251,7 @@ form.toggledPages {
         height: 75px;
     }
 
-    footer {
-        height: 40px;
-    }
-
-    nav, .pages, form {
+    nav, .pages, .editor-form {
         height: 100%;
     }
 
