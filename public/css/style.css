@@ -73,7 +73,7 @@ main nav, nav button {
     background-color: #252525;
 }
 
-main nav, nav button, .login-form button {
+main nav, nav button, .login-form button, header button {
     color: #fff;
 }
 
@@ -196,7 +196,7 @@ textarea {
     border-bottom: 1px solid #45c34a;
 }
 
-.login-form button {
+.login-form button, header button {
     background-color: #45c34a;
     border-radius: 3px;
     font-weight: 400;
@@ -204,7 +204,7 @@ textarea {
     border: 0;
 }
 
-.login-form button:hover {
+.login-form button:hover, header button {
     background-color: #5edb62;
 }
 

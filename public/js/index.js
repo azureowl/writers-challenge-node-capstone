@@ -66,6 +66,7 @@
             e.preventDefault();
             $('main').attr('hidden', false);
             $('.my-progress').attr('hidden', false);
+            $('#js-logout').attr('hidden', false);
             $('.landing-page').attr('hidden', true);
         });
     }
