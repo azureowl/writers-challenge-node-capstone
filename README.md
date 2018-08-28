@@ -21,6 +21,13 @@ Sow words across the blank white page, invite the creative Muse for a quick romp
 
 #### Wireframe
 
+
+|  userflow  | dashboard   |  dashboard mobile  |  dictionary/thesaurus  |
+| -- | -- | -- | -- |
+| <img src="./github-images/wc-user-flow.jpg" alt="userflow" width="600"/> | <img src="./github-images/wc-dashboard.jpg" alt="dashboard" width="600"/> |  <img src="./github-images/wc-mobile-dashboard.jpg" alt="dashboard mobile" width="600"/> | <img src="./github-images/wc-dictionary.jpg" alt="dashboard/thesaurus" width="600"/>
+
+
+
 #### Working Prototype
 [Demo](https://writers-challenge.herokuapp.com/)
 
