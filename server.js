@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+
 const app = express();
 
 const notebookRouter = require('./routers/notebookRouter');
@@ -11,7 +12,9 @@ const {PORT, DATABASE_URL, TEST_DATABASE_URL} = require('./config');
 
 app.use(morgan('common'));
 app.use(express.static('public'));
+app.use(express.json());
 app.use('/notebooks', notebookRouter);
+
 
 let server;
 

@@ -3,12 +3,20 @@
 const mongoose = require('mongoose');
 
 const NotebookSchema = mongoose.Schema({
-    title: {type: String, required: true},
-    notebook: {type: String, required: true},
+    title: {
+        type: String,
+        required: true
+    },
     content: String,
-    misc: {
+    meta: {
         wordCount: Number,
-        data: Date
+        dateCreated: {
+            type: Date,
+            default: Date.now
+        },
+        dateUpdated: {
+            type: Date
+        }
     }
 });
 
@@ -17,10 +25,12 @@ NotebookSchema.methods.serialize = function () {
         id: this._id,
         title: this.title,
         content: this.content,
-        misc: this.misc
+        meta: this.meta
     };
 };
 
 const Notebook = mongoose.model("notebooks", NotebookSchema);
 
-module.exports = {Notebook};
+module.exports = {
+    Notebook
+};
