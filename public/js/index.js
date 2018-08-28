@@ -65,9 +65,23 @@
         $('#js-login').on('click', function (e) {
             e.preventDefault();
             $('main').attr('hidden', false);
-            $('.my-progress').attr('hidden', false);
             $('#js-logout').attr('hidden', false);
             $('.landing-page').attr('hidden', true);
+        });
+    }
+
+    function revealProgress () {
+        $('#js-progress').on('click', function (e) {
+            e.preventDefault();
+            $('.my-progress').attr('hidden', false);
+            hideProgress();
+        });
+    }
+
+    function hideProgress () {
+        $('#js-close-progress').on('click', function (e) {
+            e.preventDefault();
+            $('.my-progress').attr('hidden', true);
         });
     }
 
@@ -76,6 +90,7 @@
         togglePagesMenu();
         clearResize();
         login();
+        revealProgress();
     }
 
     $(main);

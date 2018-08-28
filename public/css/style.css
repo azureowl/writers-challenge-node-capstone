@@ -115,9 +115,12 @@ textarea {
     width: 100%;
 }
 
+.my-progress {
+    height: 300px;
+}
+
 .progress-bar {
     background-color: transparent;
-    border: 1px solid #acacac;
     height: 30px;
     width: 100%;
 }
@@ -165,10 +168,13 @@ textarea {
 }
 
 .login-form input {
-    border: 1px solid #acacac;
     height: 35px;
     padding-left: 5px;
     width: 100%;
+}
+
+.login-form input, .editor-form, .progress-bar, .my-progress {
+    border: 1px solid #acacac;
 }
 
 .intro {
@@ -178,7 +184,6 @@ textarea {
 
 .editor-form {
     background-color: white;
-    border: 1px solid #acacac;
     height: 85vh;
     overflow: hidden;
 }

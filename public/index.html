@@ -139,7 +139,7 @@
             <!-- progress bar -->
             <div class="shelf">
                 <h2>
-                    <button id="progress">
+                    <button id="js-progress">
                         My Progress
                     </button>
                 </h2>
@@ -189,19 +189,22 @@
                 Phasellus at pellentesque urna. Morbi condimentum dignissim dolor sit amet aliquam. Pellentesque condimentum, mauris id auctor posuere, quam velit fermentum arcu, eget semper purus turpis eget nisl. Duis gravida felis sed leo pretium, sit amet pharetra nunc ullamcorper. Sed tincidunt nisl in mauris facilisis, et malesuada libero lobortis. Curabitur eget luctus ipsum, non cursus dolor. Vivamus gravida tortor libero, vitae posuere nibh malesuada id. Integer cursus iaculis diam eget mollis.
             </textarea> -->
         </form>
-    </main>
-    <section role="region" class="my-progress col col-12" hidden>
-        <div class="row">
-            <h2>My Progress</h2>
-        </div>
-        <div class="row">
-            <div class="col col-12 col-8 progress-bar-container">
-                <div class="progress-bar">
-                    <div class="progress"></div>
+        <section role="region" class="my-progress col col-12" hidden>
+            <div class="row">
+                <button type="button" id="js-close-progress">Close</button>
+            </div>
+            <div class="row">
+                <h2>My Progress</h2>
+            </div>
+            <div class="row">
+                <div class="col col-12 col-8 progress-bar-container">
+                    <div class="progress-bar">
+                        <div class="progress"></div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
     <footer role="contentinfo" class="row">
         <div class="col col-12 single-line">
             <p>&copy; Ro Langam</p>
