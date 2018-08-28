@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/grid.css">
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,400" rel="stylesheet">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <title>Word Seed</title>
 </head>
 <body>
@@ -174,13 +175,18 @@
             <div class="editor-tools">
                 <button>Close</button>
             </div>
-            <textarea>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in pellentesque dui. Vivamus convallis elit id mauris egestas tristique. Nullam eget luctus mauris. Quisque aliquet egestas urna. Morbi eu mi ut dui finibus lacinia et faucibus orci. Fusce vel nulla nisi. Nullam vitae rhoncus orci, eget lobortis mi. Donec lobortis convallis neque, sit amet facilisis ex sagittis eget. Nam vitae risus sit amet leo aliquam fringilla tincidunt blandit risus.
-                Morbi aliquam, neque in pretium porta, elit mi viverra arcu, vel viverra felis nisl in sem. Pellentesque interdum id urna ultrices vehicula. Proin sed est in dolor pharetra tristique. Etiam molestie, nisi ut sodales molestie, leo augue maximus nisi, ac pulvinar tellus quam in sem. Donec quis porttitor augue, ac pellentesque lacus. Nullam tristique nunc eu dolor gravida, vulputate sollicitudin turpis semper. Nunc vitae felis ex. Cras sit amet est ligula. Pellentesque dictum eros et porta placerat. Aliquam erat volutpat. Sed vulputate, mauris at finibus vestibulum, augue nunc dignissim urna, id commodo orci erat quis eros. Mauris sodales magna laoreet, ullamcorper orci id, convallis elit. Integer non dapibus elit. Morbi consequat non diam ac gravida. Ut ultrices sem vel augue fermentum, eget venenatis nunc eleifend. Proin sed suscipit elit.
-                Maecenas ultrices, ex vel maximus congue, mauris nulla egestas turpis, nec euismod erat lorem ut erat. Vestibulum vulputate felis eget orci efficitur vestibulum. Donec vel justo et orci gravida ultricies. Cras congue ligula sed nunc consequat, non feugiat felis tristique. Pellentesque sit amet justo sodales, suscipit ante viverra, scelerisque tellus. Pellentesque tincidunt id tortor ac bibendum. Proin eu semper metus. Nunc arcu est, rutrum eget vehicula at, gravida eget enim. Vestibulum et erat ut lacus tempor varius accumsan at lectus. Aliquam non ligula leo. Nunc quam lectus, finibus ac lectus commodo, fringilla tincidunt nulla. Vivamus ut metus ac libero bibendum varius.
+            <div id="editor">
+                <p>
+                    &nbsp;&nbsp;&nbsp;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus in pellentesque dui. Vivamus convallis elit id mauris egestas tristique. Nullam eget luctus mauris. Quisque aliquet egestas urna. Morbi eu mi ut dui finibus lacinia et faucibus orci. Fusce vel nulla nisi. Nullam vitae rhoncus orci, eget lobortis mi. Donec lobortis convallis neque, sit amet facilisis ex sagittis eget. Nam vitae risus sit amet leo aliquam fringilla tincidunt blandit risus. <br/><br/>
+                    &nbsp;&nbsp;Morbi aliquam, neque in pretium porta, elit mi viverra arcu, vel viverra felis nisl in sem. Pellentesque interdum id urna ultrices vehicula. Proin sed est in dolor pharetra tristique. Etiam molestie, nisi ut sodales molestie, leo augue maximus nisi, ac pulvinar tellus quam in sem. Donec quis porttitor augue, ac pellentesque lacus. Nullam tristique nunc eu dolor gravida, vulputate sollicitudin turpis semper. Nunc vitae felis ex. Cras sit amet est ligula. Pellentesque dictum eros et porta placerat. Aliquam erat volutpat. Sed vulputate, mauris at finibus vestibulum, augue nunc dignissim urna, id commodo orci erat quis eros. Mauris sodales magna laoreet, ullamcorper orci id, convallis elit. Integer non dapibus elit. Morbi consequat non diam ac gravida. Ut ultrices sem vel augue fermentum, eget venenatis nunc eleifend. Proin sed suscipit elit.
+                    Maecenas ultrices, ex vel maximus congue, mauris nulla egestas turpis, nec euismod erat lorem ut erat. Vestibulum vulputate felis eget orci efficitur vestibulum. Donec vel justo et orci gravida ultricies. Cras congue ligula sed nunc consequat, non feugiat felis tristique. Pellentesque sit amet justo sodales, suscipit ante viverra, scelerisque tellus. Pellentesque tincidunt id tortor ac bibendum. Proin eu semper metus. Nunc arcu est, rutrum eget vehicula at, gravida eget enim. Vestibulum et erat ut lacus tempor varius accumsan at lectus. Aliquam non ligula leo. Nunc quam lectus, finibus ac lectus commodo, fringilla tincidunt nulla. Vivamus ut metus ac libero bibendum varius.
+                </p>
+            </div>
+            <!-- <textarea>
+
                 Sed sit amet felis sed ex egestas sagittis a vel tortor. Nulla lobortis molestie augue quis auctor. Nam at semper enim. Proin malesuada, dolor sit amet fringilla posuere, erat velit scelerisque ante, nec tempor quam lorem eget nunc. Maecenas blandit vestibulum neque, sed elementum ipsum placerat vel. Suspendisse ac congue velit, tincidunt posuere purus. Integer gravida ligula efficitur massa venenatis, at lacinia lorem hendrerit. Nunc dapibus pellentesque imperdiet. Phasellus lobortis erat ullamcorper, eleifend justo vel, fermentum lectus. Nulla mollis viverra nunc, eget elementum massa pulvinar eget. Sed blandit interdum dui. Curabitur nec ante id orci interdum mollis. Fusce pulvinar, lorem sed viverra pellentesque, dui elit aliquet elit, feugiat lobortis enim augue sed mi. Nunc mollis lorem eget massa efficitur, sed feugiat quam venenatis. Aliquam non imperdiet mauris, in gravida nisi. Donec vitae maximus diam, ac malesuada eros.
                 Phasellus at pellentesque urna. Morbi condimentum dignissim dolor sit amet aliquam. Pellentesque condimentum, mauris id auctor posuere, quam velit fermentum arcu, eget semper purus turpis eget nisl. Duis gravida felis sed leo pretium, sit amet pharetra nunc ullamcorper. Sed tincidunt nisl in mauris facilisis, et malesuada libero lobortis. Curabitur eget luctus ipsum, non cursus dolor. Vivamus gravida tortor libero, vitae posuere nibh malesuada id. Integer cursus iaculis diam eget mollis.
-            </textarea>
+            </textarea> -->
         </form>
     </main>
     <section role="region" class="my-progress" hidden>
@@ -212,5 +218,11 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
     <script src="js/index.js"></script>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script>
+        var quill = new Quill('#editor', {
+            theme: 'snow'
+        });
+    </script>
 </body>
 </html>
