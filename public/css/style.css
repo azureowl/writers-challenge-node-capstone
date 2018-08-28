@@ -115,6 +115,19 @@ textarea {
     width: 100%;
 }
 
+.progress-bar {
+    background-color: transparent;
+    border: 1px solid #acacac;
+    height: 30px;
+    width: 100%;
+}
+
+.progress {
+    background-color: #45c34a;
+    height: 100%;
+    width: 50%;
+}
+
 .pages, .pages button {
     background-color: #efefef;
     color: black;
@@ -263,7 +276,7 @@ textarea {
         padding: 60px;
     }
 
-    .container-md {
+    .container-md, .progress-bar-container {
         float: none;
         margin: 0 auto;
     }

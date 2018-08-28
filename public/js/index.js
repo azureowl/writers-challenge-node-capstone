@@ -65,6 +65,7 @@
         $('#js-login').on('click', function (e) {
             e.preventDefault();
             $('main').attr('hidden', false);
+            $('.my-progress').attr('hidden', false);
             $('.landing-page').attr('hidden', true);
         });
     }

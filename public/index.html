@@ -19,7 +19,7 @@
         </div>
     </header>
 
-    <section class="landing-page">
+    <section role="region" class="landing-page">
         <div class="row">
             <div class="col col-12 col-6 container-md">
                 <form class="login-form">
@@ -133,6 +133,15 @@
                      </button>
                  </h2>
             </div>
+
+            <!-- progress bar -->
+            <div class="shelf">
+                <h2 class="progress">
+                    <button id="progress">
+                        My Progress
+                    </button>
+                </h2>
+            </div>
         </nav>
         <div class="pages pages-lg col col-12 col-2">
             <div>
@@ -174,6 +183,18 @@
             </textarea>
         </form>
     </main>
+    <section role="region" class="my-progress" hidden>
+        <div class="row">
+            <h2>My Progress</h2>
+        </div>
+        <div class="row">
+            <div class="col col-12 col-8 progress-bar-container">
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+            </div>
+        </div>
+    </section>
     <footer role="contentinfo" class="row">
         <div class="col col-12 single-line">
             <p>&copy; Ro Langam</p>
