@@ -1,47 +1,26 @@
-"use strict";
+'use strict';
 
 const mongoose = require('mongoose');
-// const bcrypt = require('bcryptjs');
 
-const entrySchema = new mongoose.Schema({
-    entryType: {
-        type: String,
-        required: false
-    },
-    inputDate: {
-        type: Date,
-        required: false
-    },
-    inputPlay: {
-        type: String,
-        required: false
-    },
-    inputAuthor: {
-        type: String,
-        required: false
-    },
-    inputRole: {
-        type: String,
-        required: false
-    },
-    inputCo: {
-        type: String,
-        required: false
-    },
-    inputLocation: {
-        type: String,
-        required: false
-    },
-    inputNotes: {
-        type: String,
-        required: false
-    },
-    loggedInUserName: {
-        type: String,
-        required: false
+const NotebookSchema = mongoose.Schema({
+    title: {type: String, required: true},
+    notebook: {type: String, required: true},
+    content: String,
+    misc: {
+        wordCount: Number,
+        data: Date
     }
 });
 
-const Entry = mongoose.model('Entry', entrySchema);
+NotebookSchema.methods.serialize = function () {
+    return {
+        id: this._id,
+        title: this.title,
+        content: this.content,
+        misc: this.misc
+    };
+};
 
-module.exports = Entry;
+const Notebook = mongoose.model("notebooks", NotebookSchema);
+
+module.exports = {Notebook};

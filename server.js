@@ -3,23 +3,31 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const app = express();
 
+const notebookRouter = require('./routers/notebookRouter');
+
 mongoose.Promise = global.Promise;
 
 const {PORT, DATABASE_URL, TEST_DATABASE_URL} = require('./config');
 
 app.use(morgan('common'));
 app.use(express.static('public'));
+app.use('/notebooks', notebookRouter);
 
 let server;
 
-function runServer(TEST_DATABASE_URL, PORT) {
+// mongoose.connect(TEST_DATABASE_URL, {useNewUrlParser: true});
+// app.listen(PORT, () => {
+//   console.log(`Your app is listening on port ${PORT}`);
+// })
+
+function runServer(databaseUrl, port=PORT) {
   return new Promise((resolve, reject) => {
-    mongoose.connect(TEST_DATABASE_URL, {useNewUrlParser: true}, err => {
+    mongoose.connect(databaseUrl, {useNewUrlParser: true}, err => {
         if (err) {
             return reject(`Something went wrong -- MongoError: ${err.errmsg}`);
         }
-        server = app.listen(PORT, () => {
-            console.log(`Your app is listening on port ${PORT}`);
+        server = app.listen(port, () => {
+            console.log(`Your app is listening on port ${port}`);
             resolve();
         }).on('error', (err) => {
             mongoose.disconnect();
