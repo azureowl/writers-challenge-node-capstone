@@ -61,15 +61,6 @@
         });
     }
 
-    function login() {
-        $('#js-login').on('click', function (e) {
-            e.preventDefault();
-            $('main').attr('hidden', false);
-            $('#js-logout').attr('hidden', false);
-            $('.landing-page').attr('hidden', true);
-        });
-    }
-
     function toggleForms () {
         $('.js-change-form').on('click', function (e) {
             const current = $(this).closest('section');
@@ -94,11 +85,47 @@
         });
     }
 
+    function login() {
+        $('#js-login').on('click', function (e) {
+            e.preventDefault();
+            $('main').attr('hidden', false);
+            $('#js-logout').attr('hidden', false);
+            $('.landing-page').attr('hidden', true);
+        });
+    }
+
+    function register () {
+        $('#js-register').on('click', function (e) {
+            e.preventDefault();
+
+            const userObject = {
+                name: $("#name").val(),
+                username: $("#reg-username").val(),
+                password: $("#reg-pw").val()
+            };
+
+            console.log(userObject);
+            $.ajax('/users/register', {
+                method: 'POST',
+                contentType: 'application/json',
+                data: userObject,
+                dataType: 'json'
+            })
+                .done(function (data) {
+                    console.log(data);
+                })
+                .fail(function (error) {
+                    console.log(error);
+                });
+        });
+    }
+
     function main() {
         toggleCollapseMenu();
         togglePagesMenu();
         clearResize();
         login();
+        register();
         revealProgress();
         toggleForms();
     }
