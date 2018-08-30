@@ -70,6 +70,15 @@
         });
     }
 
+    function toggleForms () {
+        $('.js-change-form').on('click', function (e) {
+            const current = $(this).closest('section');
+            const target = $('body').find('.landing-page:hidden');
+            target.attr('hidden', false);
+            current.attr('hidden', true);
+        });
+    }
+
     function revealProgress () {
         $('#js-progress').on('click', function (e) {
             e.preventDefault();
@@ -91,6 +100,7 @@
         clearResize();
         login();
         revealProgress();
+        toggleForms();
     }
 
     $(main);
