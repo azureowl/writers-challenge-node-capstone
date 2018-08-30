@@ -25,8 +25,8 @@
         <div class="row">
             <form class="login-form">
                 <fieldset>
-                    <label for="username">Username</label>
-                    <input type="text" id="username">
+                    <label for="email">Email</label>
+                    <input type="text" id="email">
                     <label for="password">Password</label>
                     <input type="password" id="password">
                 </fieldset>
@@ -41,6 +41,31 @@
             </p>
         </div>
         <span>Don't have an account? <button id="change-form" class="clear-style">Register</button></span>
+    </section>
+
+    <section role="region" id="register" class="col col-12 col-6 container-md landing-page" hidden>
+        <div class="row">
+            <form class="registration-form">
+                <fieldset>
+                    <legend>Register</legend>
+                    <label for="name">Name</label>
+                    <input type="text" id="name" value="Paul Thompson">
+                    <label for="reg-username">Email</label>
+                    <input type="email" id="reg-username" placeholder="OtisThePug@hotmail.com" value="paul.thomp@gmail.com">
+                    <label for="reg-pw">Password</label>
+                    <input type="password" id="reg-pw" placeholder="Lt_Fish1902" value="pass2018">
+                </fieldset>
+                <button type="submit" id="js-register">Sign Up</button>
+            </form>
+        </div>
+        <h2>What is Word Seed?</h2>
+        <div class="row">
+            <p class="intro">
+                Word Seed is a writing app for writers who want to exercise
+                their skills and set a monthly goal.
+            </p>
+        </div>
+        <span>Have an account? <button id="change-form" class="clear-style">Login</button></span>
     </section>
 
     <main role="main" class="row" hidden>

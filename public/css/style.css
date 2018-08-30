@@ -78,7 +78,7 @@ main nav, nav button {
     background-color: #252525;
 }
 
-main nav, nav button, .login-form button, header button {
+main nav, nav button, .login-form button, .registration-form button, header button {
     color: #fff;
 }
 
@@ -174,22 +174,22 @@ textarea {
     width: 100%;
 }
 
-.login-form div, .login-form button {
+.login-form div, .login-form button, .registration-form div, .registration-form button {
     margin-top: 10px;
 }
 
-.login-form label {
+.login-form label, .registration-form label {
     display: block;
-    padding-bottom: 10px;
+    padding: 10px 0;
 }
 
-.login-form input {
+.login-form input, .registration-form input {
     height: 35px;
     padding-left: 5px;
     width: 100%;
 }
 
-.login-form input, .editor-form, .progress-bar, .my-progress {
+.login-form input, .editor-form, .progress-bar, .my-progress, .registration-form input {
     border: 1px solid #acacac;
 }
 
@@ -219,7 +219,7 @@ textarea {
     border-bottom: 1px solid #45c34a;
 }
 
-.login-form button, header button {
+.login-form button, header button, .registration-form button {
     background-color: #45c34a;
     border-radius: 3px;
     font-weight: 400;
@@ -227,7 +227,7 @@ textarea {
     border: 0;
 }
 
-.login-form button:hover, header button {
+.login-form button:hover, header button, .registration-form button:hover {
     background-color: #5edb62;
 }
 
