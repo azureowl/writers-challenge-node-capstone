@@ -104,19 +104,29 @@
                 password: $("#reg-pw").val()
             };
 
-            console.log(userObject);
-            $.ajax('/users/register', {
-                method: 'POST',
-                contentType: 'application/json',
-                data: userObject,
-                dataType: 'json'
-            })
-                .done(function (data) {
-                    console.log(data);
+            if (userObject.name == "") {
+                alert('Name is required.');
+            } else if (userObject.username == "") {
+                alert('Email username is required.');
+            } else if (userObject.password == "") {
+                alert('Password is required.');
+            } else {
+                $.ajax('/users/register', {
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(userObject),
+                    dataType: 'json'
                 })
-                .fail(function (error) {
-                    console.log(error);
-                });
+                    .done(function (data) {
+                        console.log(data);
+                    })
+                    .fail(function (error) {
+                        console.log(error);
+                        const html = `<p class="row error">${error.responseText}</p>`;
+                        $(html).insertBefore('.landing-page');
+                    });
+            }
+
         });
     }
 

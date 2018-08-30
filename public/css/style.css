@@ -284,6 +284,10 @@ textarea {
     width: 80%;
 }
 
+.error {
+    color: red;
+}
+
 @media (min-width: 768px) {
 
     h1 {

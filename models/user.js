@@ -6,15 +6,17 @@ const bcrypt = require('bcryptjs');
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: false
+        required: true
     },
     username: {
         type: String,
-        required: false
+        trim: true,
+        required: true
     },
     password: {
         type: String,
-        required: false
+        trim: true,
+        required: true
     }
 });
 
@@ -30,4 +32,4 @@ userSchema.methods.validatePassword = function (password, callback) {
 
 const User = mongoose.model('User', userSchema);
 
-module.exports = User;
+module.exports = {User};
