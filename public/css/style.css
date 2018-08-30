@@ -15,7 +15,7 @@ h1 {
     font-size: 20px;
 }
 
-h1, footer a {
+h1, footer a, .clear-style {
     color: #45c34a;
     font-weight: 400;
 }
@@ -61,7 +61,12 @@ footer p {
     font-size: 18px;
 }
 
-main button, .editor-form button, section h2 {
+fieldset {
+    border: none;
+    padding: 0;
+}
+
+main button, section h2 {
     text-align: center;
 }
 
@@ -152,19 +157,30 @@ textarea {
 }
 
 .landing-page {
+    background: url('/images/sprout2.jpg') no-repeat;
+    background-size: cover;
+    background-position: center center;
+    padding-top: 10px;
+    position: relative;
     height: 80%;
 }
 
-.landing-page img {
-    display: none;
+.landing-page span {
+    color: #fff;
+    background-color: rgba(31, 48, 27, 0.5);
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 .login-form div, .login-form button {
-    margin-top: 5px;
+    margin-top: 10px;
 }
 
 .login-form label {
     display: block;
+    padding-bottom: 10px;
 }
 
 .login-form input {
@@ -178,6 +194,8 @@ textarea {
 }
 
 .intro {
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 10px;
     font-size: 18px;
     line-height: 28px;
 }
@@ -223,6 +241,13 @@ textarea {
 
 .shelf h3 button {
     padding-left: 30px;
+}
+
+.clear-style {
+    background-color: transparent;
+    border: none;
+    display: inline-block;
+    padding: 0;
 }
 
 [aria-expanded="true"] .fa-caret-right {
@@ -286,14 +311,18 @@ textarea {
         margin: 0 auto;
     }
 
-    .landing-page img {
-        display: initial;
-        width: 100%;
+    .landing-page {
+        padding: 10px 0 0 0;
+        border: 10px solid #f7f7f7;
     }
 
     .landing-page h2, .intro  {
         font-size: 24px;
         letter-spacing: 2px;
+    }
+
+    .intro {
+        padding: 25px;
     }
 
     .pages-mb {

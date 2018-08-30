@@ -21,32 +21,26 @@
         </div>
     </header>
 
-    <section role="region" class="landing-page">
+    <section role="region" class="col col-12 col-6 container-md landing-page">
         <div class="row">
-            <div class="col col-12 col-6 container-md">
-                <form class="login-form">
-                    <div>
-                        <label for="username">Username</label>
-                        <input type="text" id="username">
-                    </div>
-                    <div>
-                        <label for="password">Password</label>
-                        <input type="password" id="password">
-                    </div>
-                    <button type="submit" id="js-login">Login</button>
-                </form>
-            </div>
+            <form class="login-form">
+                <fieldset>
+                    <label for="username">Username</label>
+                    <input type="text" id="username">
+                    <label for="password">Password</label>
+                    <input type="password" id="password">
+                </fieldset>
+                <button type="submit" id="js-login">Login</button>
+            </form>
         </div>
         <h2>What is Word Seed?</h2>
         <div class="row">
-            <p class="intro col col-12 col-6 container-md">
+            <p class="intro">
                 Word Seed is a writing app for writers who want to exercise
                 their skills and set a monthly goal.
             </p>
-            <div class="col col-12 col-6 container-md">
-                <img src="./images/grass.png" alt="decorative grass">
-            </div>
         </div>
+        <span>Don't have an account? <button id="change-form" class="clear-style">Register</button></span>
     </section>
 
     <main role="main" class="row" hidden>
@@ -172,7 +166,7 @@
                 </div>
             </section>
         </div>
-        <form class="col col-12 col-8 editor-form">
+        <div class="editor-form">
             <div class="editor-tools">
                 <button>Close</button>
             </div>
@@ -183,12 +177,7 @@
                     Maecenas ultrices, ex vel maximus congue, mauris nulla egestas turpis, nec euismod erat lorem ut erat. Vestibulum vulputate felis eget orci efficitur vestibulum. Donec vel justo et orci gravida ultricies. Cras congue ligula sed nunc consequat, non feugiat felis tristique. Pellentesque sit amet justo sodales, suscipit ante viverra, scelerisque tellus. Pellentesque tincidunt id tortor ac bibendum. Proin eu semper metus. Nunc arcu est, rutrum eget vehicula at, gravida eget enim. Vestibulum et erat ut lacus tempor varius accumsan at lectus. Aliquam non ligula leo. Nunc quam lectus, finibus ac lectus commodo, fringilla tincidunt nulla. Vivamus ut metus ac libero bibendum varius.
                 </p>
             </div>
-            <!-- <textarea>
-
-                Sed sit amet felis sed ex egestas sagittis a vel tortor. Nulla lobortis molestie augue quis auctor. Nam at semper enim. Proin malesuada, dolor sit amet fringilla posuere, erat velit scelerisque ante, nec tempor quam lorem eget nunc. Maecenas blandit vestibulum neque, sed elementum ipsum placerat vel. Suspendisse ac congue velit, tincidunt posuere purus. Integer gravida ligula efficitur massa venenatis, at lacinia lorem hendrerit. Nunc dapibus pellentesque imperdiet. Phasellus lobortis erat ullamcorper, eleifend justo vel, fermentum lectus. Nulla mollis viverra nunc, eget elementum massa pulvinar eget. Sed blandit interdum dui. Curabitur nec ante id orci interdum mollis. Fusce pulvinar, lorem sed viverra pellentesque, dui elit aliquet elit, feugiat lobortis enim augue sed mi. Nunc mollis lorem eget massa efficitur, sed feugiat quam venenatis. Aliquam non imperdiet mauris, in gravida nisi. Donec vitae maximus diam, ac malesuada eros.
-                Phasellus at pellentesque urna. Morbi condimentum dignissim dolor sit amet aliquam. Pellentesque condimentum, mauris id auctor posuere, quam velit fermentum arcu, eget semper purus turpis eget nisl. Duis gravida felis sed leo pretium, sit amet pharetra nunc ullamcorper. Sed tincidunt nisl in mauris facilisis, et malesuada libero lobortis. Curabitur eget luctus ipsum, non cursus dolor. Vivamus gravida tortor libero, vitae posuere nibh malesuada id. Integer cursus iaculis diam eget mollis.
-            </textarea> -->
-        </form>
+        </div>
         <section role="region" class="my-progress col col-12" hidden>
             <div class="row">
                 <button type="button" id="js-close-progress">Close</button>
