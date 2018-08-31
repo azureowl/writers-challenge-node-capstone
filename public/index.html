@@ -17,7 +17,10 @@
     <header role="banner" class="row">
         <div class="col col-12 header-mb">
             <h1>Word Seed <img class="logo" src="images/seed.png" alt="seed sprout"></h1>
-            <button id="js-logout" type="button" hidden>Logout</button>
+            <div>
+                <button id="js-user" type="button" aria-label="Profile" hidden><i class="fa fa-user" aria-hidden="true"></i></button>
+                <button id="js-logout" type="button" hidden>Logout</button>
+            </div>
         </div>
     </header>
 
@@ -26,9 +29,9 @@
             <form class="login-form">
                 <fieldset>
                     <label for="email">Email</label>
-                    <input type="text" id="email" autocomplete="username" required>
+                    <input type="text" id="email" autocomplete="username" required value="paul.thomp@gmail.com">
                     <label for="password">Password</label>
-                    <input type="password" id="password" autocomplete="current-password" required>
+                    <input type="password" id="password" autocomplete="current-password" required value="pass2018">
                 </fieldset>
                 <button type="submit" id="js-login">Login</button>
             </form>

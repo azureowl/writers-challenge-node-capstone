@@ -158,9 +158,13 @@
     }
 
     function showDashboard() {
-        $('main').attr('hidden', false);
-        $('#js-logout').attr('hidden', false);
-        $('.landing-page').attr('hidden', true);
+        ['main', '#js-logout', '#js-user', '.landing-page'].forEach(el => {
+            if (el === '.landing-page') {
+                $(el).attr('hidden', true);
+            } else {
+                $(el).attr('hidden', false);
+            }
+        });
     }
 
     function main() {
