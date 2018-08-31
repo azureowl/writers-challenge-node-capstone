@@ -169,6 +169,39 @@
         });
     }
 
+    function changeProfile () {
+        $('#js-change').on('click', function (e) {
+            e.preventDefault();
+            const userObject = {};
+
+            const fields = ["#profile-name", "#profile-email", "#profile-password"];
+
+            fields.forEach(field => {
+                if ($(field).val() !== "") {
+                    userObject[field] = $(field).val();
+                }
+            });
+
+            if (Object.keys(userObject).length > 0) {
+                $.ajax('/users/profile', {
+                    method: 'PUT',
+                    contentType: 'application/json',
+                    data: JSON.stringify(userObject),
+                    dataType: 'json'
+                })
+                    .done(function (data) {
+                        console.log(data);
+                    })
+                    .fail(function (error) {
+                        console.log(error);
+                        const html = `<p class="row error">${error.responseText}</p>`;
+                        $(html).insertBefore('.landing-page');
+                    });
+            }
+
+        });
+    }
+
     function showDashboard() {
         ['main', '#js-logout', '#js-user', '.landing-page'].forEach(el => {
             if (el === '.landing-page') {
@@ -187,6 +220,7 @@
         register();
         revealProgress();
         toggleForms();
+        changeProfile();
     }
 
     $(main);
