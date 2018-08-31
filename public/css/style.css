@@ -62,7 +62,7 @@ footer p {
 }
 
 fieldset {
-    border: none;
+    border: 0;
     padding: 0;
 }
 
@@ -266,9 +266,20 @@ textarea {
 
 .clear-style {
     background-color: transparent;
-    border: none;
+    border: 0;
     display: inline-block;
     padding: 0;
+}
+
+.create-notebook {
+    padding-left: 30px;
+}
+
+.create-notebook form input {
+    color: #fff;
+    background-color: transparent;
+    height: 30px;
+    padding-left: 5px;
 }
 
 [aria-expanded="true"] .fa-caret-right {

@@ -5,18 +5,20 @@
         return $('.pages section').filter(`[data-book=${id}]`);
     }
 
-    // function getNotebooks() {
-    //     $.getJSON('http://localhost:8080/notebooks', function (data) {
-    //         markupNotebooks(data.notebooks);
-    //     }).fail(err => {
-    //         console.log("uh oh!");
-    //     });
-    // }
+    function getNotebooks() {
+        $.ajax('/notebooks')
+        .done((data) => {
+                markupNotebooks(data.notebooks);
+            })
+            .fail(err => {
+                console.log(err);
+            });
+    }
 
-    function markupNotebooks (data) {
+    function markupNotebooks (notebooks) {
         const notebookTitles = [];
-
-        data.forEach(item => {
+        console.log(notebooks);
+        notebooks.forEach(item => {
             console.log(item);
             const html = `<h3 class="expandable">
             <button class="notebooks" aria-expanded="false" id="notebook-1">
@@ -26,7 +28,47 @@
             notebookTitles.push(html);
         });
 
-        $('.collections').html(notebookTitles);
+        $('.notebook-container').append(notebookTitles);
+    }
+
+    function addNotebook () {
+        $('#js-notebook').on('click', function (e) {
+            // refactor same as function accessProfile!!
+            // or might have to create form dynamically and then remove it
+            const target = $(this).next();
+            const expanded = $(this).attr('aria-expanded') === 'true' || false;
+            $(this).attr('aria-expanded', !expanded);
+            target.attr('hidden', expanded);
+            $('.create-notebook').attr('hidden', false);
+        });
+    }
+
+    function saveNotebook () {
+        $('.myForm').on('keypress', function (e) {
+            const userObject = {
+                username: $("#email").val(),
+                title: $('#title').val()
+            };
+
+            if (e.which === 13) {
+                e.preventDefault();
+
+                $.ajax('/notebooks/add', {
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(userObject),
+                    dataType: 'json'
+                })
+                .done(function (data) {
+                    console.log([data.notebooks]);
+                    markupNotebooks([data.notebooks]);
+                })
+                .fail(err => {
+                    console.log(err);
+                });
+                $('#title').val('');
+            }
+        });
     }
 
     function toggleCollapseMenu() {
@@ -35,7 +77,11 @@
             const id = $(this).find('button').attr('id');
             // use expanded variable to set the state of the target
             const expanded = $(this).find('button').attr('aria-expanded') === 'true' || false;
-            // getNotebooks();
+
+            // have to specify these selectors as clicking
+            // on individual notebook is making calls to getNotebooks
+            // this is also appending duplicates!!
+            getNotebooks();
             $(this).find('button').attr('aria-expanded', !expanded);
             if (id !== undefined) {
                 target = getPages(id);
@@ -107,6 +153,7 @@
                 })
                     .done(function (data) {
                         showDashboard();
+                        $('.profile').find('legend').text(data);
                         accessProfile(data);
                         // get name from server and display with greeting!
                     })
@@ -144,6 +191,7 @@
                 })
                     .done(function (data) {
                         showDashboard();
+                        $('.profile').find('legend').text(data);
                         accessProfile(data);
                         // get name from server and display with greeting!
                     })
@@ -160,7 +208,6 @@
     function accessProfile (data) {
         $('#js-user').on('click', function (e) {
             e.preventDefault();
-            $('.profile').find('legend').text(data);
             const target = $(this).next();
             const expanded = $(this).attr('aria-expanded') === 'true' || false;
             $(this).attr('aria-expanded', !expanded);
@@ -174,7 +221,7 @@
             const userObject = {
                 user: $('.profile').find('legend').text()
             };
-            
+
             const fields = ["#profile-name", "#profile-password"];
 
             fields.forEach(field => {
@@ -223,6 +270,8 @@
         revealProgress();
         toggleForms();
         changeProfile();
+        addNotebook();
+        saveNotebook();
     }
 
     $(main);

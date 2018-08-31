@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 
 const router = express.Router();
 
+// ************ Login User ************
 router.post('/login', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
@@ -35,6 +36,7 @@ router.post('/login', (req, res) => {
 
 });
 
+// ************ Register User ************
 router.post('/register', (req, res) => {
     const name = req.body.name;
     const username = req.body.username;
@@ -61,12 +63,16 @@ router.post('/register', (req, res) => {
                     return res.json(user.username);
                 })
                 .catch(err => {
+                    if (err.code === 11000) {
+                        return runErrorMess(res, "User already exists.");
+                    }
                     return runErrorMess(res, "Internal Server Error");
                 });
         });
     });
 });
 
+// ************ Update User ************
 router.put('/profile', (req, res) => {
     const user = req.body.user;
     const updateableFields = ['name', 'password'];
@@ -119,9 +125,7 @@ router.put('/profile', (req, res) => {
 });
 
 function runErrorMess(res, msg) {
-    return res.status(500).json({
-        message: msg
-    });
+    return res.status(500).json(msg);
 }
 
 module.exports = router;

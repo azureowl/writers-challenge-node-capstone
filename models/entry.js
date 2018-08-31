@@ -1,6 +1,7 @@
 'use strict';
 
 const mongoose = require('mongoose');
+const {User} = require('./user');
 
 const NotebookSchema = mongoose.Schema({
     title: {
@@ -17,6 +18,10 @@ const NotebookSchema = mongoose.Schema({
         dateUpdated: {
             type: Date
         }
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'User',
+        required: true
     }
 });
 
