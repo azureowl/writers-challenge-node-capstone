@@ -21,7 +21,7 @@
         const notebookTitles = [];
         notebooks.forEach(item => {
             const html = `<h3 class="expandable">
-            <button class="notebooks" aria-expanded="false" id="notebook-1">
+            <button class="notebooks" aria-expanded="false" id="book-${item.id}">
                 ${item.title}
                 </button>
             </h3>`;
