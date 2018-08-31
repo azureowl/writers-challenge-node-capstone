@@ -17,11 +17,9 @@
         });
     }
 
-    function markupNotebooks (notebooks) {
+    function markupNotebooks(notebooks) {
         const notebookTitles = [];
-        console.log(notebooks);
         notebooks.forEach(item => {
-            console.log(item);
             const html = `<h3 class="expandable">
             <button class="notebooks" aria-expanded="false" id="notebook-1">
                 ${item.title}
@@ -32,7 +30,7 @@
         return notebookTitles;
     }
 
-    function addNotebook () {
+    function addNotebook() {
         $('#js-notebook').on('click', function (e) {
             // refactor same as function accessProfile!!
             // or might have to create form dynamically and then remove it
@@ -44,7 +42,7 @@
         });
     }
 
-    function saveNotebook () {
+    function saveNotebook() {
         $('.myForm').on('keypress', function (e) {
             const userObject = {
                 username: $("#email").val(),
@@ -55,18 +53,17 @@
                 e.preventDefault();
 
                 $.ajax('/notebooks/add', {
-                    method: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify(userObject),
-                    dataType: 'json'
-                })
-                .done(function (data) {
-                    console.log([data.notebooks]);
-                    markupNotebooks([data.notebooks]);
-                })
-                .fail(err => {
-                    console.log(err);
-                });
+                        method: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(userObject),
+                        dataType: 'json'
+                    })
+                    .done(function (data) {
+                        $('.notebook-container').append(markupNotebooks([data.notebooks]));
+                    })
+                    .fail(err => {
+                        console.log(err);
+                    });
                 $('#title').val('');
             }
         });
@@ -78,10 +75,6 @@
             const id = $(this).find('button').attr('id');
             // use expanded variable to set the state of the target
             const expanded = $(this).find('button').attr('aria-expanded') === 'true' || false;
-
-            // have to specify these selectors as clicking
-            // on individual notebook is making calls to getNotebooks
-            // this is also appending duplicates!!
             $(this).find('button').attr('aria-expanded', !expanded);
             if (id !== undefined) {
                 target = getPages(id);
@@ -107,7 +100,7 @@
         });
     }
 
-    function toggleForms () {
+    function toggleForms() {
         $('.js-change-form').on('click', function (e) {
             const current = $(this).closest('section');
             const target = $('body').find('.landing-page:hidden');
@@ -116,7 +109,7 @@
         });
     }
 
-    function revealProgress () {
+    function revealProgress() {
         $('#js-progress').on('click', function (e) {
             e.preventDefault();
             $('.my-progress').attr('hidden', false);
@@ -124,7 +117,7 @@
         });
     }
 
-    function hideProgress () {
+    function hideProgress() {
         $('#js-close-progress').on('click', function (e) {
             e.preventDefault();
             $('.my-progress').attr('hidden', true);
@@ -146,11 +139,11 @@
                 alert('Password is required.');
             } else {
                 $.ajax('/users/login', {
-                    method: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify(userObject),
-                    dataType: 'json'
-                })
+                        method: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(userObject),
+                        dataType: 'json'
+                    })
                     .done(function (data) {
                         showDashboard();
                         $('.profile').find('legend').text(data);
@@ -165,7 +158,7 @@
         });
     }
 
-    function register () {
+    function register() {
         $('#js-register').on('click', function (e) {
             e.preventDefault();
 
@@ -184,11 +177,11 @@
                 alert('Password is required.');
             } else {
                 $.ajax('/users/register', {
-                    method: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify(userObject),
-                    dataType: 'json'
-                })
+                        method: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(userObject),
+                        dataType: 'json'
+                    })
                     .done(function (data) {
                         showDashboard();
                         $('.profile').find('legend').text(data);
@@ -205,7 +198,7 @@
         });
     }
 
-    function accessProfile (data) {
+    function accessProfile(data) {
         $('#js-user').on('click', function (e) {
             e.preventDefault();
             const target = $(this).next();
@@ -215,7 +208,7 @@
         });
     }
 
-    function changeProfile () {
+    function changeProfile() {
         $('#js-change').on('click', function (e) {
             e.preventDefault();
             const userObject = {
@@ -233,11 +226,11 @@
 
             if (Object.keys(userObject).length > 0) {
                 $.ajax('/users/profile', {
-                    method: 'PUT',
-                    contentType: 'application/json',
-                    data: JSON.stringify(userObject),
-                    dataType: 'json'
-                })
+                        method: 'PUT',
+                        contentType: 'application/json',
+                        data: JSON.stringify(userObject),
+                        dataType: 'json'
+                    })
                     .done(function (data) {
                         console.log(data);
                     })
