@@ -106,9 +106,8 @@
                     dataType: 'json'
                 })
                     .done(function (data) {
-                        console.log(data);
                         showDashboard();
-                        accessProfile();
+                        accessProfile(data);
                         // get name from server and display with greeting!
                     })
                     .fail(function (error) {
@@ -144,9 +143,8 @@
                     dataType: 'json'
                 })
                     .done(function (data) {
-                        console.log(data);
                         showDashboard();
-                        accessProfile();
+                        accessProfile(data);
                         // get name from server and display with greeting!
                     })
                     .fail(function (error) {
@@ -159,9 +157,10 @@
         });
     }
 
-    function accessProfile () {
+    function accessProfile (data) {
         $('#js-user').on('click', function (e) {
             e.preventDefault();
+            $('.profile').find('legend').text(data);
             const target = $(this).next();
             const expanded = $(this).attr('aria-expanded') === 'true' || false;
             $(this).attr('aria-expanded', !expanded);
@@ -172,13 +171,16 @@
     function changeProfile () {
         $('#js-change').on('click', function (e) {
             e.preventDefault();
-            const userObject = {};
-
-            const fields = ["#profile-name", "#profile-email", "#profile-password"];
+            const userObject = {
+                user: $('.profile').find('legend').text()
+            };
+            
+            const fields = ["#profile-name", "#profile-password"];
 
             fields.forEach(field => {
                 if ($(field).val() !== "") {
-                    userObject[field] = $(field).val();
+                    let prop = field.split('-')[1];
+                    userObject[prop] = $(field).val();
                 }
             });
 

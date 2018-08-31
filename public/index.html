@@ -21,13 +21,14 @@
                 <button id="js-user" type="button" aria-label="Access-Profile" aria-expanded="false" hidden><i class="fa fa-user" aria-hidden="true"></i></button>
                 <div class="profile" hidden>
                     <form>
-                        <label for="profile-name">Name</label>
-                        <input type="text" id="profile-name">
-                        <label for="profile-email">Email</label>
-                        <input type="text" id="profile-email">
-                        <label for="profile-password">Password</label>
-                        <input type="password" id="profile-password">
-                        <button type="submit" id="js-change">Submit</button>
+                        <fieldset>
+                            <legend>My profile</legend>
+                            <label for="profile-name">Name</label>
+                            <input type="text" id="profile-name">
+                            <label for="profile-password">Password</label>
+                            <input type="password" id="profile-password">
+                            <button type="submit" id="js-change">Submit</button>
+                        </fieldset>
                     </form>
                 </div>
                 <button id="js-logout" type="button" hidden>Logout</button>
