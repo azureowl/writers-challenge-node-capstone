@@ -6,13 +6,15 @@
     }
 
     function getNotebooks() {
-        $.ajax('/notebooks')
-        .done((data) => {
-                markupNotebooks(data.notebooks);
-            })
-            .fail(err => {
-                console.log(err);
-            });
+        $('#js-getNotebooks').on('click', function () {
+            $.ajax('/notebooks')
+                .done((data) => {
+                    $('.notebook-container').html(markupNotebooks(data.notebooks));
+                })
+                .fail(err => {
+                    console.log(err);
+                });
+        });
     }
 
     function markupNotebooks (notebooks) {
@@ -27,8 +29,7 @@
             </h3>`;
             notebookTitles.push(html);
         });
-
-        $('.notebook-container').append(notebookTitles);
+        return notebookTitles;
     }
 
     function addNotebook () {
@@ -81,7 +82,6 @@
             // have to specify these selectors as clicking
             // on individual notebook is making calls to getNotebooks
             // this is also appending duplicates!!
-            getNotebooks();
             $(this).find('button').attr('aria-expanded', !expanded);
             if (id !== undefined) {
                 target = getPages(id);
@@ -270,6 +270,7 @@
         revealProgress();
         toggleForms();
         changeProfile();
+        getNotebooks();
         addNotebook();
         saveNotebook();
     }
