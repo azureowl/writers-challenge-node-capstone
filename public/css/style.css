@@ -141,7 +141,7 @@ textarea {
     color: black;
 }
 
-.pages section button:hover {
+.pages section button:hover, .profile {
     background-color: #fff;
 }
 
@@ -189,7 +189,7 @@ textarea {
     width: 100%;
 }
 
-.login-form input, .editor-form, .progress-bar, .my-progress, .registration-form input {
+.login-form input, .editor-form, .progress-bar, .my-progress, .registration-form input, .profile {
     border: 1px solid #acacac;
 }
 
@@ -229,6 +229,27 @@ textarea {
 
 .login-form button:hover, header button, .registration-form button:hover {
     background-color: #5edb62;
+}
+
+.account {
+    position: relative;
+}
+
+.profile {
+    padding: 10px;
+    position: absolute;
+    margin-top: 10px;
+    right: 0;
+    z-index: 10;
+}
+
+.profile form label, .profile form input {
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.profile form input {
+    padding-left: 5px;
 }
 
 .shelf {
