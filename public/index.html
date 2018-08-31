@@ -18,7 +18,18 @@
         <div class="col col-12 header-mb">
             <h1>Word Seed <img class="logo" src="images/seed.png" alt="seed sprout"></h1>
             <div>
-                <button id="js-user" type="button" aria-label="Profile" hidden><i class="fa fa-user" aria-hidden="true"></i></button>
+                <button id="js-user" type="button" aria-label="Profile" aria-expanded="false" hidden><i class="fa fa-user" aria-hidden="true"></i></button>
+                <div class="profile-card" hidden>
+                    <form class="my-profile">
+                        <label for="profile-name">Name</label>
+                        <input type="text" id="profile-name">
+                        <label for="profile-email">Email</label>
+                        <input type="text" id="profile-email">
+                        <label for="profile-password">Password</label>
+                        <input type="password" id="profile-password">
+                        <button type="submit" id="js-change">Submit</button>
+                    </form>
+                </div>
                 <button id="js-logout" type="button" hidden>Logout</button>
             </div>
         </div>

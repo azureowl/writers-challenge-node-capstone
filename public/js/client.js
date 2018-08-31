@@ -108,6 +108,7 @@
                     .done(function (data) {
                         console.log(data);
                         showDashboard();
+                        accessProfile();
                         // get name from server and display with greeting!
                     })
                     .fail(function (error) {
@@ -145,6 +146,7 @@
                     .done(function (data) {
                         console.log(data);
                         showDashboard();
+                        accessProfile();
                         // get name from server and display with greeting!
                     })
                     .fail(function (error) {
@@ -154,6 +156,16 @@
                     });
             }
 
+        });
+    }
+
+    function accessProfile () {
+        $('#js-user').on('click', function (e) {
+            e.preventDefault();
+            const target = $(this).next();
+            const expanded = $(this).attr('aria-expanded') === 'true' || false;
+            $(this).attr('aria-expanded', !expanded);
+            target.attr('hidden', expanded);
         });
     }
 
