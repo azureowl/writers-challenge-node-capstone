@@ -88,9 +88,33 @@
     function login() {
         $('#js-login').on('click', function (e) {
             e.preventDefault();
-            $('main').attr('hidden', false);
-            $('#js-logout').attr('hidden', false);
-            $('.landing-page').attr('hidden', true);
+
+            const userObject = {
+                username: $("#email").val(),
+                password: $("#password").val()
+            };
+
+            if (userObject.username == "") {
+                alert('Email username is required.');
+            } else if (userObject.password == "") {
+                alert('Password is required.');
+            } else {
+                $.ajax('/users/login', {
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(userObject),
+                    dataType: 'json'
+                })
+                    .done(function (data) {
+                        console.log(data);
+                        showDashboard();
+                        // get name from server and display with greeting!
+                    })
+                    .fail(function (error) {
+                        const html = `<p class="row error">${error.responseText}</p>`;
+                        $(html).insertBefore('.landing-page');
+                    });
+            }
         });
     }
 
@@ -104,6 +128,7 @@
                 password: $("#reg-pw").val()
             };
 
+            // refactor!
             if (userObject.name == "") {
                 alert('Name is required.');
             } else if (userObject.username == "") {
@@ -119,6 +144,8 @@
                 })
                     .done(function (data) {
                         console.log(data);
+                        showDashboard();
+                        // get name from server and display with greeting!
                     })
                     .fail(function (error) {
                         console.log(error);
@@ -128,6 +155,12 @@
             }
 
         });
+    }
+
+    function showDashboard() {
+        $('main').attr('hidden', false);
+        $('#js-logout').attr('hidden', false);
+        $('.landing-page').attr('hidden', true);
     }
 
     function main() {

@@ -61,3 +61,13 @@ function closeServer() {
 if (require.main === module) {
     runServer(DATABASE_URL, PORT).catch(err => console.error(err));
 }
+
+app.use('*', (req, res) => {
+  res.status(404).json({
+      message: 'Not Found'
+  });
+});
+
+exports.app = app;
+exports.runServer = runServer;
+exports.closeServer = closeServer;
