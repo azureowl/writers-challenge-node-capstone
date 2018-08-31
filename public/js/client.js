@@ -23,6 +23,8 @@
             const html = `<h3 class="expandable">
             <button class="notebooks" aria-expanded="false" id="book-${item.id}">
                 ${item.title}
+                <span id="edit-notebook"><i class="fas fa-edit" aria-label="Edit Notebook Name"></i></span>
+                <span id="delete-notebook"><i class="far fa-trash-alt" aria-label="Delete Notebook"></i></span>
                 </button>
             </h3>`;
             notebookTitles.push(html);
@@ -67,6 +69,10 @@
                 $('#title').val('');
             }
         });
+    }
+
+    function updateNotebook() {
+
     }
 
     function toggleCollapseMenu() {
