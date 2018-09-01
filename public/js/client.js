@@ -1,8 +1,29 @@
 (function () {
     'use strict';
 
-    function getPages(id) {
-        return $('.pages section').filter(`[data-book=${id}]`);
+    function getPages() {
+        // return $('.pages section').filter(`[data-book=${id}]`);
+        $('.notebook-container').on('click', '.open-notebook', function () {
+            console.log($(this));
+        });
+        // <div class="pages pages-mb">
+        //     <section role="region" class="col col-12" data-book="notebook-1" hidden>
+        //         <h2>My Ramblings</h2>
+        //         <button>+ Page</button>
+        //         <div>
+        //             <button class="page">Crazy Thoughts</button>
+        //         </div>
+        //         <div>
+        //             <button class="page">My Daily Journal</button>
+        //         </div>
+        //     </section>
+        // </div>
+    }
+
+    function createPage(notebook) {
+        const page = `<section role="region" class="col col-12"><button>+ Page</button><h2>${notebook.title}</h2><div><button class="page">Page 1</button></div></section>`;
+        console.log($('.pages').filter(`[data-book=${notebook.id}]`));
+        $('.pages').filter(`[data-book=${notebook.id}]`).append(page);
     }
 
     function updatePage() {
@@ -29,13 +50,13 @@
     function markupNotebooks(notebooks) {
         const notebookTitles = [];
         notebooks.forEach(item => {
-            const html = `<h3 class="expandable"><button class="notebooks" aria-expanded="false" id="book-${item.id}">${item.title}<button id="edit-notebook"><i class="fas fa-edit" aria-label="Edit Notebook Name"></i></button><button id="delete-notebook"><i class="far fa-trash-alt" aria-label="Delete Notebook"></i></button></button></h3>`;
+            const html = `<div class="notebook"><h3 class="expandable"><button class="open-notebook" aria-expanded="false" id="book-${item.id}">${item.title}<button id="edit-notebook"><i class="fas fa-edit" aria-label="Edit Notebook Name"></i></button><button id="delete-notebook"><i class="far fa-trash-alt" aria-label="Delete Notebook"></i></button></button></h3><div class="pages pages-mb" data-book="${item.id}"></div></div>`;
             notebookTitles.push(html);
         });
         return notebookTitles;
     }
 
-    function showNotebook() {
+    function showNotebookList() {
         $('#js-notebook').on('click', function (e) {
             // refactor same as function accessProfile!!
             // or might have to create form dynamically and then remove it
@@ -46,7 +67,7 @@
         });
     }
 
-    function saveNotebook() {
+    function createNotebook() {
         $('.notebook-form').on('keypress', function (e) {
             const userObject = {
                 username: $("#email").val(),
@@ -64,6 +85,7 @@
                     })
                     .done(function (data) {
                         $('.notebook-container').append(markupNotebooks([data.notebooks]));
+                        createPage(data.notebooks);
                     })
                     .fail(err => {
                         console.log(err);
@@ -75,24 +97,23 @@
 
     function getNotebookDetails(el) {
         return {
-            id: el.siblings('.notebooks').attr('id').split('-')[1],
-            title: el.siblings('.notebooks').text()
+            id: el.siblings('.open-notebook').attr('id').split('-')[1],
+            title: el.siblings('.open-notebook').text()
         };
     }
 
     function updateNotebook() {
         $('.notebook-container').on('click', '#edit-notebook', function (e) {
             e.stopPropagation();
-            const target = $(this).closest('h3');
-            const temporary = `<div class="one-line"><input class="notebook-title" type="text"></div>`;
+            const originalNotebook = $(this).closest('.notebook');
             const notebookInfo = getNotebookDetails($(this));
-            target.html(temporary);
+            $(this).closest('h3').html(`<div class="one-line"><input class="notebook-title" type="text"></div>`);
             const userObject = {};
 
             $('.one-line').on('keypress', function (e) {
                 if (e.which === 13) {
                     if ($(this).find('input').val() === "") {
-                        $(target).replaceWith(markupNotebooks([notebookInfo]));
+                        $(originalNotebook).replaceWith(markupNotebooks([notebookInfo]));
                     } else {
                         userObject.title = $('.one-line .notebook-title').val();
                         userObject.id = notebookInfo.id;
@@ -103,7 +124,7 @@
                             dataType: 'json'
                         })
                         .done(function (data) {
-                            $(target).replaceWith(markupNotebooks([data]));
+                            $(originalNotebook).replaceWith(markupNotebooks([data]));
                         })
                         .fail(function (error) {
                             console.log(error);
@@ -116,7 +137,7 @@
 
             $('.one-line').on('keyup', function (e) {
                 if (e.which === 27) {
-                    $(target).replaceWith(markupNotebooks([notebookInfo]));
+                    $(originalNotebook).replaceWith(markupNotebooks([notebookInfo]));
                 }
             });
         });
@@ -146,14 +167,13 @@
 
     function toggleCollapseMenu() {
         $('.nav').on('click', '.expandable', function (e) {
+
             let target = $(this).next();
-            const id = $(this).find('button').attr('id');
+            // console.log($(this), $(this).find('button'));
+            // const id = $(this).find('button').attr('id');
             // use expanded variable to set the state of the target
             const expanded = $(this).find('button').attr('aria-expanded') === 'true' || false;
             $(this).find('button').attr('aria-expanded', !expanded);
-            if (id !== undefined) {
-                target = getPages(id);
-            }
             target.attr('hidden', expanded);
         });
     }
@@ -339,11 +359,14 @@
         toggleForms();
         changeProfile();
         getNotebooks();
-        showNotebook();
-        saveNotebook();
+        showNotebookList();
+        createNotebook();
         updateNotebook();
         deleteNotebook();
     }
 
     $(main);
 })();
+
+
+

@@ -75,7 +75,7 @@ router.put('/:id', (req, res) => {
 
   Notebook.findByIdAndUpdate(req.params.id, {$set: updated})
     .then(notebook => {
-      res.status(200).json(updated);
+      res.status(201).json(updated);
     })
     .catch(err => {
       console.log(err);
@@ -83,12 +83,12 @@ router.put('/:id', (req, res) => {
     });
 
     // ask mentor or SO
-    Notebook.findByIdAndUpdate(req.params.id, {$set: {'meta.dateUpdated': Date.now()}})
-    .then(notebook => res.status(204).end())
-    .catch(err => {
-      console.log(err);
-      return runErrorMess(res);
-    });
+    // Notebook.findByIdAndUpdate(req.params.id, {$set: {'meta.dateUpdated': Date.now()}})
+    // .then(notebook => res.status(204).end())
+    // .catch(err => {
+    //   console.log(err);
+    //   return runErrorMess(res);
+    // });
 });
 
 router.delete('/:id', (req, res) => {
