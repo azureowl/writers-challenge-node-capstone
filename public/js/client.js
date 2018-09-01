@@ -7,6 +7,7 @@
 
     function getNotebooks() {
         $('#js-getNotebooks').on('click', function () {
+            // need to be specific for user!!! it's grabbing all user notebooks!
             $.ajax('/notebooks')
                 .done((data) => {
                     $('.notebook-container').html(markupNotebooks(data.notebooks));

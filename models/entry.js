@@ -1,41 +1,27 @@
 'use strict';
 
 const mongoose = require('mongoose');
-const {User} = require('./user');
 
-const NotebookSchema = mongoose.Schema({
-    title: {
-        type: String,
-        required: true
-    },
+const PageSchema = mongoose.Schema({
     content: String,
     meta: {
-        wordCount: Number,
-        dateCreated: {
-            type: Date,
-            default: Date.now
-        },
-        dateUpdated: {
-            type: Date
-        }
+        wordCount: Number
     },
-    user: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'User',
+    notebook: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'Notebook',
         required: true
     }
 });
 
-NotebookSchema.methods.serialize = function () {
+PageSchema.methods.serialize = function () {
     return {
-        id: this._id,
-        title: this.title,
         content: this.content,
         meta: this.meta
     };
 };
 
-const Notebook = mongoose.model("notebooks", NotebookSchema);
+const Page = mongoose.model("pages", PageSchema);
 
 module.exports = {
-    Notebook
+    Page
 };

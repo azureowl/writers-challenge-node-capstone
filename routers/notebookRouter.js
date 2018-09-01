@@ -1,5 +1,5 @@
 const express = require('express');
-const {Notebook} = require('../models/entry');
+const {Notebook} = require('../models/notebook');
 const {User} = require('../models/user');
 const router = express.Router();
 
@@ -35,6 +35,7 @@ router.post('/add', (req, res) => {
           user: user._id
         })
         .then(notebook => {
+          console.log(notebook);
           res.status(201).json({
             notebooks: notebook.serialize()
           });
