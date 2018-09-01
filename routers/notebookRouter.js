@@ -72,10 +72,10 @@ router.put('/:id', (req, res) => {
     }
   });
 
-  console.log(updated);
-
   Notebook.findByIdAndUpdate(req.params.id, {$set: updated})
-    .then(notebook => res.status(204).end())
+    .then(notebook => {
+      res.status(200).json(updated);
+    })
     .catch(err => {
       console.log(err);
       return runErrorMess(res);

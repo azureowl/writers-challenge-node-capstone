@@ -293,6 +293,8 @@ textarea {
     border-bottom: 0;
 }
 
+/* remove one line button */
+
 .one-line {
     display: flex;
     align-items: flex-end;

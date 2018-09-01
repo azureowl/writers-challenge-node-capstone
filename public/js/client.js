@@ -20,13 +20,7 @@
     function markupNotebooks(notebooks) {
         const notebookTitles = [];
         notebooks.forEach(item => {
-            const html = `<h3 class="expandable">
-            <button class="notebooks" aria-expanded="false" id="book-${item.id}">
-                ${item.title}
-                <button id="edit-notebook"><i class="fas fa-edit" aria-label="Edit Notebook Name"></i></button>
-                <button id="delete-notebook"><i class="far fa-trash-alt" aria-label="Delete Notebook"></i></button>
-                </button>
-            </h3>`;
+            const html = `<h3 class="expandable"><button class="notebooks" aria-expanded="false" id="book-${item.id}">${item.title}<button id="edit-notebook"><i class="fas fa-edit" aria-label="Edit Notebook Name"></i></button><button id="delete-notebook"><i class="far fa-trash-alt" aria-label="Delete Notebook"></i></button></button></h3>`;
             notebookTitles.push(html);
         });
         return notebookTitles;
@@ -71,30 +65,34 @@
         });
     }
 
-    function editNotebook() {
+    function updateNotebook() {
         $('.notebook-container').on('click', '#edit-notebook', function (e) {
             e.stopPropagation();
-            const formerEl = $(this).parent();
             const target = $(this).closest('h3');
-            const temporary = `<div class="one-line"><input class="notebook-title" type="text"><button type="button" id="js-cancel">Cancel edit<button></div>`;
-            target.html(temporary);
+            const temporary = `<div class="one-line"><input class="notebook-title" type="text"></div>`;
+            const notebookInfo = {
+                id: $(this).prev().attr('id').split('-')[1],
+                title: $(this).prev().text()
+            };
 
+            target.html(temporary);
             const userObject = {};
 
             $('.one-line').on('keypress', function (e) {
                 if (e.which === 13) {
-                    userObject.title = $('.one-line .notebook-title').val();
                     if ($(this).find('input').val() === "") {
-                        target.html(formerEl);
+                        $(target).replaceWith(markupNotebooks([notebookInfo]));
                     } else {
-                        $.ajax('/notebooks/edit', {
+                        userObject.title = $('.one-line .notebook-title').val();
+                        userObject.id = notebookInfo.id;
+                        $.ajax(`/notebooks/${notebookInfo.id}`, {
                             method: 'PUT',
                             contentType: 'application/json',
                             data: JSON.stringify(userObject),
                             dataType: 'json'
                         })
                         .done(function (data) {
-                            console.log(data);
+                            $(target).replaceWith(markupNotebooks([data]));
                         })
                         .fail(function (error) {
                             console.log(error);
@@ -105,13 +103,20 @@
                 }
             });
 
-            $('#js-cancel').on('click', function () {
-                target.html(formerEl);
+            $('.one-line').on('keyup', function (e) {
+                if (e.which === 27) {
+                    $(target).replaceWith(markupNotebooks([notebookInfo]));
+                }
             });
+
+            $('#js-cancel').on('click', function () {
+                $(target).replaceWith(markupNotebooks([notebookInfo]));
+            });
+
         });
     }
 
-    function updateNotebook() {
+    function deleteNotebook() {
         $('.notebook-container').on('click', '#delete-notebook', function (e) {
             e.stopPropagation();
 
@@ -316,7 +321,8 @@
         getNotebooks();
         addNotebook();
         saveNotebook();
-        editNotebook();
+        updateNotebook();
+        deleteNotebook();
     }
 
     $(main);
