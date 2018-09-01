@@ -47,7 +47,7 @@
     }
 
     function saveNotebook() {
-        $('.myForm').on('keypress', function (e) {
+        $('.notebook-form').on('keypress', function (e) {
             const userObject = {
                 username: $("#email").val(),
                 title: $('#title').val()
