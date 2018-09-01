@@ -283,24 +283,6 @@ textarea {
     margin-left: 30px;
 }
 
-.one-line .notebook-title + button {
-    padding: 0;
-}
-
-.one-line .notebook-title + button:hover, .one-line .notebook-title + button:focus {
-    background-color: transparent;
-    color: #45c34a;
-    border-bottom: 0;
-}
-
-/* remove one line button */
-
-.one-line {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-evenly;
-}
-
 [aria-expanded="true"] .fa-caret-right {
     display: none;
 }
