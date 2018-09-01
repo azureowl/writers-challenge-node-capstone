@@ -65,16 +65,19 @@
         });
     }
 
+    function getNotebookDetails(el) {
+        return {
+            id: el.siblings('.notebooks').attr('id').split('-')[1],
+            title: el.siblings('.notebooks').text()
+        };
+    }
+
     function updateNotebook() {
         $('.notebook-container').on('click', '#edit-notebook', function (e) {
             e.stopPropagation();
             const target = $(this).closest('h3');
             const temporary = `<div class="one-line"><input class="notebook-title" type="text"></div>`;
-            const notebookInfo = {
-                id: $(this).prev().attr('id').split('-')[1],
-                title: $(this).prev().text()
-            };
-
+            const notebookInfo = getNotebookDetails($(this));
             target.html(temporary);
             const userObject = {};
 
@@ -108,19 +111,28 @@
                     $(target).replaceWith(markupNotebooks([notebookInfo]));
                 }
             });
-
-            $('#js-cancel').on('click', function () {
-                $(target).replaceWith(markupNotebooks([notebookInfo]));
-            });
-
         });
     }
 
     function deleteNotebook() {
         $('.notebook-container').on('click', '#delete-notebook', function (e) {
             e.stopPropagation();
-
-
+            const notebookInfo = getNotebookDetails($(this));
+            const target = $(this).closest('h3');
+            $.ajax(`/notebooks/${notebookInfo.id}`, {
+                method: 'DELETE',
+                contentType: 'application/json',
+                data: JSON.stringify(notebookInfo),
+                dataType: 'json'
+            })
+            .done(function (data) {
+                target.remove();
+            })
+            .fail(function (error) {
+                console.log(error);
+                const html = `<p class="row error">${error.responseText}</p>`;
+                $(html).insertBefore('.landing-page');
+            });
         });
     }
 
