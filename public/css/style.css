@@ -97,11 +97,8 @@ nav, .pages {
     overflow: auto;
 }
 
-nav button:hover {
+nav button:hover, nav button:focus {
     background-color: #373737;
-}
-
-nav button:focus {
     outline: none;
 }
 
@@ -275,11 +272,31 @@ textarea {
     padding-left: 30px;
 }
 
-.create-notebook form input {
+.notebook-title  {
     color: #fff;
     background-color: transparent;
     height: 30px;
     padding-left: 5px;
+}
+
+.one-line .notebook-title {
+    margin-left: 30px;
+}
+
+.one-line .notebook-title + button {
+    padding: 0;
+}
+
+.one-line .notebook-title + button:hover, .one-line .notebook-title + button:focus {
+    background-color: transparent;
+    color: #45c34a;
+    border-bottom: 0;
+}
+
+.one-line {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-evenly;
 }
 
 [aria-expanded="true"] .fa-caret-right {
