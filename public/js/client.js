@@ -5,6 +5,14 @@
         return $('.pages section').filter(`[data-book=${id}]`);
     }
 
+    function updatePage() {
+
+    }
+
+    function deletePage() {
+
+    }
+
     function getNotebooks() {
         $('#js-getNotebooks').on('click', function () {
             // need to be specific for user!!! it's grabbing all user notebooks!
@@ -27,7 +35,7 @@
         return notebookTitles;
     }
 
-    function addNotebook() {
+    function showNotebook() {
         $('#js-notebook').on('click', function (e) {
             // refactor same as function accessProfile!!
             // or might have to create form dynamically and then remove it
@@ -35,7 +43,6 @@
             const expanded = $(this).attr('aria-expanded') === 'true' || false;
             $(this).attr('aria-expanded', !expanded);
             target.attr('hidden', expanded);
-            $('.create-notebook').attr('hidden', false);
         });
     }
 
@@ -332,7 +339,7 @@
         toggleForms();
         changeProfile();
         getNotebooks();
-        addNotebook();
+        showNotebook();
         saveNotebook();
         updateNotebook();
         deleteNotebook();
