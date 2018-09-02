@@ -1,46 +1,39 @@
 const express = require('express');
 const {Notebook} = require('../models/notebook');
 const {User} = require('../models/user');
+const {Page} = require('../models/entry');
 const router = express.Router();
 
 router.get('/', (req, res) => {
   res.send('hi');
 });
 
-// router.post('/add', (req, res) => {
+router.post('/add', (req, res) => {
+  console.log(req.body);
 
-//   if (!('title' in req.body)) {
-//     return res.status(400).send({
-//       message: 'Requires title'
-//     });
-//   }
+  Notebook.findById(req.body.notebook)
+    .then(notebook => {
+      Page.create({
+        content: req.body.content,
+        meta: req.body.meta,
+        notebook: notebook._id
+      })
+      .then(page => {
+        console.log(page);
+        res.status(201).json({
+          pages: page.serialize()
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        return runErrorMess(res);
+      });
+    })
+    .catch(err => {
+      return runErrorMess(res, "Internal Server Error");
+    });
+});
 
-//   console.log(req.body);
-//   const username = req.body.username;
-
-//   User.findOne({username: username})
-//     .then(user => {
-//         Notebook.create({
-//           title: req.body.title,
-//           content: req.body.content || '',
-//           user: user._id
-//         })
-//         .then(notebook => {
-//           res.status(201).json({
-//             notebooks: notebook.serialize()
-//           });
-//         })
-//         .catch(err => {
-//           console.log(err);
-//           return runErrorMess(res);
-//         });
-//     })
-//     .catch(err => {
-//       return runErrorMess(res, "Internal Server Error");
-//     });
-
-
-// });
 
 // router.put('/:id', (req, res) => {
 //   if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {

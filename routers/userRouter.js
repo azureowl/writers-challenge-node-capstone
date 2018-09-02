@@ -26,7 +26,7 @@ router.post('/login', (req, res) => {
                     return res.status(401).json('Password Invalid');
                 } else {
                     console.log(`User ${username} logged in. at line 27`);
-                    return res.json(user.username);
+                    return res.json({user: user.username, id: user._id});
                 }
             });
         })

@@ -1,10 +1,11 @@
 const express = require('express');
 const {Notebook} = require('../models/notebook');
 const {User} = require('../models/user');
+var ObjectId = require('mongodb').ObjectID;
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  Notebook.find()
+router.get('/:userID', (req, res) => {
+  Notebook.find({user: ObjectId(req.params.userID)})
     .then(notebooks => {
       res.json({
         notebooks: notebooks.map(notebook => notebook.serialize())

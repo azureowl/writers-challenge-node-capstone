@@ -22,9 +22,30 @@
 
     function createPage(notebook) {
         const page = `<section role="region" class="col col-12"><button>+ Page</button><h2>${notebook.title}</h2><div><button class="page">Page 1</button></div></section>`;
-        console.log($('.pages').filter(`[data-book=${notebook.id}]`));
+        $('.pages-lg').attr('data-book', `${notebook.id}`);
         $('.pages').filter(`[data-book=${notebook.id}]`).append(page);
+        const pageObject = {
+            content: $('#editor').text(),
+            meta: {
+                wordCount: $('#editor').text() === "" ? 0 : $('#editor').text().split(' ').length
+            },
+            notebook: `${notebook.id}`
+        };
+
+        $.ajax(`/pages/add`, {
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(pageObject),
+            dataType: 'json'
+        })
+            .done(function (data) {
+                console.log(data);
+            })
+            .fail(err => {
+                console.log(err);
+            });
     }
+
 
     function updatePage() {
 
@@ -36,8 +57,8 @@
 
     function getNotebooks() {
         $('#js-getNotebooks').on('click', function () {
-            // need to be specific for user!!! it's grabbing all user notebooks!
-            $.ajax('/notebooks')
+            const userID = $('.profile').find('legend').attr('class');
+            $.ajax(`/notebooks/${userID}`)
                 .done((data) => {
                     $('.notebook-container').html(markupNotebooks(data.notebooks));
                 })
@@ -155,6 +176,7 @@
                 dataType: 'json'
             })
             .done(function (data) {
+                // notebook isn't being removed!
                 target.remove();
             })
             .fail(function (error) {
@@ -241,7 +263,8 @@
                     })
                     .done(function (data) {
                         showDashboard();
-                        $('.profile').find('legend').text(data);
+                        $('.profile').find('legend').text(data.user);
+                        $('.profile').find('legend').attr('class', data.id);
                         accessProfile(data);
                         // get name from server and display with greeting!
                     })
@@ -358,11 +381,12 @@
         revealProgress();
         toggleForms();
         changeProfile();
-        getNotebooks();
         showNotebookList();
+        getNotebooks();
         createNotebook();
         updateNotebook();
         deleteNotebook();
+        getPages();
     }
 
     $(main);
