@@ -2,7 +2,7 @@
     'use strict';
 
     function getPages() {
-        // return $('.pages section').filter(`[data-book=${id}]`);
+
         $('.notebook-container').on('click', '.open-notebook', function () {
             console.log($(this));
         });
