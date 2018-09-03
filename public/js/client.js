@@ -34,20 +34,32 @@
 
             if (e.which === 13) {
                 e.preventDefault();
+                if ($(this).find('input').val() === "") {
+                    $('#js-notebook').click();
+                    return;
+                } else {
+                    $.ajax('/notebooks/add', {
+                            method: 'POST',
+                            contentType: 'application/json',
+                            data: JSON.stringify(userObject),
+                            dataType: 'json'
+                        })
+                        .done(function (data) {
+                            $('#js-notebook').click();
+                            $('.notebook-container').append(markupNotebooks([data.notebooks]));
+                        })
+                        .fail(err => {
+                            console.log(err);
+                        });
+                    $('#title').val('');
+                }
+            }
+        });
 
-                $.ajax('/notebooks/add', {
-                        method: 'POST',
-                        contentType: 'application/json',
-                        data: JSON.stringify(userObject),
-                        dataType: 'json'
-                    })
-                    .done(function (data) {
-                        $('.notebook-container').append(markupNotebooks([data.notebooks]));
-                    })
-                    .fail(err => {
-                        console.log(err);
-                    });
-                $('#title').val('');
+        $('.notebook-form').on('keyup', function (e) {
+            if (e.which === 27) {
+                $('#js-notebook').click();
+                    return;
             }
         });
     }
@@ -60,9 +72,13 @@
     }
 
     function updateNotebook() {
+        console.log('updatenotebook!');
+    }
+
+    function updateNotebookName() {
         $('.notebook-container').on('click', '#edit-notebook', function (e) {
             e.stopPropagation();
-            const originalNotebook = $(this).closest('.notebook');
+            const current = $(this).closest('.notebook');
             const notebookInfo = getNotebookDetails($(this));
             $(this).closest('h3').html(`<div class="one-line"><input class="notebook-title" type="text"></div>`);
             const userObject = {};
@@ -70,7 +86,7 @@
             $('.one-line').on('keypress', function (e) {
                 if (e.which === 13) {
                     if ($(this).find('input').val() === "") {
-                        $(originalNotebook).replaceWith(markupNotebooks([notebookInfo]));
+                        $(current).replaceWith(markupNotebooks([notebookInfo]));
                     } else {
                         userObject.title = $('.one-line .notebook-title').val();
                         userObject.id = notebookInfo.id;
@@ -81,7 +97,7 @@
                             dataType: 'json'
                         })
                         .done(function (data) {
-                            $(originalNotebook).replaceWith(markupNotebooks([data]));
+                            $(current).replaceWith(markupNotebooks([data]));
                         })
                         .fail(function (error) {
                             console.log(error);
@@ -94,7 +110,7 @@
 
             $('.one-line').on('keyup', function (e) {
                 if (e.which === 27) {
-                    $(originalNotebook).replaceWith(markupNotebooks([notebookInfo]));
+                    $(current).replaceWith(markupNotebooks([notebookInfo]));
                 }
             });
         });
@@ -306,6 +322,7 @@
         getNotebooks();
         createNotebook();
         updateNotebook();
+        updateNotebookName();
         deleteNotebook();
     }
 
