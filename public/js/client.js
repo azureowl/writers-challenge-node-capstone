@@ -7,10 +7,10 @@
             $.ajax(`/pages/${notebookID}`)
                 .done(data => {
                     console.log(data);
-                    // $('.pages-lg').attr('data-book', `${data.id}`);
+                    $('.pages-lg').attr('data-book', `${notebookID}`);
 
-                    // // This makes pages get appended beneath their own respective notebook in the collapsible menu
-                    // $('.pages').filter(`[data-book=${data.id}]`).append(markupPages([data]));
+                    // This makes pages get appended beneath their own respective notebook in the collapsible menu
+                    $('.pages').filter(`[data-book=${notebookID}]`).append(markupPages(data.pages));
                 })
                 .fail(err => {
                     console.log(err);
