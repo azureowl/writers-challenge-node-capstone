@@ -155,14 +155,9 @@
             $(this).find('button').attr('aria-expanded', !expanded);
             target.attr('hidden', expanded);
         });
-
-        const target = $(this).next();
-        const expanded = $(this).attr('aria-expanded') === 'true' || false;
-        $(this).attr('aria-expanded', !expanded);
-        target.attr('hidden', expanded);
     }
 
-    function toggleForms() {
+    function toggleUserForms() {
         $('.js-change-form').on('click', function (e) {
             const current = $(this).closest('section');
             const target = $('body').find('.landing-page:hidden');
@@ -321,7 +316,7 @@
         login();
         register();
         revealProgress();
-        toggleForms();
+        toggleUserForms();
         changeProfile();
         toggleAddNotebookForm();
         getNotebooks();
