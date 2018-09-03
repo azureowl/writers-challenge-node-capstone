@@ -14,17 +14,6 @@
         });
     }
 
-    function showNotebookList() {
-        $('#js-notebook').on('click', function (e) {
-            // refactor same as function accessProfile!! and similar to toggleCollapseMenu
-            // or might have to create form dynamically and then remove it
-            const target = $(this).next();
-            const expanded = $(this).attr('aria-expanded') === 'true' || false;
-            $(this).attr('aria-expanded', !expanded);
-            target.attr('hidden', expanded);
-        });
-    }
-
     function createNotebook() {
         $('.notebook-form').on('keypress', function (e) {
             const userObject = {
@@ -72,7 +61,11 @@
     }
 
     function updateNotebook() {
-        console.log('updatenotebook!');
+        $('#js-save').on('click', function () {
+            console.log('updatenotebook!');
+            // ql-editor
+            const notebookInfo = getNotebookDetails($(this));
+        });
     }
 
     function updateNotebookName() {
@@ -135,16 +128,38 @@
         });
     }
 
-    function toggleCollapseMenu() {
+    function accessProfile(data) {
+        $('#js-user').on('click', function (e) {
+            e.preventDefault();
+            toggleExpand($(this));
+        });
+    }
+
+    function toggleAddNotebookForm() {
+        $('#js-notebook').on('click', function (e) {
+            toggleExpand($(this));
+        });
+    }
+
+    function toggleExpand(el) {
+        const target = el.next();
+        const expanded = el.attr('aria-expanded') === 'true' || false;
+        el.attr('aria-expanded', !expanded);
+        target.attr('hidden', expanded);
+    }
+
+    function toggleCollapseMenu(bool) {
         $('.nav').on('click', '.expandable', function (e) {
             const target = $(this).next();
-            // console.log($(this), $(this).find('button'));
-            // const id = $(this).find('button').attr('id');
-            // use expanded variable to set the state of the target
             const expanded = $(this).find('button').attr('aria-expanded') === 'true' || false;
             $(this).find('button').attr('aria-expanded', !expanded);
             target.attr('hidden', expanded);
         });
+
+        const target = $(this).next();
+        const expanded = $(this).attr('aria-expanded') === 'true' || false;
+        $(this).attr('aria-expanded', !expanded);
+        target.attr('hidden', expanded);
     }
 
     function toggleForms() {
@@ -246,16 +261,6 @@
         });
     }
 
-    function accessProfile(data) {
-        $('#js-user').on('click', function (e) {
-            e.preventDefault();
-            const target = $(this).next();
-            const expanded = $(this).attr('aria-expanded') === 'true' || false;
-            $(this).attr('aria-expanded', !expanded);
-            target.attr('hidden', expanded);
-        });
-    }
-
     function changeProfile() {
         $('#js-change').on('click', function (e) {
             e.preventDefault();
@@ -318,7 +323,7 @@
         revealProgress();
         toggleForms();
         changeProfile();
-        showNotebookList();
+        toggleAddNotebookForm();
         getNotebooks();
         createNotebook();
         updateNotebook();
