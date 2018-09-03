@@ -5,13 +5,10 @@
         $('.notebook-container').on('click', '#js-getPages', function () {
             const notebookID = $(this).find('button')[0].id.slice(5);
             $.ajax(`/pages/${notebookID}`)
-                .done(data => {
-                    console.log(data);
-                    $('.pages-lg').attr('data-book', `${notebookID}`);
-
-                    // This makes pages get appended beneath their own respective notebook in the collapsible menu
-                    $('.pages').filter(`[data-book=${notebookID}]`).append(markupPages(data.pages));
-                })
+            .done(data => {
+                $('.pages-lg').attr('data-book', `${notebookID}`);
+                $('.pages').filter(`[data-book=${notebookID}]`).html(markupPages(data.pages));
+            })
                 .fail(err => {
                     console.log(err);
                 });
@@ -169,6 +166,7 @@
             })
             .done(function (data) {
                 target.remove();
+                // deletePages();
             })
             .fail(function (error) {
                 console.log(error);
