@@ -2,15 +2,24 @@ const express = require('express');
 const {Notebook} = require('../models/notebook');
 const {User} = require('../models/user');
 const {Page} = require('../models/entry');
+var ObjectId = require('mongodb').ObjectID;
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.send('hi');
+router.get('/:notebookID', (req, res) => {
+  console.log(req.params.notebookID);
+  Page.find({'notebook.id': ObjectId(req.params.notebookID)})
+    .then(pages => {
+      res.json({
+        pages: pages.map(page => page.serialize())
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      return runErrorMess(res);
+    });
 });
 
 router.post('/add', (req, res) => {
-  console.log(req.body, 'sir!!!!!***');
-
   Notebook.findById(req.body.notebook.id)
     .then(notebook => {
       console.log(notebook);
@@ -23,7 +32,6 @@ router.post('/add', (req, res) => {
         }
       })
       .then(page => {
-        console.log(page);
         res.status(201).json(page.serialize());
       })
       .catch(err => {

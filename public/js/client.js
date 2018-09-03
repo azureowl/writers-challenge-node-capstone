@@ -5,8 +5,12 @@
         $('.notebook-container').on('click', '#js-getPages', function () {
             const notebookID = $(this).find('button')[0].id.slice(5);
             $.ajax(`/pages/${notebookID}`)
-                .done((data) => {
-                    $('.notebook-container').html(markupPages(data.pages));
+                .done(data => {
+                    console.log(data);
+                    // $('.pages-lg').attr('data-book', `${data.id}`);
+
+                    // // This makes pages get appended beneath their own respective notebook in the collapsible menu
+                    // $('.pages').filter(`[data-book=${data.id}]`).append(markupPages([data]));
                 })
                 .fail(err => {
                     console.log(err);
@@ -34,6 +38,8 @@
         })
             .done(function (data) {
                 $('.pages-lg').attr('data-book', `${data.id}`);
+
+                // This makes pages get appended beneath their own respective notebook in the collapsible menu
                 $('.pages').filter(`[data-book=${data.id}]`).append(markupPages([data]));
             })
             .fail(err => {
@@ -357,19 +363,6 @@
             }
         });
     }
-
-            // <div class="pages pages-mb">
-        //     <section role="region" class="col col-12" data-book="notebook-1" hidden>
-        //         <h2>My Ramblings</h2>
-        //         <button>+ Page</button>
-        //         <div>
-        //             <button class="page">Crazy Thoughts</button>
-        //         </div>
-        //         <div>
-        //             <button class="page">My Daily Journal</button>
-        //         </div>
-        //     </section>
-        // </div>
 
     function markupPages(pages) {
         const pageItems = [];
