@@ -9,20 +9,22 @@ router.get('/', (req, res) => {
 });
 
 router.post('/add', (req, res) => {
-  console.log(req.body);
+  console.log(req.body, 'sir!!!!!***');
 
-  Notebook.findById(req.body.notebook)
+  Notebook.findById(req.body.notebook.id)
     .then(notebook => {
+      console.log(notebook);
       Page.create({
         content: req.body.content,
         meta: req.body.meta,
-        notebook: notebook._id
+        notebook: {
+          title: req.body.notebook.title,
+          id: notebook._id
+        }
       })
       .then(page => {
         console.log(page);
-        res.status(201).json({
-          pages: page.serialize()
-        });
+        res.status(201).json(page.serialize());
       })
       .catch(err => {
         console.log(err);

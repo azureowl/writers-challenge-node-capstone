@@ -2,34 +2,28 @@
     'use strict';
 
     function getPages() {
-
-        $('.notebook-container').on('click', '.open-notebook', function () {
-            console.log($(this));
+        $('.notebook-container').on('click', '#js-getPages', function () {
+            const notebookID = $(this).find('button')[0].id.slice(5);
+            $.ajax(`/pages/${notebookID}`)
+                .done((data) => {
+                    $('.notebook-container').html(markupPages(data.pages));
+                })
+                .fail(err => {
+                    console.log(err);
+                });
         });
-        // <div class="pages pages-mb">
-        //     <section role="region" class="col col-12" data-book="notebook-1" hidden>
-        //         <h2>My Ramblings</h2>
-        //         <button>+ Page</button>
-        //         <div>
-        //             <button class="page">Crazy Thoughts</button>
-        //         </div>
-        //         <div>
-        //             <button class="page">My Daily Journal</button>
-        //         </div>
-        //     </section>
-        // </div>
     }
 
     function createPage(notebook) {
-        const page = `<section role="region" class="col col-12"><button>+ Page</button><h2>${notebook.title}</h2><div><button class="page">Page 1</button></div></section>`;
-        $('.pages-lg').attr('data-book', `${notebook.id}`);
-        $('.pages').filter(`[data-book=${notebook.id}]`).append(page);
         const pageObject = {
             content: $('#editor').text(),
             meta: {
                 wordCount: $('#editor').text() === "" ? 0 : $('#editor').text().split(' ').length
             },
-            notebook: `${notebook.id}`
+            notebook: {
+                title: `${notebook.title}`,
+                id: `${notebook.id}`
+            }
         };
 
         $.ajax(`/pages/add`, {
@@ -39,7 +33,8 @@
             dataType: 'json'
         })
             .done(function (data) {
-                console.log(data);
+                $('.pages-lg').attr('data-book', `${data.id}`);
+                $('.pages').filter(`[data-book=${data.id}]`).append(markupPages([data]));
             })
             .fail(err => {
                 console.log(err);
@@ -66,15 +61,6 @@
                     console.log(err);
                 });
         });
-    }
-
-    function markupNotebooks(notebooks) {
-        const notebookTitles = [];
-        notebooks.forEach(item => {
-            const html = `<div class="notebook"><h3 class="expandable"><button class="open-notebook" aria-expanded="false" id="book-${item.id}">${item.title}<button id="edit-notebook"><i class="fas fa-edit" aria-label="Edit Notebook Name"></i></button><button id="delete-notebook"><i class="far fa-trash-alt" aria-label="Delete Notebook"></i></button></button></h3><div class="pages pages-mb" data-book="${item.id}"></div></div>`;
-            notebookTitles.push(html);
-        });
-        return notebookTitles;
     }
 
     function showNotebookList() {
@@ -370,6 +356,37 @@
                 $(el).attr('hidden', false);
             }
         });
+    }
+
+            // <div class="pages pages-mb">
+        //     <section role="region" class="col col-12" data-book="notebook-1" hidden>
+        //         <h2>My Ramblings</h2>
+        //         <button>+ Page</button>
+        //         <div>
+        //             <button class="page">Crazy Thoughts</button>
+        //         </div>
+        //         <div>
+        //             <button class="page">My Daily Journal</button>
+        //         </div>
+        //     </section>
+        // </div>
+
+    function markupPages(pages) {
+        const pageItems = [];
+        pages.forEach(item => {
+            const page = `<section role="region" class="col col-12"><button>+ Page</button><h2>${item.title}</h2><div><button class="page">My Page</button><button id="edit-notebook"><i class="fas fa-edit" aria-label="Edit Notebook Name"></i></button><button id="delete-notebook"><i class="far fa-trash-alt" aria-label="Delete Notebook"></i></button></div></section>`;
+            pageItems.push(page);
+        });
+        return pageItems;
+    }
+
+    function markupNotebooks(notebooks) {
+        const notebookTitles = [];
+        notebooks.forEach(item => {
+            const html = `<div class="notebook"><h3 class="expandable" id="js-getPages"><button class="open-notebook" aria-expanded="false" id="book-${item.id}">${item.title}</button><button id="edit-notebook"><i class="fas fa-edit" aria-label="Edit Notebook Name"></i></button><button id="delete-notebook"><i class="far fa-trash-alt" aria-label="Delete Notebook"></i></button></h3><div class="pages pages-mb" data-book="${item.id}"></div></div>`;
+            notebookTitles.push(html);
+        });
+        return notebookTitles;
     }
 
     function main() {

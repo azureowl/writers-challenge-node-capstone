@@ -8,15 +8,23 @@ const PageSchema = mongoose.Schema({
         wordCount: Number
     },
     notebook: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'Notebook',
-        required: true
+        title: {
+            type: String,
+            required: true
+        },
+        id: {
+            type: mongoose.Schema.Types.ObjectId, ref: 'Notebook',
+            required: true
+        }
     }
 });
 
 PageSchema.methods.serialize = function () {
     return {
         content: this.content,
-        meta: this.meta
+        meta: this.meta,
+        title: this.notebook.title,
+        id: this.notebook.id
     };
 };
 
