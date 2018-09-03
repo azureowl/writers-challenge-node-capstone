@@ -1,78 +1,6 @@
 (function () {
     'use strict';
 
-    function getPages() {
-        $('.notebook-container').on('click', '#js-getPages', function () {
-            const notebookID = $(this).find('button')[0].id.slice(5);
-            $.ajax(`/pages/${notebookID}`)
-            .done(data => {
-                $('.pages-lg').attr('data-book', `${notebookID}`);
-                $('.pages').filter(`[data-book=${notebookID}]`).html(markupPages(data.pages));
-            })
-                .fail(err => {
-                    console.log(err);
-                });
-        });
-    }
-
-    function createPage(notebook) {
-        const pageObject = {
-            content: $('#editor').text(),
-            meta: {
-                wordCount: $('#editor').text() === "" ? 0 : $('#editor').text().split(' ').length
-            },
-            notebook: {
-                title: `${notebook.title}`,
-                id: `${notebook.id}`
-            }
-        };
-
-        $.ajax(`/pages/add`, {
-            method: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(pageObject),
-            dataType: 'json'
-        })
-            .done(function (data) {
-                console.log(data);
-                $('.pages-lg').attr('data-book', `${data.notebook_id}`);
-
-                // This makes pages get appended beneath their own respective notebook in the collapsible menu
-                $('.pages').filter(`[data-book=${data.notebook_id}]`).append(markupPages([data]));
-            })
-            .fail(err => {
-                console.log(err);
-            });
-    }
-
-
-    function updatePage() {
-
-    }
-
-    function deletePages() {
-        $('main').on('click', '.delete-page', function (e) {
-            e.stopPropagation();
-            const target = $(this).closest('div');
-            const pageid = $(this).closest('div').data('pageid');
-            $.ajax(`/pages/${pageid}`, {
-                method: 'DELETE'
-            })
-            .done(function (data) {
-                target.remove();
-            })
-            .fail(function (error) {
-                console.log(error);
-                const html = `<p class="row error">${error.responseText}</p>`;
-                $(html).insertBefore('.landing-page');
-            });
-        });
-    }
-
-    function removePagesMarkup() {
-        console.log('removed pages!');
-    }
-
     function getNotebooks() {
         $('#js-getNotebooks').on('click', function () {
             const userID = $('.profile').find('legend').attr('class');
@@ -115,7 +43,6 @@
                     })
                     .done(function (data) {
                         $('.notebook-container').append(markupNotebooks([data.notebooks]));
-                        createPage(data.notebooks);
                     })
                     .fail(err => {
                         console.log(err);
@@ -183,7 +110,6 @@
             })
             .done(function (data) {
                 target.remove();
-                // deletePages();
             })
             .fail(function (error) {
                 console.log(error);
@@ -202,23 +128,6 @@
             const expanded = $(this).find('button').attr('aria-expanded') === 'true' || false;
             $(this).find('button').attr('aria-expanded', !expanded);
             target.attr('hidden', expanded);
-        });
-    }
-
-    function togglePagesMenu() {
-        $('#js-view').on('click', function () {
-            $('.pages-lg').toggleClass('toggledPages');
-            $('form').toggleClass('toggledPages');
-        });
-    }
-
-    // Remove new widths should user resize window while toggledPages is still on
-    function clearResize() {
-        $(window).resize(() => {
-            if ($('form.toggledPages').length === 1) {
-                $('.pages-lg').removeClass('toggledPages');
-                $('form').removeClass('toggledPages');
-            }
         });
     }
 
@@ -377,19 +286,10 @@
         });
     }
 
-    function markupPages(pages) {
-        const pageItems = [];
-        pages.forEach(item => {
-            const page = `<section role="region" class="col col-12"><button>+ Page</button><h2>${item.title}</h2><div data-pageid="${item.id}"><button class="page">My Page</button><button class="edit-page"><i class="fas fa-edit" aria-label="Edit Page Name"></i></button><button class="delete-page"><i class="far fa-trash-alt" aria-label="Delete Page"></i></button></div></section>`;
-            pageItems.push(page);
-        });
-        return pageItems;
-    }
-
     function markupNotebooks(notebooks) {
         const notebookTitles = [];
         notebooks.forEach(item => {
-            const html = `<div class="notebook"><h3 class="expandable" id="js-getPages"><button class="open-notebook" aria-expanded="false" id="book-${item.id}">${item.title}</button><button id="edit-notebook"><i class="fas fa-edit" aria-label="Edit Notebook Name"></i></button><button id="delete-notebook"><i class="far fa-trash-alt" aria-label="Delete Notebook"></i></button></h3><div class="pages pages-mb" data-book="${item.id}"></div></div>`;
+            const html = `<div class="notebook"><h3 class="expandable"><button class="open-notebook" aria-expanded="false" id="book-${item.id}">${item.title}</button><button id="edit-notebook"><i class="fas fa-edit" aria-label="Edit Notebook Name"></i></button><button id="delete-notebook"><i class="far fa-trash-alt" aria-label="Delete Notebook"></i></button></h3></div>`;
             notebookTitles.push(html);
         });
         return notebookTitles;
@@ -397,8 +297,6 @@
 
     function main() {
         toggleCollapseMenu();
-        togglePagesMenu();
-        clearResize();
         login();
         register();
         revealProgress();
@@ -409,8 +307,6 @@
         createNotebook();
         updateNotebook();
         deleteNotebook();
-        getPages();
-        deletePages();
     }
 
     $(main);
