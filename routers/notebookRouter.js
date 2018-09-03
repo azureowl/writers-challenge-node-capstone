@@ -17,6 +17,18 @@ router.get('/:userID', (req, res) => {
     });
 });
 
+router.get('/book/:id', (req, res) => {
+  console.log(req.params.id);
+  Notebook.findById(req.params.id)
+    .then(notebook => {
+      res.json(notebook.content);
+    })
+    .catch(err => {
+      console.log(err);
+      return runErrorMess(res);
+    });
+});
+
 router.post('/add', (req, res) => {
 
   if (!('title' in req.body)) {
@@ -90,6 +102,26 @@ router.put('/:id', (req, res) => {
     //   console.log(err);
     //   return runErrorMess(res);
     // });
+});
+
+router.put('/book/:id', (req, res) => {
+  console.log(req.body);
+  if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
+    res.status(400).json({
+      message: 'Request requires a valid and matching id.'
+    });
+  }
+
+  Notebook.findByIdAndUpdate(req.params.id, {$set: {content: req.body.content}})
+    .then(notebook => {
+      console.log(notebook);
+      res.status(201).json(notebook);
+    })
+    .catch(err => {
+      console.log(err);
+      return runErrorMess(res);
+    });
+
 });
 
 router.delete('/:id', (req, res) => {

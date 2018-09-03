@@ -14,6 +14,21 @@
         });
     }
 
+    function getNotebookContent() {
+        $('.collections').on('click', '.js-open-notebook', function () {
+            const id = $(this).attr('id').split('-')[1];
+            const title = $(this).text();
+            $('#editor').attr('data-book', id);
+            $.ajax(`/notebooks/book/${id}`)
+                .done((content) => {
+                    $('.ql-editor').html(content);
+                })
+                .fail(err => {
+                    console.log(err);
+                });
+        });
+    }
+
     function createNotebook() {
         $('.notebook-form').on('keypress', function (e) {
             const userObject = {
@@ -53,27 +68,48 @@
         });
     }
 
-    function getNotebookDetails(el) {
-        return {
-            id: el.siblings('.open-notebook').attr('id').split('-')[1],
-            title: el.siblings('.open-notebook').text()
-        };
-    }
-
-    function updateNotebook() {
+    function updateNotebookContent() {
         $('#js-save').on('click', function () {
-            console.log('updatenotebook!');
-            // ql-editor
-            const notebookInfo = getNotebookDetails($(this));
+            const notebookObj = {
+                content: $('.ql-editor').html(),
+                id: $('#editor').attr('data-book')
+            };
+            $.ajax(`/notebooks/book/${notebookObj.id}`, {
+                method: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(notebookObj),
+                dataType: 'json'
+            })
+            .done(function (data) {
+                $('#js-save').text('Saved!').prop('disabled', true).css({color: '#45c34a'});
+                const reset = setTimeout(() => {
+                    $('#js-save').text('Save!').prop('disabled', false).css({color: 'black'});
+                }, 3000);
+
+            })
+            .fail(function (error) {
+                console.log(error);
+                const html = `<p class="row error">${error.responseText}</p>`;
+                $(html).insertBefore('.landing-page');
+            });
+
         });
     }
 
-    function updateNotebookName() {
+    function updateNotebookTitle() {
         $('.notebook-container').on('click', '#edit-notebook', function (e) {
             e.stopPropagation();
+
+            // Should user cancel change, save the current element to replace the toggled field
             const current = $(this).closest('.notebook');
-            const notebookInfo = getNotebookDetails($(this));
+            const notebookInfo = {
+                id: $(this).siblings('.js-open-notebook').attr('id').split('-')[1],
+                title: $(this).siblings('.js-open-notebook').text()
+            };
+
+            // Create the field for new title
             $(this).closest('h3').html(`<div class="one-line"><input class="notebook-title" type="text"></div>`);
+
             const userObject = {};
 
             $('.one-line').on('keypress', function (e) {
@@ -112,7 +148,10 @@
     function deleteNotebook() {
         $('.notebook-container').on('click', '#delete-notebook', function (e) {
             e.stopPropagation();
-            const notebookInfo = getNotebookDetails($(this));
+            const notebookInfo = {
+                id: $(this).siblings('.js-open-notebook').attr('id').split('-')[1],
+                title: $(this).siblings('.js-open-notebook').text()
+            };
             const target = $(this).closest('.notebook');
             $.ajax(`/notebooks/${notebookInfo.id}`, {
                 method: 'DELETE'
@@ -305,7 +344,7 @@
     function markupNotebooks(notebooks) {
         const notebookTitles = [];
         notebooks.forEach(item => {
-            const html = `<div class="notebook"><h3 class="expandable"><button class="open-notebook" aria-expanded="false" id="book-${item.id}">${item.title}</button><button id="edit-notebook"><i class="fas fa-edit" aria-label="Edit Notebook Name"></i></button><button id="delete-notebook"><i class="far fa-trash-alt" aria-label="Delete Notebook"></i></button></h3></div>`;
+            const html = `<div class="notebook"><h3 class="expandable"><button class="js-open-notebook" aria-expanded="false" id="book-${item.id}">${item.title}</button><button id="edit-notebook"><i class="fas fa-edit" aria-label="Edit Notebook Name"></i></button><button id="delete-notebook"><i class="far fa-trash-alt" aria-label="Delete Notebook"></i></button></h3></div>`;
             notebookTitles.push(html);
         });
         return notebookTitles;
@@ -319,10 +358,11 @@
         toggleUserForms();
         changeProfile();
         toggleAddNotebookForm();
-        getNotebooks();
         createNotebook();
-        updateNotebook();
-        updateNotebookName();
+        getNotebooks();
+        getNotebookContent();
+        updateNotebookContent();
+        updateNotebookTitle();
         deleteNotebook();
     }
 
