@@ -24,7 +24,8 @@ PageSchema.methods.serialize = function () {
         content: this.content,
         meta: this.meta,
         title: this.notebook.title,
-        id: this.notebook.id
+        id: this._id,
+        notebook_id: this.notebook.id
     };
 };
 

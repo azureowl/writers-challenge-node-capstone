@@ -84,14 +84,14 @@ router.post('/add', (req, res) => {
 //     });
 // });
 
-// router.delete('/:id', (req, res) => {
-//   Notebook.findByIdAndRemove(req.params.id)
-//     .then(notebook => res.status(204).end())
-//     .catch(err => {
-//       console.log(err);
-//       return runErrorMess(res);
-//     });
-// });
+router.delete('/:id', (req, res) => {
+  Page.findByIdAndRemove(req.params.id)
+    .then(page => res.status(204).end())
+    .catch(err => {
+      console.log(err);
+      return runErrorMess(res);
+    });
+});
 
 function runErrorMess(res, msg) {
   return res.status(500).json(msg);

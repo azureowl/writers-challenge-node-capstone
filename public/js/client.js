@@ -34,10 +34,11 @@
             dataType: 'json'
         })
             .done(function (data) {
-                $('.pages-lg').attr('data-book', `${data.id}`);
+                console.log(data);
+                $('.pages-lg').attr('data-book', `${data.notebook_id}`);
 
                 // This makes pages get appended beneath their own respective notebook in the collapsible menu
-                $('.pages').filter(`[data-book=${data.id}]`).append(markupPages([data]));
+                $('.pages').filter(`[data-book=${data.notebook_id}]`).append(markupPages([data]));
             })
             .fail(err => {
                 console.log(err);
@@ -49,8 +50,27 @@
 
     }
 
-    function deletePage() {
+    function deletePages() {
+        $('main').on('click', '.delete-page', function (e) {
+            e.stopPropagation();
+            const target = $(this).closest('div');
+            const pageid = $(this).closest('div').data('pageid');
+            $.ajax(`/pages/${pageid}`, {
+                method: 'DELETE'
+            })
+            .done(function (data) {
+                target.remove();
+            })
+            .fail(function (error) {
+                console.log(error);
+                const html = `<p class="row error">${error.responseText}</p>`;
+                $(html).insertBefore('.landing-page');
+            });
+        });
+    }
 
+    function removePagesMarkup() {
+        console.log('removed pages!');
     }
 
     function getNotebooks() {
@@ -68,7 +88,7 @@
 
     function showNotebookList() {
         $('#js-notebook').on('click', function (e) {
-            // refactor same as function accessProfile!!
+            // refactor same as function accessProfile!! and similar to toggleCollapseMenu
             // or might have to create form dynamically and then remove it
             const target = $(this).next();
             const expanded = $(this).attr('aria-expanded') === 'true' || false;
@@ -159,10 +179,7 @@
             const notebookInfo = getNotebookDetails($(this));
             const target = $(this).closest('.notebook');
             $.ajax(`/notebooks/${notebookInfo.id}`, {
-                method: 'DELETE',
-                contentType: 'application/json',
-                data: JSON.stringify(notebookInfo),
-                dataType: 'json'
+                method: 'DELETE'
             })
             .done(function (data) {
                 target.remove();
@@ -178,8 +195,7 @@
 
     function toggleCollapseMenu() {
         $('.nav').on('click', '.expandable', function (e) {
-
-            let target = $(this).next();
+            const target = $(this).next();
             // console.log($(this), $(this).find('button'));
             // const id = $(this).find('button').attr('id');
             // use expanded variable to set the state of the target
@@ -364,7 +380,7 @@
     function markupPages(pages) {
         const pageItems = [];
         pages.forEach(item => {
-            const page = `<section role="region" class="col col-12"><button>+ Page</button><h2>${item.title}</h2><div><button class="page">My Page</button><button id="edit-notebook"><i class="fas fa-edit" aria-label="Edit Notebook Name"></i></button><button id="delete-notebook"><i class="far fa-trash-alt" aria-label="Delete Notebook"></i></button></div></section>`;
+            const page = `<section role="region" class="col col-12"><button>+ Page</button><h2>${item.title}</h2><div data-pageid="${item.id}"><button class="page">My Page</button><button class="edit-page"><i class="fas fa-edit" aria-label="Edit Page Name"></i></button><button class="delete-page"><i class="far fa-trash-alt" aria-label="Delete Page"></i></button></div></section>`;
             pageItems.push(page);
         });
         return pageItems;
@@ -394,6 +410,7 @@
         updateNotebook();
         deleteNotebook();
         getPages();
+        deletePages();
     }
 
     $(main);
