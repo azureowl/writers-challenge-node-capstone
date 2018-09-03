@@ -160,7 +160,7 @@
         $('.notebook-container').on('click', '#delete-notebook', function (e) {
             e.stopPropagation();
             const notebookInfo = getNotebookDetails($(this));
-            const target = $(this).closest('h3');
+            const target = $(this).closest('.notebook');
             $.ajax(`/notebooks/${notebookInfo.id}`, {
                 method: 'DELETE',
                 contentType: 'application/json',
@@ -168,7 +168,6 @@
                 dataType: 'json'
             })
             .done(function (data) {
-                // notebook isn't being removed!
                 target.remove();
             })
             .fail(function (error) {
