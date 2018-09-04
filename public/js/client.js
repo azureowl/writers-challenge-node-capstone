@@ -1,6 +1,10 @@
 (function () {
     'use strict';
 
+    var quill = new Quill('#editor', {
+        theme: 'snow'
+    });
+
     function getNotebooks() {
         $('#js-getNotebooks').on('click', function () {
             const userID = $('.profile').find('legend').attr('class');
@@ -21,8 +25,8 @@
             const title = $(this).text();
             $('#editor').attr('data-book', id);
             $.ajax(`/notebooks/book/${id}`)
-                .done((content) => {
-                    $('.ql-editor').html(content);
+            .done((content) => {
+                $('.ql-editor').html(content);
                 })
                 .fail(err => {
                     console.log(err);
@@ -388,6 +392,13 @@
         $('.profile').find('legend').attr('class', data.id);
         accessProfile(data);
     }
+
+    // Default text in editor
+    quill.setContents([
+        { insert: 'What would you like to write today?', attributes: { bold: true } },
+        { insert: '\n' },
+        { insert: 'Create a new Notebook to get started or start writing now.'},
+    ]);
 
     function main() {
         toggleCollapseMenu();
