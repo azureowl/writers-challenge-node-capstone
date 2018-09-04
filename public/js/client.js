@@ -189,18 +189,18 @@
             const target = $(this).closest('.notebook');
             if (window.confirm(`Delete ${notebookInfo.title} notebook? This cannot be undone.`)) {
                 $.ajax(`/notebooks/${notebookInfo.id}`, {
-                    method: 'DELETE'
-                })
-                .done(function (data) {
-                    $('#editor').removeAttr('data-book');
-                    $('.ql-editor').html('');
-                    target.remove();
-                })
-                .fail(function (error) {
-                    console.log(error);
-                    const html = `<p class="row error">${error.responseText}</p>`;
-                    $(html).insertBefore('.landing-page');
-                });
+                        method: 'DELETE'
+                    })
+                    .done(function (data) {
+                        $('#editor').removeAttr('data-book');
+                        $('.ql-editor').html('');
+                        target.remove();
+                    })
+                    .fail(function (error) {
+                        console.log(error);
+                        const html = `<p class="row error">${error.responseText}</p>`;
+                        $(html).insertBefore('.landing-page');
+                    });
             }
         });
     }
@@ -397,16 +397,24 @@
     }
 
     function openWordTools() {
-        $('#js-open-dictionary').on('click', function () {
+        $('.tools').on('click', function (e) {
+            e.stopPropagation();
+            if ($(e.target).attr('id') === 'js-open-dictionary') {
+                console.log('call dictionary!');
+            }
+            if ($(e.target).attr('id') === 'js-open-thesaurus') {
+                console.log('call thesaurus!');
+            }
             $("#dialog1").attr('hidden', false);
             $('.dialog-form-item input').focus();
+            closeWordTools($(e.target));
         });
     }
 
-    function closeWordTools() {
+    function closeWordTools(target) {
         $('#js-close-tools').on('click', function () {
             $("#dialog1").attr('hidden', true);
-            $('#js-open-dictionary').focus();
+            $(target).focus();
         });
     }
 
@@ -426,7 +434,6 @@
         deleteNotebook();
         saveContentAuto();
         openWordTools();
-        closeWordTools();
     }
 
     $(main);
