@@ -59,6 +59,7 @@
         $('.notebook-form').on('keyup', function (e) {
             if (e.which === 27) {
                 $('#js-notebook').click();
+                $('#title').val('');
                 return;
             }
         });
@@ -192,6 +193,8 @@
                     method: 'DELETE'
                 })
                 .done(function (data) {
+                    $('#editor').removeAttr('data-book');
+                    $('.ql-editor').html('');
                     target.remove();
                 })
                 .fail(function (error) {
