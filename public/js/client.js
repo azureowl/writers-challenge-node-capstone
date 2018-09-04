@@ -396,6 +396,20 @@
         accessProfile(data);
     }
 
+    function openWordTools() {
+        $('#js-open-dictionary').on('click', function () {
+            $("#dialog1").attr('hidden', false);
+            $('.dialog-form-item input').focus();
+        });
+    }
+
+    function closeWordTools() {
+        $('#js-close-tools').on('click', function () {
+            $("#dialog1").attr('hidden', true);
+            $('#js-open-dictionary').focus();
+        });
+    }
+
     function main() {
         toggleCollapseMenu();
         login();
@@ -411,6 +425,8 @@
         updateNotebookTitle();
         deleteNotebook();
         saveContentAuto();
+        openWordTools();
+        closeWordTools();
     }
 
     $(main);
