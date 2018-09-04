@@ -37,7 +37,6 @@ router.post('/add', (req, res) => {
     });
   }
 
-  console.log(req.body);
   const username = req.body.username;
 
   User.findOne({username: username})
@@ -48,7 +47,6 @@ router.post('/add', (req, res) => {
           user: user._id
         })
         .then(notebook => {
-          console.log(notebook);
           res.status(201).json({
             notebooks: notebook.serialize()
           });

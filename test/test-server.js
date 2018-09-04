@@ -69,6 +69,7 @@ describe('Writing App Capstone Resource', function () {
     });
 
 
+    // ******* TESTING GET ******* //
     describe('GET notebooks endpoint', function () {
         it('GET /:userID Should return all notebooks for user', function () {
             return chai.request(app)
@@ -81,7 +82,7 @@ describe('Writing App Capstone Resource', function () {
                 .catch(err => {console.log(err);});
         });
 
-        it('GET notebook/book/:id Should return notebook', function () {
+        it('GET notebook/book/:id Should return notebook content', function () {
             return Notebook.findOne({})
                 .then(notebook => {
                     const id = notebook._id;
@@ -95,10 +96,34 @@ describe('Writing App Capstone Resource', function () {
                         .catch(err => {console.log(err);});
                 })
                 .catch(err => {console.log(err);});
-
         });
-
     });
+
+    // ******* TESTING POST ******* //
+    describe('POST notebooks endpoint', function () {
+        it('POST /add Should add a notebooks for user', function () {
+            return User.findOne()
+                .then(user => {
+                    const username = user.username;
+                    return chai.request(app)
+                        .post('/notebooks/add')
+                        .send({
+                            title: faker.lorem.words(),
+                            content: faker.lorem.paragraph(),
+                            username: username})
+                        .then(function (res) {
+                            expect(res).to.have.status(201);
+                            expect(res).to.be.json;
+                            expect(res.body).to.be.an('object');
+                            expect(res.body.notebooks).to.include.all.keys('title', 'content', 'id', 'meta');
+                        })
+                        .catch(err => {console.log(err);});
+                })
+                .catch(err => {console.log(err);});
+        });
+    });
+
+
 });
 
 
