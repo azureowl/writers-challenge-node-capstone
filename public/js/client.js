@@ -187,7 +187,8 @@
                 title: $(this).siblings('.js-open-notebook').text()
             };
             const target = $(this).closest('.notebook');
-            $.ajax(`/notebooks/${notebookInfo.id}`, {
+            if (window.confirm(`Delete ${notebookInfo.title} notebook? This cannot be undone.`)) {
+                $.ajax(`/notebooks/${notebookInfo.id}`, {
                     method: 'DELETE'
                 })
                 .done(function (data) {
@@ -200,6 +201,7 @@
                     const html = `<p class="row error">${error.responseText}</p>`;
                     $(html).insertBefore('.landing-page');
                 });
+            }
         });
     }
 
