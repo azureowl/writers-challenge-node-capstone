@@ -36,7 +36,7 @@
         </div>
     </header>
 
-    <section role="region" class="col col-12 col-6 container-md landing-page">
+    <!-- <section role="region" class="col col-12 col-6 container-md landing-page">
         <div class="row">
             <form class="login-form">
                 <fieldset>
@@ -81,9 +81,9 @@
             </p>
         </div>
         <span>Have an account? <button class="js-change-form clear-style">Login</button></span>
-    </section>
+    </section> -->
 
-    <main role="main" class="row" hidden>
+    <main role="main" class="row">
         <!-- login and landing page -->
         <!-- registration -->
         <nav role="navigation" class="col col-12 col-2 nav">
@@ -115,7 +115,7 @@
                         Dictionary
                      </button>
                  </h2>
-                 <div role="dialog" id="dialog1" aria-labelledby="dialog1_label" aria-modal="true" class="hidden">
+                 <!-- <div role="dialog" id="dialog1" aria-labelledby="dialog1_label" aria-modal="true" class="hidden">
                     <h2 id="dialog1_label" class="dialog_label">
                         Search Dictionary
                     </h2>
@@ -127,27 +127,13 @@
                             <button type="submit">Search</button>
                         </div>
                     </div>
-                 </div>
+                 </div> -->
                  <!-- thesaurus tab -->
                  <h2 class="thesaurus">
                     <button id="js-open-thesaurus">
                         Thesaurus
                     </button>
                 </h2>
-
-                 <div role="dialog" id="dialog2" aria-labelledby="dialog2_label" aria-modal="true" class="hidden">
-                    <h2 id="dialog2_label" class="dialog_label">
-                        Search Thesaurus
-                    </h2>
-                    <div class="dialog_form">
-                        <div class="dialog-form-item">
-                            <input type="search" name="search" aria-label="Search">
-                        </div>
-                        <div class="dialog-form-button">
-                            <button type="submit">Search</button>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <!-- progress bar -->
@@ -165,6 +151,7 @@
             </div>
             <div id="editor"></div>
         </div>
+
         <section role="region" class="my-progress col col-12" hidden>
             <div class="row">
                 <button type="button" id="js-close-progress">Close</button>
@@ -181,6 +168,39 @@
             </div>
         </section>
     </main>
+    <div role="dialog" id="dialog2" aria-labelledby="dialog2_label" aria-modal="true" class="hidden">
+        <span>Esc</span>
+        <h2 id="dialog2_label" class="dialog_label">
+            Search ToolNameHere
+        </h2>
+        <div class="dialog_form">
+            <div class="dialog-form-item">
+                <input type="search" name="search" aria-label="Search">
+            </div>
+            <div class="dialog-form-button">
+                <button type="button">Search</button>
+            </div>
+        </div>
+        <div class="row results">
+            <h2>Word</h2>
+            <div>
+                <ul>
+                    <li>
+                        test
+                    </li>
+                    <li>
+                            test
+                        </li>
+                        <li>
+                                test
+                            </li>
+                            <li>
+                                    test
+                                </li>
+                </ul>
+            </div>
+        </div>
+    </div>
     <footer role="contentinfo" class="row">
         <div class="col col-12 single-line">
             <p>&copy; Ro Langam</p>

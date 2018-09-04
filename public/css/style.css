@@ -78,7 +78,7 @@ main nav, nav button {
     background-color: #252525;
 }
 
-main nav, nav button, .login-form button, .registration-form button, header button {
+main nav, nav button, .login-form button, .registration-form button, header button, .dialog_form button {
     color: #fff;
 }
 
@@ -177,7 +177,7 @@ textarea {
     width: 100%;
 }
 
-.login-form input, .editor-form, .progress-bar, .my-progress, .registration-form input, .profile {
+.login-form input, .editor-form, .progress-bar, .my-progress, .registration-form input, .profile, [role="dialog"], [role="dialog"] .results {
     border: 1px solid #acacac;
 }
 
@@ -207,7 +207,7 @@ textarea {
     border-bottom: 1px solid #45c34a;
 }
 
-.login-form button, header button, .registration-form button {
+.login-form button, header button, .registration-form button, .dialog_form button {
     background-color: #45c34a;
     border-radius: 3px;
     font-weight: 400;
@@ -215,7 +215,7 @@ textarea {
     border: 0;
 }
 
-.login-form button:hover, header button, .registration-form button:hover {
+.login-form button:hover, header button, .registration-form button:hover, .dialog_form button:hover {
     background-color: #5edb62;
 }
 
@@ -296,7 +296,42 @@ textarea {
     color: red;
 }
 
-@media (min-width: 768px) {
+.hidden {
+    /* display: none; */
+}
+
+/* Accessible Dialog */
+[role="dialog"] {
+    padding: 15px;
+    background-color: #fff;
+    min-height: 100vh;
+    position: relative;
+    z-index: 5;
+}
+
+[role="dialog"] .results {
+    padding: 10px;
+    margin-top: 5px;
+}
+
+.dialog_label {
+    text-align: center;
+}
+
+.dialog_form {
+    display: flex;
+    margin: 15px;
+}
+
+.dialog_form * {
+    height: 26px;
+}
+
+.dialog-form-button {
+    margin-left: 5px;
+}
+
+@media screen and (min-width: 768px) {
 
     h1 {
         font-size: 28px;
@@ -337,4 +372,13 @@ textarea {
         padding: 25px;
     }
 
+    [role="dialog"] {
+        position: absolute;
+        top: 50vh;
+        left: 50vw;  /* move to the middle of the screen (assumes relative parent is the body/viewport) */
+        transform: translate(-50%, -60%);  /* move backwards 50% of this element's width */
+        min-width: calc(768px - (15px * 2));  /* == breakpoint - left+right margin */
+        min-height: auto;
+        box-shadow: 0 19px 38px rgba(0, 0, 0, 0.12), 0 15px 12px rgba(0, 0, 0, 0.22);
+    }
 }
