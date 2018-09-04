@@ -37,30 +37,20 @@
                 title: $('#title').val()
             };
 
+            // if field is empty on 'ENTER', close the form
             if (e.which === 13) {
                 e.preventDefault();
                 if ($(this).find('input').val() === "") {
                     $('#js-notebook').click();
                     return;
                 } else {
-                    $.ajax('/notebooks/add', {
-                            method: 'POST',
-                            contentType: 'application/json',
-                            data: JSON.stringify(userObject),
-                            dataType: 'json'
-                        })
-                        .done(function (data) {
-                            $('#js-notebook').click();
-                            $('.notebook-container').append(markupNotebooks([data.notebooks]));
-                        })
-                        .fail(err => {
-                            console.log(err);
-                        });
+                    createNotebookAJAX(userObject);
                     $('#title').val('');
                 }
             }
         });
 
+        // if field is empty on 'ESC', close the form
         $('.notebook-form').on('keyup', function (e) {
             if (e.which === 27) {
                 $('#js-notebook').click();
@@ -69,51 +59,86 @@
         });
     }
 
-    function updateNotebookContent() {
-        $('#js-save').on('click', function () {
-            const notebookObj = {
-                content: $('.ql-editor').html(),
-                id: $('#editor').attr('data-book')
-            };
-            // if no notebook created, create one automatically!
-            $.ajax(`/notebooks/book/${notebookObj.id}`, {
-                    method: 'PUT',
-                    contentType: 'application/json',
-                    data: JSON.stringify(notebookObj),
-                    dataType: 'json'
-                })
-                .done(function (data) {
-                    $('#js-save').text('Saved!').prop('disabled', true).css({
-                        color: '#45c34a'
-                    });
-                    const reset = setTimeout(() => {
-                        $('#js-save').text('Save!').prop('disabled', false).css({
-                            color: 'black'
-                        });
-                    }, 3000);
-
-                })
-                .fail(function (error) {
-                    console.log(error);
-                    const html = `<p class="row error">${error.responseText}</p>`;
-                    $(html).insertBefore('.landing-page');
-                });
-
+    function createNotebookAJAX(user) {
+        $.ajax('/notebooks/add', {
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(user),
+            dataType: 'json'
+        })
+        .done(function (data) {
+            $('#js-notebook').click();
+            $('#editor').attr('data-book', data.notebooks.id);
+            $('.ql-editor').html('');
+            $('.notebook-container').append(markupNotebooks([data.notebooks]));
+        })
+        .fail(err => {
+            console.log(err);
         });
+    }
+
+
+    // Automatic saving after *wait* milliseconds. Debounce function postpones call to updateNotebookContent()
+    var saveText = _.debounce(updateNotebookContent, 500);
+
+    function saveContentAuto() {
+        $('#editor').on('keyup', function (e) {
+          saveText();
+        });
+    }
+
+    function updateNotebookContent() {
+        const notebookObj = {
+            content: $('.ql-editor').html(),
+            id: $('#editor').attr('data-book')
+        };
+
+
+        if (notebookObj.id === undefined) {
+            // if editor receives changes without a notebook, create a notebook
+            const userObject = {
+                username: $("#email").val(),
+                title: 'My Notebook'
+            };
+
+            createNotebookAJAX(userObject);
+        } else {
+            $.ajax(`/notebooks/book/${notebookObj.id}`, {
+                method: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(notebookObj),
+                dataType: 'json'
+            })
+            .done(function (data) {
+                $('#js-save').text('Saved!').prop('disabled', true).css({
+                    color: '#45c34a'
+                });
+                const reset = setTimeout(() => {
+                    $('#js-save').text('Save!').prop('disabled', false).css({
+                        color: 'black'
+                    });
+                }, 3000);
+            })
+            .fail(function (error) {
+                console.log(error);
+                const html = `<p class="row error">${error.responseText}</p>`;
+                $(html).insertBefore('.landing-page');
+            });
+        }
     }
 
     function updateNotebookTitle() {
         $('.notebook-container').on('click', '#edit-notebook', function (e) {
             e.stopPropagation();
 
-            // Should user cancel change, save the current element to replace the toggled field
+            // Save the current element to replace the toggled field should user change his mind
             const current = $(this).closest('.notebook');
             const notebookInfo = {
                 id: $(this).siblings('.js-open-notebook').attr('id').split('-')[1],
                 title: $(this).siblings('.js-open-notebook').text()
             };
 
-            // Create the field for new title
+            // Create the toggled field
             $(this).closest('h3').html(`<div class="one-line"><input class="notebook-title" type="text"></div>`);
 
             const userObject = {};
@@ -253,7 +278,7 @@
                     })
                     .done(function (data) {
                         showDashboard();
-                        setAccountDetails();
+                        setAccountDetails(data);
                         // get name from server and display with greeting!
                     })
                     .fail(function (error) {
@@ -290,7 +315,7 @@
                     })
                     .done(function (data) {
                         showDashboard();
-                        setAccountDetails();
+                        setAccountDetails(data);
                         // get name from server and display with greeting!
                     })
                     .fail(function (error) {
@@ -303,7 +328,7 @@
         });
     }
 
-    function changeProfile() {
+    function modifyUserProfile() {
         $('#js-change').on('click', function (e) {
             e.preventDefault();
             const userObject = {
@@ -358,7 +383,7 @@
         return notebookTitles;
     }
 
-    function setAccountDetails() {
+    function setAccountDetails(data) {
         $('.profile').find('legend').text(data.user);
         $('.profile').find('legend').attr('class', data.id);
         accessProfile(data);
@@ -371,14 +396,14 @@
         register();
         revealProgress();
         toggleUserForms();
-        changeProfile();
+        modifyUserProfile();
         toggleAddNotebookForm();
         createNotebook();
         getNotebooks();
         getNotebookContent();
-        updateNotebookContent();
         updateNotebookTitle();
         deleteNotebook();
+        saveContentAuto();
     }
 
     $(main);
