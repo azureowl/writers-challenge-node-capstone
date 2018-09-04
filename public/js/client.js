@@ -142,7 +142,7 @@
             };
 
             // Create the toggled field
-            $(this).closest('h3').html(`<div class="one-line"><input class="notebook-title" type="text"></div>`);
+            $(this).closest('h3').html(`<div class="one-line"><input class="notebook-title" type="text" placeholder="Change title or ESC" aria-label="Edit Notebook Title or hit ESC key"></div>`);
 
             const userObject = {};
 
