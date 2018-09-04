@@ -25,8 +25,8 @@
             const title = $(this).text();
             $('#editor').attr('data-book', id);
             $.ajax(`/notebooks/book/${id}`)
-            .done((content) => {
-                $('.ql-editor').html(content);
+                .done((content) => {
+                    $('.ql-editor').html(content);
                 })
                 .fail(err => {
                     console.log(err);
@@ -48,6 +48,7 @@
                     $('#js-notebook').click();
                     return;
                 } else {
+                    $('.ql-editor').html('');
                     createNotebookAJAX(userObject);
                     $('#title').val('');
                 }
@@ -65,20 +66,20 @@
 
     function createNotebookAJAX(user) {
         $.ajax('/notebooks/add', {
-            method: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(user),
-            dataType: 'json'
-        })
-        .done(function (data) {
-            $('#js-notebook').click();
-            $('#editor').attr('data-book', data.notebooks.id);
-            $('.ql-editor').html('');
-            $('.notebook-container').append(markupNotebooks([data.notebooks]));
-        })
-        .fail(err => {
-            console.log(err);
-        });
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(user),
+                dataType: 'json'
+            })
+            .done(function (data) {
+                $('#js-notebook').click();
+                $('#editor').attr('data-book', data.notebooks.id);
+                $('.notebook-container').append(markupNotebooks([data.notebooks]));
+                updateNotebookContent();
+            })
+            .fail(err => {
+                console.log(err);
+            });
     }
 
 
@@ -87,7 +88,7 @@
 
     function saveContentAuto() {
         $('#editor').on('keyup', function (e) {
-          saveText();
+            saveText();
         });
     }
 
@@ -96,7 +97,7 @@
             content: $('.ql-editor').html(),
             id: $('#editor').attr('data-book')
         };
-
+        console.log(notebookObj);
 
         if (notebookObj.id === undefined) {
             // if editor receives changes without a notebook, create a notebook
@@ -104,30 +105,29 @@
                 username: $("#email").val(),
                 title: 'My Notebook'
             };
-
             createNotebookAJAX(userObject);
         } else {
             $.ajax(`/notebooks/book/${notebookObj.id}`, {
-                method: 'PUT',
-                contentType: 'application/json',
-                data: JSON.stringify(notebookObj),
-                dataType: 'json'
-            })
-            .done(function (data) {
-                $('#js-save').text('Saved!').prop('disabled', true).css({
-                    color: '#45c34a'
-                });
-                const reset = setTimeout(() => {
-                    $('#js-save').text('Save!').prop('disabled', false).css({
-                        color: 'black'
+                    method: 'PUT',
+                    contentType: 'application/json',
+                    data: JSON.stringify(notebookObj),
+                    dataType: 'json'
+                })
+                .done(function (data) {
+                    $('#js-save').text('Saved!').prop('disabled', true).css({
+                        color: '#45c34a'
                     });
-                }, 3000);
-            })
-            .fail(function (error) {
-                console.log(error);
-                const html = `<p class="row error">${error.responseText}</p>`;
-                $(html).insertBefore('.landing-page');
-            });
+                    const reset = setTimeout(() => {
+                        $('#js-save').text('Save!').prop('disabled', false).css({
+                            color: 'black'
+                        });
+                    }, 3000);
+                })
+                .fail(function (error) {
+                    console.log(error);
+                    const html = `<p class="row error">${error.responseText}</p>`;
+                    $(html).insertBefore('.landing-page');
+                });
         }
     }
 
@@ -392,13 +392,6 @@
         $('.profile').find('legend').attr('class', data.id);
         accessProfile(data);
     }
-
-    // Default text in editor
-    quill.setContents([
-        { insert: 'What would you like to write today?', attributes: { bold: true } },
-        { insert: '\n' },
-        { insert: 'Create a new Notebook to get started or start writing now.'},
-    ]);
 
     function main() {
         toggleCollapseMenu();
