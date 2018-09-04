@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/:userID', (req, res) => {
   Notebook.find({user: ObjectId(req.params.userID)})
     .then(notebooks => {
-      res.json({
+      res.status(200).json({
         notebooks: notebooks.map(notebook => notebook.serialize())
       });
     })

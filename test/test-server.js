@@ -1,5 +1,12 @@
 const {app, runServer, closeServer} = require('../server');
-var entry = require('../models/notebook.js');
+const {TEST_DATABASE_URL} = require('../config');
+const {Notebook} = require('../models/notebook');
+const {User} = require('../models/user');
+var ObjectId = require('mongodb').ObjectID;
+const faker = require('faker');
+const mongoose = require('mongoose');
+const id = mongoose.Types.ObjectId();
+
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 
@@ -7,15 +14,93 @@ const expect = chai.expect;
 
 chai.use(chaiHttp);
 
-describe('root file', function () {
-    it('should return 200 at the root', function () {
-        chai.request(app)
-            .get('/')
-            .then(function (res) {
-                expect(res).to.have.status(200);
-            });
+// Create placeholder notebooks with one user
+
+function seedNotebooks() {
+    console.info('Seeding notebook data for one user');
+    const notebookData = [];
+    const user = {
+        "name": "Boston Bauer",
+        "username": "boston@gmail.com",
+        "password": 123456,
+        "_id": ObjectId('5b8de6abc7147a5a52c21762')
+    };
+
+    return User.create(user)
+        .then(user => {
+            for (let i=1; i<=5; i++) {
+                notebookData.push(generateNotebookData(user._id));
+            }
+            return Notebook.insertMany(notebookData);
+        })
+        .catch((err) => console.log(err));
+}
+
+function generateNotebookData (id) {
+    return {
+        title: faker.lorem.sentence(),
+        content: faker.lorem.paragraph(),
+        user: id
+    };
+}
+
+function tearDownDb() {
+    console.warn('Deleting database');
+    return mongoose.connection.dropDatabase();
+}
+
+describe('Writing App Capstone Resource', function () {
+
+    before(function() {
+        return runServer(TEST_DATABASE_URL);
+    });
+
+    beforeEach(function() {
+        console.log('generate notebook data');
+        return seedNotebooks();
+    });
+
+    afterEach(function() {
+        return tearDownDb();
+    });
+
+    after(function() {
+        return closeServer();
+    });
+
+
+    describe('GET notebooks endpoint', function () {
+        it('GET /:userID Should return all notebooks for user', function () {
+            return chai.request(app)
+                .get(`/notebooks/${'5b8de6abc7147a5a52c21762'}`)
+                .then(function (res) {
+                    expect(res).to.have.status(200);
+                    expect(res).to.be.json;
+                    expect(res.body.notebooks).to.have.lengthOf.above(0);
+                })
+                .catch(err => {console.log(err);});
+        });
+
+        it('GET notebook/book/:id Should return notebook', function () {
+            return Notebook.findOne({})
+                .then(notebook => {
+                    const id = notebook._id;
+                    return chai.request(app)
+                        .get(`/notebooks/book/${id}`)
+                        .then(function (res) {
+                            expect(res).to.have.status(200);
+                            expect(res).to.be.json;
+                            expect(res.body).to.be.a('string');
+                        })
+                        .catch(err => {console.log(err);});
+                })
+                .catch(err => {console.log(err);});
+
+        });
+
     });
 });
+
 
 // describe('shakespeare-passport-node-capstone', function () {
 //     it('should add an entry on POST', function () {

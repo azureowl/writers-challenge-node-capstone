@@ -6,6 +6,7 @@
             const userID = $('.profile').find('legend').attr('class');
             $.ajax(`/notebooks/${userID}`)
                 .done((data) => {
+                    console.log(data);
                     $('.notebook-container').html(markupNotebooks(data.notebooks));
                 })
                 .fail(err => {
@@ -63,7 +64,7 @@
         $('.notebook-form').on('keyup', function (e) {
             if (e.which === 27) {
                 $('#js-notebook').click();
-                    return;
+                return;
             }
         });
     }
@@ -74,24 +75,29 @@
                 content: $('.ql-editor').html(),
                 id: $('#editor').attr('data-book')
             };
+            // if no notebook created, create one automatically!
             $.ajax(`/notebooks/book/${notebookObj.id}`, {
-                method: 'PUT',
-                contentType: 'application/json',
-                data: JSON.stringify(notebookObj),
-                dataType: 'json'
-            })
-            .done(function (data) {
-                $('#js-save').text('Saved!').prop('disabled', true).css({color: '#45c34a'});
-                const reset = setTimeout(() => {
-                    $('#js-save').text('Save!').prop('disabled', false).css({color: 'black'});
-                }, 3000);
+                    method: 'PUT',
+                    contentType: 'application/json',
+                    data: JSON.stringify(notebookObj),
+                    dataType: 'json'
+                })
+                .done(function (data) {
+                    $('#js-save').text('Saved!').prop('disabled', true).css({
+                        color: '#45c34a'
+                    });
+                    const reset = setTimeout(() => {
+                        $('#js-save').text('Save!').prop('disabled', false).css({
+                            color: 'black'
+                        });
+                    }, 3000);
 
-            })
-            .fail(function (error) {
-                console.log(error);
-                const html = `<p class="row error">${error.responseText}</p>`;
-                $(html).insertBefore('.landing-page');
-            });
+                })
+                .fail(function (error) {
+                    console.log(error);
+                    const html = `<p class="row error">${error.responseText}</p>`;
+                    $(html).insertBefore('.landing-page');
+                });
 
         });
     }
@@ -120,19 +126,19 @@
                         userObject.title = $('.one-line .notebook-title').val();
                         userObject.id = notebookInfo.id;
                         $.ajax(`/notebooks/${notebookInfo.id}`, {
-                            method: 'PUT',
-                            contentType: 'application/json',
-                            data: JSON.stringify(userObject),
-                            dataType: 'json'
-                        })
-                        .done(function (data) {
-                            $(current).replaceWith(markupNotebooks([data]));
-                        })
-                        .fail(function (error) {
-                            console.log(error);
-                            const html = `<p class="row error">${error.responseText}</p>`;
-                            $(html).insertBefore('.landing-page');
-                        });
+                                method: 'PUT',
+                                contentType: 'application/json',
+                                data: JSON.stringify(userObject),
+                                dataType: 'json'
+                            })
+                            .done(function (data) {
+                                $(current).replaceWith(markupNotebooks([data]));
+                            })
+                            .fail(function (error) {
+                                console.log(error);
+                                const html = `<p class="row error">${error.responseText}</p>`;
+                                $(html).insertBefore('.landing-page');
+                            });
                     }
                 }
             });
@@ -154,16 +160,16 @@
             };
             const target = $(this).closest('.notebook');
             $.ajax(`/notebooks/${notebookInfo.id}`, {
-                method: 'DELETE'
-            })
-            .done(function (data) {
-                target.remove();
-            })
-            .fail(function (error) {
-                console.log(error);
-                const html = `<p class="row error">${error.responseText}</p>`;
-                $(html).insertBefore('.landing-page');
-            });
+                    method: 'DELETE'
+                })
+                .done(function (data) {
+                    target.remove();
+                })
+                .fail(function (error) {
+                    console.log(error);
+                    const html = `<p class="row error">${error.responseText}</p>`;
+                    $(html).insertBefore('.landing-page');
+                });
         });
     }
 
@@ -220,6 +226,11 @@
         });
     }
 
+    function logout() {
+        console.log('logged out!');
+
+    }
+
     function login() {
         $('#js-login').on('click', function (e) {
             e.preventDefault();
@@ -242,9 +253,7 @@
                     })
                     .done(function (data) {
                         showDashboard();
-                        $('.profile').find('legend').text(data.user);
-                        $('.profile').find('legend').attr('class', data.id);
-                        accessProfile(data);
+                        setAccountDetails();
                         // get name from server and display with greeting!
                     })
                     .fail(function (error) {
@@ -281,8 +290,7 @@
                     })
                     .done(function (data) {
                         showDashboard();
-                        $('.profile').find('legend').text(data);
-                        accessProfile(data);
+                        setAccountDetails();
                         // get name from server and display with greeting!
                     })
                     .fail(function (error) {
@@ -350,9 +358,16 @@
         return notebookTitles;
     }
 
+    function setAccountDetails() {
+        $('.profile').find('legend').text(data.user);
+        $('.profile').find('legend').attr('class', data.id);
+        accessProfile(data);
+    }
+
     function main() {
         toggleCollapseMenu();
         login();
+        logout();
         register();
         revealProgress();
         toggleUserForms();
@@ -368,6 +383,3 @@
 
     $(main);
 })();
-
-
-

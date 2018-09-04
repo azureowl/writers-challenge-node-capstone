@@ -60,7 +60,7 @@ router.post('/register', (req, res) => {
                 .then(user => {
                     console.log(`User ${username} created.`);
                     console.log(user, ' at line 60');
-                    return res.json(user.username);
+                    return res.json({user: user.username, id: user._id});
                 })
                 .catch(err => {
                     if (err.code === 11000) {
