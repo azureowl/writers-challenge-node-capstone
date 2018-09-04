@@ -103,7 +103,6 @@ router.put('/:id', (req, res) => {
 });
 
 router.put('/book/:id', (req, res) => {
-  console.log(req.body);
   if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
     res.status(400).json({
       message: 'Request requires a valid and matching id.'
@@ -112,7 +111,6 @@ router.put('/book/:id', (req, res) => {
 
   Notebook.findByIdAndUpdate(req.params.id, {$set: {content: req.body.content}})
     .then(notebook => {
-      console.log(notebook);
       res.status(201).json(notebook);
     })
     .catch(err => {

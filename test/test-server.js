@@ -5,7 +5,6 @@ const {User} = require('../models/user');
 var ObjectId = require('mongodb').ObjectID;
 const faker = require('faker');
 const mongoose = require('mongoose');
-const id = mongoose.Types.ObjectId();
 
 var chai = require('chai');
 var chaiHttp = require('chai-http');
@@ -71,7 +70,7 @@ describe('Writing App Capstone Resource', function () {
 
     // ******* TESTING GET ******* //
     describe('GET notebooks endpoint', function () {
-        it('GET /:userID Should return all notebooks for user', function () {
+        it('GET /notebooks/:userID Should return all notebooks for user', function () {
             return chai.request(app)
                 .get(`/notebooks/${'5b8de6abc7147a5a52c21762'}`)
                 .then(function (res) {
@@ -82,7 +81,7 @@ describe('Writing App Capstone Resource', function () {
                 .catch(err => {console.log(err);});
         });
 
-        it('GET notebook/book/:id Should return notebook content', function () {
+        it('GET /notebooks/book/:id Should return notebook content', function () {
             return Notebook.findOne({})
                 .then(notebook => {
                     const id = notebook._id;
@@ -101,7 +100,7 @@ describe('Writing App Capstone Resource', function () {
 
     // ******* TESTING POST ******* //
     describe('POST notebooks endpoint', function () {
-        it('POST /add Should add a notebooks for user', function () {
+        it('POST /notebooks/add Should add a notebooks for user', function () {
             return User.findOne()
                 .then(user => {
                     const username = user.username;
@@ -123,71 +122,71 @@ describe('Writing App Capstone Resource', function () {
         });
     });
 
+    // ******* TESTING PUT ******* //
+    describe('PUT notebooks endpoint', function () {
+        it('PUT /notebooks/:id Should update a notebook\'s title for user', function () {
+            return Notebook.findOneAndUpdate()
+                .then(notebook => {
+                    const id = notebook._id;
+                    return chai.request(app)
+                        .put(`/notebooks/${id}`)
+                        .send({
+                            title: faker.lorem.words(),
+                            id: id})
+                        .then(function (res) {
+                            expect(res).to.have.status(201);
+                            expect(res).to.be.json;
+                            expect(res.body).to.be.an('object');
+                            expect(res.body.title).to.not.equal(notebook.title);
+                        })
+                        .catch(err => {console.log(err);});
+                })
+                .catch(err => {console.log(err);});
+        });
 
+        it('PUT /notebooks/book/:id Should update notebook content', function () {
+            const updatedData = {
+                content: faker.lorem.words()
+            };
+            return Notebook.findOne()
+                .then(notebook => {
+                    const id = notebook._id;
+                    updatedData.id = id;
+                    return chai.request(app)
+                        .put(`/notebooks/book/${id}`)
+                        .send(updatedData)
+                        .then(function (res) {
+                            expect(res).to.have.status(201);
+                            expect(res).to.be.json;
+                            expect(res.body).to.be.an('object');
+                            return Notebook.findById(id);
+                        })
+                        .then(notebook => {
+                            expect(res.body.content).to.not.equal(notebook.content);
+                        })
+                        .catch(err => {console.log(err);});
+                })
+                .catch(err => {console.log(err);});
+        });
+    });
+    // ******* TESTING DELETE ******* //
+    describe('DELETE notebooks endpoint', function () {
+        it('DELETE /notebooks/:id Should delete notebook for user', function () {
+            return Notebook.findOne()
+                .then(notebook => {
+                    const id = notebook._id;
+                    return chai.request(app)
+                        .delete(`/notebooks/${id}`)
+                        .then(function (res) {
+                            expect(res).to.have.status(204);
+                            return Notebook.findById(id);
+                        })
+                        .then(notebook => {
+                            expect(_restaurant).to.be.null;
+                        })
+                        .catch(err => {console.log(err);});
+                })
+                .catch(err => {console.log(err);});
+        });
+    });
 });
-
-
-// describe('shakespeare-passport-node-capstone', function () {
-//     it('should add an entry on POST', function () {
-//         chai.request(app)
-//             .post('/entry/create')
-//             .send({
-//                 entryType: "performed",
-//                 inputDate: "2014-11-05T00:00:00.000Z",
-//                 inputPlay: "King Lear",
-//                 inputAuthor: "William Shakespeare",
-//                 inputRole: "Goneril",
-//                 inputCo: "Kingman Shakespeare Festival",
-//                 inputLocation: "Santa Barbara, CA",
-//                 inputNotes: "With A FORK!",
-//                 loggedInUserName: "paul.thomp@gmail.com"
-//             })
-//             .then(function (err, res) {
-//                 //should.equal(err, null);
-//                 res.should.have.status(201);
-//                 res.should.be.json;
-//                 res.body.should.be.a('object');
-//                 done();
-//             })
-//             .catch(err => console.log({
-//                 err
-//             }));
-//     });
-//     it('Should Update an entry', function () {
-//         chai.request(app)
-//             .put('/entry/:id') //<-------????? Put request to '/entry/:id'
-//             .then(function (res) {
-//                 res.should.have.status(201);
-//                 done();
-//             })
-//             .catch(err => console.log({
-//                 err
-//             }));
-//     });
-//     it('Should Delete an entry', function () {
-
-//         chai.request(app)
-//             .delete('/entry/:id')
-//             .then(function (res) {
-//                 res.should.have.status(201);
-//                 done();
-//             })
-//             .catch(err => console.log({
-//                 err
-//             }));
-
-//     });
-//     it('Should Get All Users entries', function () {
-
-//         chai.request(app)
-//             .get('/entry-date/:user') //<-------????? Get request to '/entry-date/:user'
-//             .then(function (res) {
-//                 res.should.have.status(201);
-//                 done();
-//             })
-//             .catch(err => console.log({
-//                 err
-//             }));
-//     });
-
-// });
