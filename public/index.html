@@ -110,17 +110,44 @@
             <!-- tools section -->
             <div class="shelf">
                 <!-- dictionary tab -->
-                 <h2>
-                     <button class="dictionary">
+                 <h2 class="dictionary">
+                     <button id="js-open-dictionary">
                         Dictionary
                      </button>
                  </h2>
+                 <div role="dialog" id="dialog1" aria-labelledby="dialog1_label" aria-modal="true" class="hidden">
+                    <h2 id="dialog1_label" class="dialog_label">
+                        Search Dictionary
+                    </h2>
+                    <div class="dialog_form">
+                        <div class="dialog-form-item">
+                            <input type="search" name="search" aria-label="Search">
+                        </div>
+                        <div class="dialog-form-button">
+                            <button type="submit">Search</button>
+                        </div>
+                    </div>
+                 </div>
                  <!-- thesaurus tab -->
-                 <h2>
-                     <button class="thesaurus">
+                 <h2 class="thesaurus">
+                    <button id="js-open-thesaurus">
                         Thesaurus
-                     </button>
-                 </h2>
+                    </button>
+                </h2>
+
+                 <div role="dialog" id="dialog2" aria-labelledby="dialog2_label" aria-modal="true" class="hidden">
+                    <h2 id="dialog2_label" class="dialog_label">
+                        Search Thesaurus
+                    </h2>
+                    <div class="dialog_form">
+                        <div class="dialog-form-item">
+                            <input type="search" name="search" aria-label="Search">
+                        </div>
+                        <div class="dialog-form-button">
+                            <button type="submit">Search</button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- progress bar -->

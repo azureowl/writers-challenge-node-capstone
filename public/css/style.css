@@ -92,7 +92,7 @@ nav {
     border-top: 12px solid #45c34a;
 }
 
-nav, .pages {
+nav {
     position: relative;
     overflow: auto;
 }
@@ -133,17 +133,8 @@ textarea {
     width: 50%;
 }
 
-.pages, .pages button {
-    background-color: #efefef;
-    color: black;
-}
-
-.pages section button:hover, .profile {
+.profile {
     background-color: #fff;
-}
-
-.pages-lg {
-    display: none;
 }
 
 .header-mb, .single-line {
@@ -301,22 +292,6 @@ textarea {
     top: 4px;
 }
 
-.toggledPages, .pages-lg, .editor-form {
-    transition: width .3s
-}
-
-.pages-lg.toggledPages section button, .pages-lg.toggledPages h2 {
-    color: #efefef;
-}
-
-.pages-lg.toggledPages {
-    width: 24px;
-}
-
-.editor-form.toggledPages {
-    width: 80%;
-}
-
 .error {
     color: red;
 }
@@ -335,7 +310,7 @@ textarea {
         height: 75px;
     }
 
-    nav, .pages, .editor-form {
+    nav, .editor-form {
         height: 100%;
     }
 
@@ -362,11 +337,4 @@ textarea {
         padding: 25px;
     }
 
-    .pages-mb {
-        display: none;
-    }
-
-    .pages-lg {
-        display: initial;
-    }
 }
