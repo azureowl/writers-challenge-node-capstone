@@ -400,11 +400,14 @@
         $('.tools').on('click', function (e) {
             e.stopPropagation();
             if ($(e.target).attr('id') === 'js-open-dictionary') {
-                console.log('call dictionary!');
+                $('#dialog1_label').text('Search Dictionary');
+                $('.dialog-form-button button').attr('id', 'dictionary');
             }
             if ($(e.target).attr('id') === 'js-open-thesaurus') {
-                console.log('call thesaurus!');
+                $('#dialog1_label').text('Search Thesaurus');
+                $('.dialog-form-button button').attr('id', 'thesaurus');
             }
+
             $("#dialog1").attr('hidden', false);
             $('.dialog-form-item input').focus();
             closeWordTools($(e.target));
@@ -414,7 +417,22 @@
     function closeWordTools(target) {
         $('#js-close-tools').on('click', function () {
             $("#dialog1").attr('hidden', true);
+            $('.dialog-form-button button').removeAttr('id');
             $(target).focus();
+        });
+    }
+
+    function callOxfordAJAX() {
+        $('.dialog_form').on('submit', function (e) {
+            e.preventDefault();
+            const id = $('.dialog-form-button button').attr('id');
+            $.ajax(`/wordtool/${$('.wordtool').val()}/book/${id}`)
+                .done(data => {
+                    console.log(data);
+                })
+                .fail(err => {
+                    console.log(err);
+                });
         });
     }
 
@@ -434,6 +452,7 @@
         deleteNotebook();
         saveContentAuto();
         openWordTools();
+        callOxfordAJAX();
     }
 
     $(main);

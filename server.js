@@ -6,6 +6,7 @@ const app = express();
 
 const notebookRouter = require('./routers/notebookRouter');
 const userRouter = require('./routers/userRouter');
+const wordRouter = require('./routers/wordtoolRouter');
 
 mongoose.Promise = global.Promise;
 
@@ -16,7 +17,7 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use('/notebooks', notebookRouter);
 app.use('/users', userRouter);
-
+app.use('/wordtool', wordRouter);
 
 let server;
 
