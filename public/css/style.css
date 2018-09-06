@@ -3,7 +3,8 @@
     font-weight: 100;
 }
 
-html, body {
+html,
+body {
     height: 100%;
 }
 
@@ -15,7 +16,9 @@ h1 {
     font-size: 20px;
 }
 
-h1, footer a, .clear-style {
+h1,
+footer a,
+.clear-style {
     color: #45c34a;
     font-weight: 400;
 }
@@ -32,7 +35,9 @@ h3 {
     font-size: 16px;
 }
 
-h1, h2, p {
+h1,
+h2,
+p {
     margin: 0;
 }
 
@@ -66,19 +71,27 @@ fieldset {
     padding: 0;
 }
 
-main button, section h2 {
+main button,
+section h2 {
     text-align: center;
 }
 
-main button, .editor-form button {
+main button,
+.editor-form button {
     all: inherit;
 }
 
-main nav, nav button {
+main nav,
+nav button {
     background-color: #252525;
 }
 
-main nav, nav button, .login-form button, .registration-form button, header button, .dialog_form button {
+main nav,
+nav button,
+.login-form button,
+.registration-form button,
+header button,
+.dialog_form button {
     color: #fff;
 }
 
@@ -97,7 +110,8 @@ nav {
     overflow: auto;
 }
 
-nav button:hover, nav button:focus {
+nav button:hover,
+nav button:focus {
     background-color: #373737;
     outline: none;
 }
@@ -137,7 +151,8 @@ textarea {
     background-color: #fff;
 }
 
-.header-mb, .single-line {
+.header-mb,
+.single-line {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
@@ -162,22 +177,33 @@ textarea {
     width: 100%;
 }
 
-.login-form div, .login-form button, .registration-form div, .registration-form button {
+.login-form div,
+.login-form button,
+.registration-form div,
+.registration-form button {
     margin-top: 10px;
 }
 
-.login-form label, .registration-form label {
+.login-form label,
+.registration-form label {
     display: block;
     padding: 10px 0;
 }
 
-.login-form input, .registration-form input {
+.login-form input,
+.registration-form input {
     height: 35px;
     padding-left: 5px;
     width: 100%;
 }
 
-.login-form input, .editor-form, .progress-bar, .my-progress, .registration-form input, .profile, [role="dialog"], [role="dialog"] .results {
+.login-form input,
+.editor-form,
+.progress-bar,
+.my-progress,
+.registration-form input,
+.profile,
+[role="dialog"] {
     border: 1px solid #acacac;
 }
 
@@ -207,7 +233,10 @@ textarea {
     border-bottom: 1px solid #45c34a;
 }
 
-.login-form button, header button, .registration-form button, .dialog_form button {
+.login-form button,
+header button,
+.registration-form button,
+.dialog_form button {
     background-color: #45c34a;
     border-radius: 3px;
     font-weight: 400;
@@ -215,7 +244,10 @@ textarea {
     border: 0;
 }
 
-.login-form button:hover, header button, .registration-form button:hover, .dialog_form button:hover {
+.login-form button:hover,
+header button,
+.registration-form button:hover,
+.dialog_form button:hover {
     background-color: #5edb62;
 }
 
@@ -231,7 +263,9 @@ textarea {
     z-index: 10;
 }
 
-.profile form label, .profile form input, .profile legend {
+.profile form label,
+.profile form input,
+.profile legend {
     margin-bottom: 10px;
     display: inline-block;
 }
@@ -244,7 +278,8 @@ textarea {
     padding-top: 28px;
 }
 
-.shelf h2 button, .collection > button {
+.shelf h2 button,
+.collection>button {
     padding-left: 15px;
 }
 
@@ -263,7 +298,7 @@ textarea {
     padding-left: 30px;
 }
 
-.notebook-title  {
+.notebook-title {
     color: #fff;
     background-color: transparent;
     height: 30px;
@@ -298,11 +333,10 @@ textarea {
 
 /* Accessible Dialog */
 [role="dialog"] {
-    padding: 15px;
     background-color: #fff;
     min-height: 100vh;
     position: relative;
-    z-index: 5;
+    padding: 15px;
 }
 
 [role="dialog"] .results {
@@ -316,6 +350,7 @@ textarea {
 
 .dialog_form {
     display: flex;
+    flex-direction: column;
     margin: 15px;
 }
 
@@ -324,11 +359,52 @@ textarea {
 }
 
 .dialog-form-button {
-    margin-left: 5px;
+    margin: 5px 0 0 0;
+}
+
+.results ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.word {
+    font-size: 18px;
+}
+
+sup {
+    margin-left: 3px;
+}
+
+.word,
+sup,
+.js-category {
+    font-weight: 400;
+}
+
+.js-category {
+    color: #ffa500;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.definition li,
+.results>ul>li {
+    padding: 5px 5px 10px 5px;
+}
+
+.definition span {
+    padding-left: 8px;
+}
+
+.definition li {
+    line-height: 28px;
+}
+
+.mb-hidden {
+    display: none;
 }
 
 @media screen and (min-width: 768px) {
-
     h1 {
         font-size: 28px;
     }
@@ -341,7 +417,8 @@ textarea {
         height: 75px;
     }
 
-    nav, .editor-form {
+    nav,
+    .editor-form {
         height: 100%;
     }
 
@@ -349,7 +426,8 @@ textarea {
         padding: 60px;
     }
 
-    .container-md, .progress-bar-container {
+    .container-md,
+    .progress-bar-container {
         float: none;
         margin: 0 auto;
     }
@@ -359,7 +437,8 @@ textarea {
         border: 10px solid #f7f7f7;
     }
 
-    .landing-page h2, .intro  {
+    .landing-page h2,
+    .intro {
         font-size: 24px;
         letter-spacing: 2px;
     }
@@ -368,13 +447,27 @@ textarea {
         padding: 25px;
     }
 
+    .dialog_form {
+        flex-direction: row;
+    }
+
+    .dialog-form-button {
+        margin: 0 0 0 5px;
+    }
+
     [role="dialog"] {
         position: absolute;
-        top: 50vh;
-        left: 50vw;  /* move to the middle of the screen (assumes relative parent is the body/viewport) */
-        transform: translate(-50%, -60%);  /* move backwards 50% of this element's width */
-        min-width: calc(768px - (15px * 2));  /* == breakpoint - left+right margin */
-        min-height: auto;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        min-width: calc(768px - (15px * 2));
+        height: 600px;
+        min-height: 600px;
+        overflow: scroll;
         box-shadow: 0 19px 38px rgba(0, 0, 0, 0.12), 0 15px 12px rgba(0, 0, 0, 0.22);
+    }
+
+    .mb-hidden {
+        display: initial;
     }
 }

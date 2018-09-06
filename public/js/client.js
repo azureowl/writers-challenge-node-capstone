@@ -429,11 +429,24 @@
             $.ajax(`/wordtool/${$('.wordtool').val()}/book/${id}`)
                 .done(data => {
                     console.log(data);
+                    // id word results [{id}]
+                    // lexicalEntries[{ entries property, lexicalCategory property, pronunciation}] 0 index
+                    // entries[{... senses property}]
+                    // senses [{[definitions]}, {[definitions]}],
+
                 })
                 .fail(err => {
                     console.log(err);
                 });
         });
+    }
+
+    function markupDefinitions(data) {
+        const html = `<ul id="js-definitions">
+        <li></li>
+        </ul>`;
+
+        // <li><span>Fox<sup>1</sup></span><hr><span id="js-category">Noun</span><ul><li><span>1</span> <span>A carnivorous mammal of the dog family with a pointed muzzle and bushy tail, proverbial for its cunning.</span></li><li><span>2</span> <span>A cunning or sly person.</span></li><li><span>3</span> <span>A sexually attractive woman.</span></li></ul></li>
     }
 
     function main() {
