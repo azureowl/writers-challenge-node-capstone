@@ -512,17 +512,22 @@
         const start = `<li class="thesaurus-result-list"><div><h3>Synonym</h3><ul>`;
         const middle = `</ul></div><div><h3>Antonym</h3><ul>`;
         const end = `</ul></div></li>`;
+        const synonymArr = data.results[0].lexicalEntries[0].entries[0].senses[0].synonyms;
+        const antonymArr = data.results[0].lexicalEntries[0].entries[0].senses[0].antonyms;
+        let synonyms = [], antonyms = [];
 
-        const synonyms = data.results[0].lexicalEntries[0].entries[0].senses[0].synonyms.map(item => {
-            return `<li><button class="thesaurus-result" type="button">${item.text}</button></li>`;
-        });
+        if (synonymArr !== undefined) {
+            synonyms = synonymArr.map(item => {
+                return `<li><button class="thesaurus-result" type="button">${item.text}</button></li>`;
+            });
+        }
 
-        const antonyms = data.results[0].lexicalEntries[0].entries[0].senses[0].antonyms.map(item => {
-            return `<li><button class="thesaurus-result" type="button">${item.text}</button></li>`;
-        });
-
-        markup.push(`${start}${synonyms.join('')}${middle}${antonyms.join('')}${end}`);
-
+        if (antonymArr !== undefined) {
+            antonyms = antonymArr.map(item => {
+                return `<li><button class="thesaurus-result" type="button">${item.text}</button></li>`;
+            });
+        }
+        markup.push(`${start} ${synonyms.join('')} ${middle} ${antonyms.join('')} ${end}`);
         $('#js-definitions').html(markup);
     }
 
