@@ -1,7 +1,5 @@
 const { app, runServer, closeServer } = require('../server');
-require('dotenv').config();
-const testdb = process.env.TEST_DATABASE_URL
-
+const { TEST_DATABASE_URL } = require('../config');
 const { Notebook } = require('../models/notebook');
 const { User } = require('../models/user');
 var ObjectId = require('mongodb').ObjectID;
@@ -29,7 +27,7 @@ function seedNotebooks() {
 
     return User.create(user)
         .then(user => {
-            for (let i = 1; i <= 5; i++) {
+            for (let i=1; i<=5; i++) {
                 notebookData.push(generateNotebookData(user._id));
             }
             return Notebook.insertMany(notebookData);
@@ -37,7 +35,7 @@ function seedNotebooks() {
         .catch((err) => console.log(err));
 }
 
-function generateNotebookData(id) {
+function generateNotebookData (id) {
     return {
         title: faker.lorem.sentence(),
         content: faker.lorem.paragraph(),
@@ -52,20 +50,20 @@ function tearDownDb() {
 
 describe('Writing App Capstone Resource', function () {
 
-    before(function () {
-        return runServer(testdb);
+    before(function() {
+        return runServer(TEST_DATABASE_URL);
     });
 
-    beforeEach(function () {
+    beforeEach(function() {
         console.log('generate notebook data');
         return seedNotebooks();
     });
 
-    afterEach(function () {
+    afterEach(function() {
         return tearDownDb();
     });
 
-    after(function () {
+    after(function() {
         return closeServer();
     });
 
@@ -80,9 +78,7 @@ describe('Writing App Capstone Resource', function () {
                     expect(res).to.be.json;
                     expect(res.body.notebooks).to.have.lengthOf.above(0);
                 })
-                .catch(err => {
-                    console.log(err);
-                });
+                .catch(err => {console.log(err);});
         });
 
         it('GET /notebooks/book/:id Should return notebook content', function () {
@@ -96,13 +92,9 @@ describe('Writing App Capstone Resource', function () {
                             expect(res).to.be.json;
                             expect(res.body).to.be.a('string');
                         })
-                        .catch(err => {
-                            console.log(err);
-                        });
+                        .catch(err => {console.log(err);});
                 })
-                .catch(err => {
-                    console.log(err);
-                });
+                .catch(err => {console.log(err);});
         });
     });
 
@@ -117,21 +109,16 @@ describe('Writing App Capstone Resource', function () {
                         .send({
                             title: faker.lorem.words(),
                             content: faker.lorem.paragraph(),
-                            username: username
-                        })
+                            username: username})
                         .then(function (res) {
                             expect(res).to.have.status(201);
                             expect(res).to.be.json;
                             expect(res.body).to.be.an('object');
                             expect(res.body.notebooks).to.include.all.keys('title', 'content', 'id', 'meta');
                         })
-                        .catch(err => {
-                            console.log(err);
-                        });
+                        .catch(err => {console.log(err);});
                 })
-                .catch(err => {
-                    console.log(err);
-                });
+                .catch(err => {console.log(err);});
         });
     });
 
@@ -145,21 +132,16 @@ describe('Writing App Capstone Resource', function () {
                         .put(`/notebooks/${id}`)
                         .send({
                             title: faker.lorem.words(),
-                            id: id
-                        })
+                            id: id})
                         .then(function (res) {
                             expect(res).to.have.status(201);
                             expect(res).to.be.json;
                             expect(res.body).to.be.an('object');
                             expect(res.body.title).to.not.equal(notebook.title);
                         })
-                        .catch(err => {
-                            console.log(err);
-                        });
+                        .catch(err => {console.log(err);});
                 })
-                .catch(err => {
-                    console.log(err);
-                });
+                .catch(err => {console.log(err);});
         });
 
         it('PUT /notebooks/book/:id Should update notebook content', function () {
@@ -182,13 +164,9 @@ describe('Writing App Capstone Resource', function () {
                         .then(notebook => {
                             expect(res.body.content).to.not.equal(notebook.content);
                         })
-                        .catch(err => {
-                            console.log(err);
-                        });
+                        .catch(err => {console.log(err);});
                 })
-                .catch(err => {
-                    console.log(err);
-                });
+                .catch(err => {console.log(err);});
         });
     });
     // ******* TESTING DELETE ******* //
@@ -206,13 +184,9 @@ describe('Writing App Capstone Resource', function () {
                         .then(notebook => {
                             expect(_restaurant).to.be.null;
                         })
-                        .catch(err => {
-                            console.log(err);
-                        });
+                        .catch(err => {console.log(err);});
                 })
-                .catch(err => {
-                    console.log(err);
-                });
+                .catch(err => {console.log(err);});
         });
     });
 });

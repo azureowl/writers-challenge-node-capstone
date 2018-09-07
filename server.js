@@ -4,17 +4,7 @@ const mongoose = require('mongoose');
 const notebookRouter = require('./routers/notebookRouter');
 const userRouter = require('./routers/userRouter');
 const wordRouter = require('./routers/wordtoolRouter');
-
-require('dotenv').config();
-
-const config = {
-  db: process.env.DATABASE_URL,
-  testdb: process.env.TEST_DATABASE_URL,
-  port: process.env.PORT,
-  OXID: process.env.OXID,
-  OXKEY: process.env.OXKEY
-};
-
+const {PORT, DATABASE_URL, TEST_DATABASE_URL} = require('./config');
 const app = express();
 mongoose.Promise = global.Promise;
 
@@ -27,7 +17,7 @@ app.use('/wordtool', wordRouter);
 
 let server;
 
-function runServer(databaseUrl, port=config.port) {
+function runServer(databaseUrl, port=PORT) {
   return new Promise((resolve, reject) => {
     mongoose.connect(databaseUrl, {useNewUrlParser: true}, err => {
         if (err) {
@@ -61,7 +51,7 @@ function closeServer() {
 }
 
 if (require.main === module) {
-    runServer(config.db, config.port).catch(err => console.error(err));
+    runServer(DATABASE_URL, PORT).catch(err => console.error(err));
 }
 
 app.use('*', (req, res) => {
