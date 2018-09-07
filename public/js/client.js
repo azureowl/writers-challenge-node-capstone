@@ -376,28 +376,38 @@
 
     function updateGoal(goal) {
         $('progress').attr('max', goal);
+        $('progress').attr('aria-valuemax', goal);
     }
 
     function getProgress() {
         const id = $('legend').attr('class');
         getWordCount(id);
-        getGoal(id);
     }
 
     function getWordCount(id) {
         $.ajax(`/notebooks/${id}`)
             .done((data) => {
                 $('progress').attr('value', data.wordCountTotal);
+                $('progress').attr('aria-valuenow', data.wordCountTotal);
+                getGoal(id, data.wordCountTotal);
             })
             .fail(function (error) {
                 console.log(error);
             });
     }
 
-    function getGoal(id) {
+    function getGoal(id, count) {
         $.ajax(`/users/profile/${id}`)
-            .done(function (data) {
-                $('progress').attr('max', data);
+            .done(function (goal) {
+                $('progress').attr('max', goal);
+                $('progress').attr('aria-valuemax', goal);
+                if (count/goal >= 1) {
+                    $('.my-progress h2').text(`Congratulations! You completed your goal of writing ${goal} words!`);
+                } else if (count/goal >= .60) {
+                    $('.my-progress h2').text(`Good job! You've written ${count} words out of your goal of ${goal}.`);
+                } else {
+                    $('.my-progress h2').text(`You've written ${count} words out of ${goal}.`);
+                }
             })
             .fail(function (error) {
                 console.log(error);
@@ -481,7 +491,7 @@
         $.ajax(`/wordtool/${term}/book/${id}`)
             .done(data => {
                 if (data === null) {
-                    return $('#js-definitions').html(`Unable to find ${term}`);
+                    return $('#js-definitions').html(`No entry available for '${term}'`);
                 } else if (data.type === 'dictionary') {
                     markupDefinitions(data.response);
                 } else if (data.type === 'thesaurus') {

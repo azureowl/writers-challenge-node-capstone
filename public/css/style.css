@@ -157,6 +157,10 @@ body {
     height: 300px;
 }
 
+.my-progress h2 {
+    font-weight: 400;
+}
+
 progress {
     height: 30px;
     width: 100%;
