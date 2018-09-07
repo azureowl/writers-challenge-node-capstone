@@ -10,7 +10,6 @@
             const userID = $('legend').attr('class');
             $.ajax(`/notebooks/${userID}`)
                 .done((data) => {
-                    console.log(data);
                     $('.notebook-container').html(markupNotebooks(data.notebooks));
                 })
                 .fail(err => {

@@ -110,7 +110,8 @@ nav button,
 header button,
 [role="dialog"]>button,
 .dialog-form-button button,
-footer a {
+footer a,
+.intro {
     color: #fff;
 }
 
@@ -226,7 +227,7 @@ progress[value]::-webkit-progress-value {
 }
 
 .intro {
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(40, 49, 28, 0.6);
     padding: 10px;
     font-size: 18px;
     line-height: 28px;
