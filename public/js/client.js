@@ -113,9 +113,7 @@
                     dataType: 'json'
                 })
                 .done(function (data) {
-                    $('.js-save').text('Saved!').css({
-                        color: '#45c34a'
-                    });
+                    $('.js-save').text('Saved!');
                     const reset = setTimeout(() => {
                         $('.js-save').text('');
                     }, 3000);
@@ -140,16 +138,16 @@
             };
 
             // Create the toggled field
-            $(this).closest('h3').html(`<div class="one-line"><input class="notebook-title" type="text" placeholder="Change title or ESC" aria-label="Edit Notebook Title or hit ESC key"></div>`);
+            $(this).closest('h3').html(`<div class="change-title"><input class="notebook-title" type="text" placeholder="Change title or ESC" aria-label="Edit Notebook Title or hit ESC key"></div>`);
 
             const userObject = {};
 
-            $('.one-line').on('keypress', function (e) {
+            $('.change-title').on('keypress', function (e) {
                 if (e.which === 13) {
                     if ($(this).find('input').val() === "") {
                         $(current).replaceWith(markupNotebooks([notebookInfo]));
                     } else {
-                        userObject.title = $('.one-line .notebook-title').val();
+                        userObject.title = $('.change-title .notebook-title').val();
                         userObject.id = notebookInfo.id;
                         $.ajax(`/notebooks/${notebookInfo.id}`, {
                                 method: 'PUT',
@@ -169,7 +167,7 @@
                 }
             });
 
-            $('.one-line').on('keyup', function (e) {
+            $('.change-title').on('keyup', function (e) {
                 if (e.which === 27) {
                     $(current).replaceWith(markupNotebooks([notebookInfo]));
                 }
@@ -382,7 +380,7 @@
     function markupNotebooks(notebooks) {
         const notebookTitles = [];
         notebooks.forEach(item => {
-            const html = `<div class="notebook"><h3 class="expandable"><button class="js-open-notebook" aria-expanded="false" id="${item.id}">${item.title}</button><button id="edit-notebook"><i class="fas fa-edit" aria-label="Edit Notebook Name"></i></button><button id="delete-notebook"><i class="far fa-trash-alt" aria-label="Delete Notebook"></i></button></h3></div>`;
+            const html = `<div class="notebook"><h3 class="expandable"><button class="js-open-notebook" aria-expanded="false" id="${item.id}">${item.title}</button><div><button id="edit-notebook"><i class="fas fa-edit" aria-label="Edit Notebook Name"></i></button><button id="delete-notebook"><i class="far fa-trash-alt" aria-label="Delete Notebook"></i></button></div></h3></div>`;
             notebookTitles.push(html);
         });
         return notebookTitles;

@@ -23,6 +23,10 @@ nav.col, .pages.col, .pages section.col {
     padding: 0;
 }
 
+header.row {
+    margin-bottom: 10px;
+}
+
 /* Mobile defaults */
 
 .col-12 {

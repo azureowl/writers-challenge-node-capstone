@@ -14,6 +14,7 @@ html {
 
 h1 {
     font-size: 24px;
+    flex-grow: 1;
 }
 
 h1,
@@ -40,8 +41,14 @@ p {
 }
 
 header {
-    height: 70px;
+    height: auto;
     width: 100%;
+}
+
+header > div {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 main {
@@ -309,10 +316,6 @@ header button,
     padding-left: 15px;
 }
 
-.shelf h3 button {
-    padding-left: 30px;
-}
-
 .clear-style {
     background-color: transparent;
     border: 0;
@@ -320,19 +323,32 @@ header button,
     padding: 0;
 }
 
-.create-notebook {
-    padding-left: 30px;
+.create-notebook, .change-title {
+    padding: 10px;
 }
 
 .notebook-title {
     color: #fff;
     background-color: transparent;
     height: 30px;
+    width: 100%;
     padding-left: 5px;
 }
 
-.one-line .notebook-title {
-    margin-left: 30px;
+.notebook .expandable {
+    display: flex;
+    flex-direction: column;
+}
+
+h3.expandable > div {
+    display: flex;
+}
+
+h3.expandable button {
+    margin-bottom: 0;
+    padding-left: 15px;
+    padding-bottom: 0;
+    width: initial;
 }
 
 [aria-expanded="true"] .fa-caret-right {
@@ -444,6 +460,11 @@ sup,
 }
 
 @media screen and (min-width: 460px) {
+
+    header > div {
+        flex-direction: row;
+    }
+
     .thesaurus-result-list {
         flex-direction: row;
     }
