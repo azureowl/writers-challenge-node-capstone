@@ -7,9 +7,10 @@
 
     function getNotebooks() {
         $('#js-getNotebooks').on('click', function () {
-            const userID = $('.profile').find('legend').attr('class');
+            const userID = $('legend').attr('class');
             $.ajax(`/notebooks/${userID}`)
                 .done((data) => {
+                    console.log(data);
                     $('.notebook-container').html(markupNotebooks(data.notebooks));
                 })
                 .fail(err => {
@@ -242,10 +243,11 @@
         });
     }
 
-    function revealProgress() {
+    function toggleProgressBox() {
         $('#js-progress').on('click', function (e) {
             e.preventDefault();
             $('.my-progress').attr('hidden', false);
+            getProgress();
             hideProgress();
         });
     }
@@ -360,8 +362,7 @@
                         dataType: 'json'
                     })
                     .done(function (data) {
-                        console.log(data);
-                        // updateProgress();
+                        updateGoal(data);
                         $('p.error').remove();
                     })
                     .fail(function (error) {
@@ -374,9 +375,34 @@
         });
     }
 
-    function updateProgress() {
-        $('progress').attr('value', 100);
-        $('progress').attr('max', 1000);
+    function updateGoal(goal) {
+        $('progress').attr('max', goal);
+    }
+
+    function getProgress() {
+        const id = $('legend').attr('class');
+        getWordCount(id);
+        getGoal(id);
+    }
+
+    function getWordCount(id) {
+        $.ajax(`/notebooks/${id}`)
+            .done((data) => {
+                $('progress').attr('value', data.wordCountTotal);
+            })
+            .fail(function (error) {
+                console.log(error);
+            });
+    }
+
+    function getGoal(id) {
+        $.ajax(`/users/profile/${id}`)
+            .done(function (data) {
+                $('progress').attr('max', data);
+            })
+            .fail(function (error) {
+                console.log(error);
+            });
     }
 
     function showDashboard() {
@@ -452,18 +478,18 @@
 
     function callOXAJAX(term, id) {
         $.ajax(`/wordtool/${term}/book/${id}`)
-                .done(data => {
-                    if (data === null) {
-                        return $('#js-definitions').html(`Unable to find ${term}`);
-                    } else if (data.type === 'dictionary') {
-                        markupDefinitions(data.response);
-                    } else if (data.type === 'thesaurus') {
-                        markupThesaurus(data.response);
-                    }
-                })
-                .fail(err => {
-                    console.log(err);
-                });
+            .done(data => {
+                if (data === null) {
+                    return $('#js-definitions').html(`Unable to find ${term}`);
+                } else if (data.type === 'dictionary') {
+                    markupDefinitions(data.response);
+                } else if (data.type === 'thesaurus') {
+                    markupThesaurus(data.response);
+                }
+            })
+            .fail(err => {
+                console.log(err);
+            });
     }
 
     function markupDefinitions(data) {
@@ -506,7 +532,7 @@
         login();
         logout();
         register();
-        revealProgress();
+        toggleProgressBox();
         toggleUserForms();
         modifyUserProfile();
         toggleAddNotebookForm();

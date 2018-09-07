@@ -7,8 +7,14 @@ const router = express.Router();
 router.get('/:userID', (req, res) => {
   Notebook.find({user: ObjectId(req.params.userID)})
     .then(notebooks => {
+      let wordCount = 0;
+      notebooks.forEach(notebook => {
+        const count = notebook.countWords().content;
+        wordCount += count;
+      });
       res.status(200).json({
-        notebooks: notebooks.map(notebook => notebook.serialize())
+        notebooks: notebooks.map(notebook => notebook.serialize()),
+        wordCountTotal: wordCount
       });
     })
     .catch(err => {

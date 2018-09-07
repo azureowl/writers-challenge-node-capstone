@@ -108,6 +108,7 @@ router.put('/profile', (req, res) => {
                 });
             } else {
                 updateUser(toUpdate);
+                res.json(user.goal);
             }
 
             function updateUser(obj) {
@@ -118,6 +119,19 @@ router.put('/profile', (req, res) => {
                 });
             }
 
+        })
+        .catch(err => {
+            return runErrorMess(res, "Internal Server Error");
+        });
+});
+
+// ************ Get User Goal ************
+router.get('/profile/:id', (req, res) => {
+    const id = req.params.id;
+
+    User.findById(id)
+        .then(user => {
+            res.json(user.goal);
         })
         .catch(err => {
             return runErrorMess(res, "Internal Server Error");

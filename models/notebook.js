@@ -15,13 +15,23 @@ const NotebookSchema = mongoose.Schema({
         },
         dateUpdated: {
             type: Date
+        },
+        wordCount: {
+            type: Number
         }
     },
     user: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'User',
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
         required: true
     }
 });
+
+NotebookSchema.methods.countWords = function () {
+    return {
+        content: this.content.split(' ').length
+    };
+}
 
 NotebookSchema.methods.serialize = function () {
     return {

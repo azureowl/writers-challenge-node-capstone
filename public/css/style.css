@@ -167,8 +167,12 @@ progress[value]::-webkit-progress-bar {
     background-color: #eee;
 }
 
-progress[value]::-webkit-progress-value, .profile {
+progress[value]::-webkit-progress-value {
     background-color: #45c34a;
+}
+
+.profile {
+    background-color: white;
 }
 
 .landing-page {
