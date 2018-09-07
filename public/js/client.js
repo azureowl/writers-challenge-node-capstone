@@ -343,7 +343,7 @@
                 user: $('.profile').find('legend').text()
             };
 
-            const fields = ["#profile-name", "#profile-password"];
+            const fields = ["#profile-name", "#profile-password", "#profile-goal"];
 
             fields.forEach(field => {
                 if ($(field).val() !== "") {
@@ -361,6 +361,7 @@
                     })
                     .done(function (data) {
                         console.log(data);
+                        // updateProgress();
                         $('p.error').remove();
                     })
                     .fail(function (error) {
@@ -371,6 +372,11 @@
             }
 
         });
+    }
+
+    function updateProgress() {
+        $('progress').attr('value', 100);
+        $('progress').attr('max', 1000);
     }
 
     function showDashboard() {

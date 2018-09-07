@@ -31,6 +31,8 @@
                             <input type="text" id="profile-name">
                             <label for="profile-password">Password</label>
                             <input type="password" id="profile-password">
+                            <label for="profile-goal">Goal</label>
+                            <input type="number" id="profile-goal" min=0>
                             <button type="submit" id="js-change">Submit</button>
                         </fieldset>
                     </form>
@@ -157,9 +159,7 @@
                 </div>
                 <div class="row">
                     <div class="col col-12 col-8 progress-bar-container">
-                        <div class="progress-bar">
-                            <div class="progress"></div>
-                        </div>
+                        <progress id="progress-bar" max="100" value="30"></progress>
                     </div>
                 </div>
             </section>

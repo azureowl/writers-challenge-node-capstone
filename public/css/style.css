@@ -155,20 +155,20 @@ body {
     height: 300px;
 }
 
-.progress-bar {
-    background-color: transparent;
+progress {
     height: 30px;
     width: 100%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
-.progress {
+progress[value]::-webkit-progress-bar {
+    background-color: #eee;
+}
+
+progress[value]::-webkit-progress-value, .profile {
     background-color: #45c34a;
-    height: 100%;
-    width: 50%;
-}
-
-.profile {
-    background-color: #fff;
 }
 
 .landing-page {
@@ -266,7 +266,8 @@ body {
     width: 25px;
 }
 
-.collections h3 > button:hover, .collections h3 > button:focus {
+.collections h3>button:hover,
+.collections h3>button:focus {
     border-bottom: 1px solid #45c34a;
 }
 

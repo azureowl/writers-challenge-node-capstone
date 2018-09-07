@@ -19,9 +19,9 @@ const userSchema = new mongoose.Schema({
         trim: true,
         required: true
     },
-    stories: [{
-        type: mongoose.Schema.Types.ObjectId, ref: 'Notebook'
-    }]
+    goal: {
+        type: Number
+    }
 });
 
 userSchema.methods.validatePassword = function (password, callback) {

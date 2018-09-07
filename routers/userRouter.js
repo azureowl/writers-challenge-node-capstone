@@ -75,7 +75,7 @@ router.post('/register', (req, res) => {
 // ************ Update User ************
 router.put('/profile', (req, res) => {
     const user = req.body.user;
-    const updateableFields = ['name', 'password'];
+    const updateableFields = ['name', 'password', 'goal'];
     const toUpdate = {};
 
     updateableFields.forEach(field => {
