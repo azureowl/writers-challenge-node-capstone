@@ -255,8 +255,10 @@
     }
 
     function logout() {
-        console.log('logged out!');
-
+        $('#js-logout').on('click', function () {
+            $('.profile').find('legend').removeClass();
+            location.reload();
+        });
     }
 
     function login() {
