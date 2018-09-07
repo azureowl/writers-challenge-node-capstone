@@ -179,8 +179,8 @@
         $('.notebook-container').on('click', '#delete-notebook', function (e) {
             e.stopPropagation();
             const notebookInfo = {
-                id: $(this).siblings('.js-open-notebook').attr('id'),
-                title: $(this).siblings('.js-open-notebook').text()
+                id: $(this).parent().siblings('.js-open-notebook').attr('id'),
+                title: $(this).parent().siblings('.js-open-notebook').text()
             };
             const target = $(this).closest('.notebook');
             if (window.confirm(`Delete ${notebookInfo.title} notebook? This cannot be undone.`)) {

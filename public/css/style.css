@@ -45,7 +45,7 @@ header {
     width: 100%;
 }
 
-header > div {
+header>div {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -64,7 +64,7 @@ footer {
     width: 100%;
 }
 
-footer > div {
+footer>div {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -108,7 +108,8 @@ nav button,
 .login-form button,
 .registration-form button,
 header button,
-[role="dialog"] button,
+[role="dialog"]>button,
+.dialog-form-button button,
 footer a {
     color: #fff;
 }
@@ -131,7 +132,8 @@ nav button:focus {
     outline: none;
 }
 
-nav, .editor-form {
+nav,
+.editor-form {
     height: 600px;
 }
 
@@ -201,7 +203,8 @@ body {
 }
 
 .login-form input,
-.registration-form input, .wordtool {
+.registration-form input,
+.wordtool {
     height: 35px;
     padding-left: 5px;
     width: 100%;
@@ -242,7 +245,8 @@ body {
     line-height: 30px;
 }
 
-.editor-tools, .ql-toolbar {
+.editor-tools,
+.ql-toolbar {
     flex-grow: 0;
 }
 
@@ -262,15 +266,22 @@ body {
     width: 25px;
 }
 
-.collections h3 button:hover {
+.collections h3 > button:hover, .collections h3 > button:focus {
     border-bottom: 1px solid #45c34a;
 }
 
 .login-form button,
 header button,
 .registration-form button,
-[role="dialog"] button {
+[role="dialog"]>button,
+.dialog-form-button button {
     background-color: #45c34a;
+}
+
+.login-form button,
+header button,
+.registration-form button,
+[role="dialog"] button {
     border-radius: 3px;
     font-weight: 400;
     padding: 4px 8px;
@@ -280,7 +291,8 @@ header button,
 .login-form button:hover,
 header button,
 .registration-form button:hover,
-[role="dialog"] button:hover {
+[role="dialog"]>button:hover,
+.dialog-form-button button:hover {
     background-color: #5edb62;
 }
 
@@ -323,7 +335,8 @@ header button,
     padding: 0;
 }
 
-.create-notebook, .change-title {
+.create-notebook,
+.change-title {
     padding: 10px;
 }
 
@@ -340,7 +353,7 @@ header button,
     flex-direction: column;
 }
 
-h3.expandable > div {
+h3.expandable>div {
     display: flex;
 }
 
@@ -453,15 +466,13 @@ sup,
 }
 
 .thesaurus-result {
-    background-color: transparent;
-    border: 0;
-    color: blue;
-    text-align: left;
+    color: black;
+    background-color: #eaeaea;
+    margin-bottom: 2.5px;
 }
 
 @media screen and (min-width: 460px) {
-
-    header > div {
+    header>div {
         flex-direction: row;
     }
 
