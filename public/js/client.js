@@ -248,6 +248,7 @@
         $('#js-progress').on('click', function (e) {
             e.preventDefault();
             $('.my-progress').attr('hidden', false);
+            $('#js-close-progress').focus();
             getProgress();
             hideProgress();
         });

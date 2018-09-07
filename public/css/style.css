@@ -161,6 +161,17 @@ body {
     font-weight: 400;
 }
 
+.my-progress button {
+    width: 100px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.my-progress button:focus {
+    background-color: #eeeeee;
+    text-decoration: underline;
+}
+
 progress {
     height: 30px;
     width: 100%;
