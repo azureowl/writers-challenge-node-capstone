@@ -203,7 +203,8 @@ textarea {
 .my-progress,
 .registration-form input,
 .profile,
-[role="dialog"] {
+[role="dialog"],
+.thesaurus-result-list {
     border: 1px solid #acacac;
 }
 
@@ -404,6 +405,25 @@ sup,
     display: none;
 }
 
+.thesaurus-result-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.thesaurus-result {
+    background-color: transparent;
+    border: 0;
+    color: blue;
+    text-align: left;
+}
+
+@media screen and (min-width: 460px) {
+    .thesaurus-result-list {
+        flex-direction: row;
+    }
+}
+
 @media screen and (min-width: 768px) {
     h1 {
         font-size: 28px;
@@ -468,6 +488,6 @@ sup,
     }
 
     .mb-hidden {
-        display: initial;
+        display: block;
     }
 }

@@ -399,6 +399,7 @@
     function openWordTools() {
         $('.tools').on('click', function (e) {
             e.stopPropagation();
+            $('main').addClass('mb-hidden');
             if ($(e.target).attr('id') === 'js-open-dictionary') {
                 $('#dialog1_label').text('Search Dictionary');
                 $('.dialog-form-button button').attr('id', 'dictionary');
@@ -416,6 +417,7 @@
 
     function closeWordTools(target) {
         $('#js-close-tools').on('click', function () {
+            $('main').removeClass('mb-hidden');
             $("#dialog1").attr('hidden', true);
             $('.dialog-form-button button').removeAttr('id');
             $(target).focus();
@@ -428,12 +430,13 @@
             const id = $('.dialog-form-button button').attr('id');
             $.ajax(`/wordtool/${$('.wordtool').val()}/book/${id}`)
                 .done(data => {
-                    console.log(data);
-                    // id word results [{id}]
-                    // lexicalEntries[{ entries property, lexicalCategory property, pronunciation}] 0 index
-                    // entries[{... senses property}]
-                    // senses [{[definitions]}, {[definitions]}],
-
+                    if (data === null) {
+                        return $('#js-definitions').html(`Unable to find ${$('.wordtool').val()}`);
+                    } else if (data.type === 'dictionary') {
+                        markupDefinitions(data.response);
+                    } else if (data.type === 'thesaurus') {
+                        markupThesaurus(data.response);
+                    }
                 })
                 .fail(err => {
                     console.log(err);
@@ -442,11 +445,38 @@
     }
 
     function markupDefinitions(data) {
-        const html = `<ul id="js-definitions">
-        <li></li>
-        </ul>`;
+        const markup = [];
+        data.results[0].lexicalEntries.forEach((item, index) => {
+            const start = `<ul id="js-definitions"><li><span class="word">${data.results[0].id}<sup>${index+1}</sup></span><hr><span class="js-category">${item.lexicalCategory}</span><ul class="definition">`;
 
-        // <li><span>Fox<sup>1</sup></span><hr><span id="js-category">Noun</span><ul><li><span>1</span> <span>A carnivorous mammal of the dog family with a pointed muzzle and bushy tail, proverbial for its cunning.</span></li><li><span>2</span> <span>A cunning or sly person.</span></li><li><span>3</span> <span>A sexually attractive woman.</span></li></ul></li>
+            const end = `</ul></li></ul>`;
+            const definitions = item.entries[0].senses.map((defs, index) => {
+                return `<li>${index+1} <span>${defs.definitions[0]}</span></li>`;
+            });
+
+            markup.push(`${start}${definitions.join('')}${end}`);
+        });
+
+        $('#js-definitions').html(markup);
+    }
+
+    function markupThesaurus(data) {
+        const markup = [];
+        const start = `<li class="thesaurus-result-list"><div><h3>Synonym</h3><ul>`;
+        const middle = `</ul></div><div><h3>Antonym</h3><ul>`;
+        const end = `</ul></div></li>`;
+
+        const synonyms = data.results[0].lexicalEntries[0].entries[0].senses[0].synonyms.map(item => {
+            return `<li><button class="thesaurus-result" type="button">${item.text}</button></li>`;
+        });
+
+        const antonyms = data.results[0].lexicalEntries[0].entries[0].senses[0].antonyms.map(item => {
+            return `<li><button class="thesaurus-result" type="button">${item.text}</button></li>`;
+        });
+
+        markup.push(`${start}${synonyms.join('')}${middle}${antonyms.join('')}${end}`);
+
+        $('#js-definitions').html(markup);
     }
 
     function main() {
