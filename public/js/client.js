@@ -145,7 +145,6 @@
 
             $('.change-title').on('keypress', function (e) {
                 if (e.which === 13) {
-                    console.log(notebookInfo);
                     if ($(this).find('input').val() === "") {
                         $(current).replaceWith(markupNotebooks([notebookInfo]));
                     } else {
