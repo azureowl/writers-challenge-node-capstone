@@ -435,10 +435,12 @@
             $('main').addClass('mb-hidden');
             if ($(e.target).attr('id') === 'js-open-dictionary') {
                 $('#dialog1_label').text('Search Dictionary');
+                $('#js-definitions').html('');
                 $('.dialog-form-button button').attr('id', 'dictionary');
             }
             if ($(e.target).attr('id') === 'js-open-thesaurus') {
                 $('#dialog1_label').text('Search Thesaurus');
+                $('#js-definitions').html('');
                 $('.dialog-form-button button').attr('id', 'thesaurus');
             }
 
