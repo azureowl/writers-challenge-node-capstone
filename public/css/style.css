@@ -101,7 +101,7 @@ nav button,
 .login-form button,
 .registration-form button,
 header button,
-.dialog_form button,
+[role="dialog"] button,
 footer a {
     color: #fff;
 }
@@ -262,7 +262,7 @@ body {
 .login-form button,
 header button,
 .registration-form button,
-.dialog_form button {
+[role="dialog"] button {
     background-color: #45c34a;
     border-radius: 3px;
     font-weight: 400;
@@ -273,7 +273,7 @@ header button,
 .login-form button:hover,
 header button,
 .registration-form button:hover,
-.dialog_form button:hover {
+[role="dialog"] button:hover {
     background-color: #5edb62;
 }
 
