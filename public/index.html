@@ -15,7 +15,7 @@
     <title>Word Seed</title>
 </head>
 
-<body>
+<body aria-live="assertive">
     <header role="banner" class="row">
         <div class="col col-12 header-mb">
             <h1>Word Seed <img class="logo" src="images/seed.png" alt="seed sprout"></h1>
@@ -47,19 +47,19 @@
             <form class="login-form">
                 <fieldset>
                     <label for="email">Email</label>
-                    <input type="text" id="email" autocomplete="email" required placeholder="youremail@mail.com" value="WillWrite@writetoday.com">
+                    <input type="text" id="email" autocomplete="email" required value="WillWrite@writetoday.com">
                     <label for="password">Password</label>
-                    <input type="password" id="password" autocomplete="current-password" required placeholder="1234" value="password1">
+                    <input type="password" id="password" autocomplete="current-password" required value="password1">
                 </fieldset>
                 <button type="submit" id="js-login">Login</button>
             </form>
         </div>
         <h2>What is Word Seed?</h2>
         <div class="row">
-            <p class="intro">
+            <aside role="complementary" class="intro">
                 Word Seed is a writing app for writers who want to exercise
                 their skills and set a monthly goal.
-            </p>
+            </aside>
         </div>
         <span>Don't have an account? <button class="js-change-form clear-style">Register</button></span>
     </section>
@@ -70,23 +70,21 @@
                 <fieldset>
                     <legend>Register</legend>
                     <label for="name">Name</label>
-                    <input type="text" id="name" value="Will Write" required>
+                    <input type="text" id="name" required value="Will Write">
                     <label for="reg-username">Email (Username)</label>
-                    <input type="email" id="reg-username" placeholder="youremail@mail.com" autocomplete="email"
-                        value="WillWrite@writetoday.com" required>
+                    <input type="email" id="reg-username" autocomplete="email" required value="WillWrite@writetoday.com">
                     <label for="reg-pw">Password</label>
-                    <input type="password" id="reg-pw" placeholder="1234" value="password1" autocomplete="current-password"
-                        required>
+                    <input type="password" id="reg-pw" autocomplete="current-password" required value="password1">
                 </fieldset>
                 <button type="submit" id="js-register">Sign Up</button>
             </form>
         </div>
         <h2>What is Word Seed?</h2>
         <div class="row">
-            <p class="intro">
+            <aside role="complementary" class="intro">
                 Word Seed is a writing app for writers who want to exercise
                 their skills and set a monthly goal.
-            </p>
+            </aside>
         </div>
         <span>Have an account? <button class="js-change-form clear-style">Login</button></span>
     </section>
