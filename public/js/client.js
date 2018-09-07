@@ -117,11 +117,12 @@
                     const reset = setTimeout(() => {
                         $('.js-save').text('');
                     }, 3000);
+                    $('p.error').remove();
                 })
                 .fail(function (error) {
                     console.log(error);
                     const html = `<p class="row error">${error.responseText}</p>`;
-                    $(html).insertBefore('.landing-page');
+                    $(html).insertAfter('header');
                 });
         }
     }
@@ -157,11 +158,12 @@
                             })
                             .done(function (data) {
                                 $(current).replaceWith(markupNotebooks([data]));
+                                $('p.error').remove();
                             })
                             .fail(function (error) {
                                 console.log(error);
                                 const html = `<p class="row error">${error.responseText}</p>`;
-                                $(html).insertBefore('.landing-page');
+                                $(html).insertAfter('header');
                             });
                     }
                 }
@@ -191,11 +193,12 @@
                         $('#editor').removeAttr('data-book');
                         $('.ql-editor').html('');
                         target.remove();
+                        $('p.error').remove();
                     })
                     .fail(function (error) {
                         console.log(error);
                         const html = `<p class="row error">${error.responseText}</p>`;
-                        $(html).insertBefore('.landing-page');
+                        $(html).insertAfter('header');
                     });
             }
         });
@@ -284,11 +287,11 @@
                     .done(function (data) {
                         showDashboard();
                         setAccountDetails(data);
-                        // get name from server and display with greeting!
+                        $('p.error').remove();
                     })
                     .fail(function (error) {
                         const html = `<p class="row error">${error.responseText}</p>`;
-                        $(html).insertBefore('.landing-page');
+                        $(html).insertAfter('header');
                     });
             }
         });
@@ -321,12 +324,12 @@
                     .done(function (data) {
                         showDashboard();
                         setAccountDetails(data);
-                        // get name from server and display with greeting!
+                        $('p.error').remove();
                     })
                     .fail(function (error) {
                         console.log(error);
                         const html = `<p class="row error">${error.responseText}</p>`;
-                        $(html).insertBefore('.landing-page');
+                        $(html).insertAfter('header');
                     });
             }
 
@@ -349,7 +352,7 @@
                 }
             });
 
-            if (Object.keys(userObject).length > 0) {
+            if (Object.keys(userObject).length > 1) {
                 $.ajax('/users/profile', {
                         method: 'PUT',
                         contentType: 'application/json',
@@ -358,11 +361,12 @@
                     })
                     .done(function (data) {
                         console.log(data);
+                        $('p.error').remove();
                     })
                     .fail(function (error) {
                         console.log(error);
                         const html = `<p class="row error">${error.responseText}</p>`;
-                        $(html).insertBefore('.landing-page');
+                        $(html).insertAfter('header');
                     });
             }
 
