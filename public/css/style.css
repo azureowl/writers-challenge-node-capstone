@@ -13,11 +13,10 @@ html {
 }
 
 h1 {
-    font-size: 20px;
+    font-size: 24px;
 }
 
 h1,
-footer a,
 .clear-style {
     color: #45c34a;
     font-weight: 400;
@@ -35,7 +34,6 @@ h3 {
     font-size: 16px;
 }
 
-h1,
 h2,
 p {
     margin: 0;
@@ -43,6 +41,7 @@ p {
 
 header {
     height: 70px;
+    width: 100%;
 }
 
 main {
@@ -50,8 +49,19 @@ main {
 }
 
 footer {
+    background-color: #45c34a;
+    font-weight: 400;
+    flex-shrink: 0;
+    padding: 5px;
     height: 40px;
     width: 100%;
+}
+
+footer > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
 }
 
 footer a {
@@ -63,7 +73,7 @@ footer i {
 }
 
 footer p {
-    font-size: 18px;
+    font-size: 20px;
 }
 
 fieldset {
@@ -91,7 +101,8 @@ nav button,
 .login-form button,
 .registration-form button,
 header button,
-.dialog_form button {
+.dialog_form button,
+footer a {
     color: #fff;
 }
 
@@ -103,9 +114,6 @@ main button {
 
 nav {
     border-top: 12px solid #45c34a;
-}
-
-nav {
     position: relative;
     overflow: auto;
 }
@@ -116,19 +124,22 @@ nav button:focus {
     outline: none;
 }
 
+nav, .editor-form {
+    height: 600px;
+}
+
 button {
     cursor: pointer !important;
 }
 
-textarea {
-    border: 0;
-    font-weight: 400;
-    resize: none;
-    padding: 10px;
-    letter-spacing: .5px;
-    line-height: 35px;
-    height: 90%;
-    width: 100%;
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1 0 auto;
+    margin-bottom: 10px;
 }
 
 .my-progress {
@@ -149,14 +160,6 @@ textarea {
 
 .profile {
     background-color: #fff;
-}
-
-.header-mb,
-.single-line {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    padding-top: 10px;
 }
 
 .landing-page {
@@ -217,12 +220,34 @@ textarea {
 
 .editor-form {
     background-color: white;
-    height: 85vh;
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
 }
 
 .editor-tools {
     background-color: #acacac;
+    height: 30px;
+}
+
+.editor-tools span {
+    padding-left: 5px;
+    line-height: 30px;
+}
+
+.editor-tools, .ql-toolbar {
+    flex-grow: 0;
+}
+
+.ql-container {
+    height: initial;
+    flex-grow: 4;
+    display: flex;
+    flex-direction: column;
+}
+
+.ql-editor {
+    flex-grow: 1;
 }
 
 .logo {
@@ -427,23 +452,6 @@ sup,
 @media screen and (min-width: 768px) {
     h1 {
         font-size: 28px;
-    }
-
-    main {
-        height: 85vh;
-    }
-
-    header {
-        height: 75px;
-    }
-
-    nav,
-    .editor-form {
-        height: 100%;
-    }
-
-    textarea {
-        padding: 60px;
     }
 
     .container-md,

@@ -113,13 +113,11 @@
                     dataType: 'json'
                 })
                 .done(function (data) {
-                    $('#js-save').text('Saved!').prop('disabled', true).css({
+                    $('.js-save').text('Saved!').css({
                         color: '#45c34a'
                     });
                     const reset = setTimeout(() => {
-                        $('#js-save').text('Save!').prop('disabled', false).css({
-                            color: 'black'
-                        });
+                        $('.js-save').text('');
                     }, 3000);
                 })
                 .fail(function (error) {
