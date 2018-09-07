@@ -1,16 +1,13 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
-
-const app = express();
-
 const notebookRouter = require('./routers/notebookRouter');
 const userRouter = require('./routers/userRouter');
 const wordRouter = require('./routers/wordtoolRouter');
 
-mongoose.Promise = global.Promise;
-
+const app = express();
 const {PORT, DATABASE_URL, TEST_DATABASE_URL} = require('./config');
+mongoose.Promise = global.Promise;
 
 app.use(morgan('common'));
 app.use(express.static('public'));
@@ -20,11 +17,6 @@ app.use('/users', userRouter);
 app.use('/wordtool', wordRouter);
 
 let server;
-
-// mongoose.connect(TEST_DATABASE_URL, {useNewUrlParser: true});
-// app.listen(PORT, () => {
-//   console.log(`Your app is listening on port ${PORT}`);
-// })
 
 function runServer(databaseUrl, port=PORT) {
   return new Promise((resolve, reject) => {
