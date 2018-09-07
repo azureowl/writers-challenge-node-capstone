@@ -134,8 +134,8 @@
             // Save the current element to replace the toggled field should user change his mind
             const current = $(this).closest('.notebook');
             const notebookInfo = {
-                id: $(this).siblings('.js-open-notebook').attr('id'),
-                title: $(this).siblings('.js-open-notebook').text()
+                id: $(this).parent().siblings('.js-open-notebook').attr('id'),
+                title: $(this).parent().siblings('.js-open-notebook').text()
             };
 
             // Create the toggled field
@@ -145,6 +145,7 @@
 
             $('.change-title').on('keypress', function (e) {
                 if (e.which === 13) {
+                    console.log(notebookInfo);
                     if ($(this).find('input').val() === "") {
                         $(current).replaceWith(markupNotebooks([notebookInfo]));
                     } else {
