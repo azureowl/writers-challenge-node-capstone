@@ -258,7 +258,7 @@ progress[value]::-webkit-progress-value {
 
 .editor-tools {
     background-color: #acacac;
-    height: 30px;
+    height: 35px;
     display: flex;
     justify-content: space-between;
 }
@@ -273,10 +273,12 @@ progress[value]::-webkit-progress-value {
     flex-grow: 0;
 }
 
-.editor-tools button {}
+.editor-tools button {
+    height: 30px;
+}
 
 .ql-container {
-    height: initial;
+    height: 600px;
     flex-grow: 4;
     display: flex;
     flex-direction: column;
