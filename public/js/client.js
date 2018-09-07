@@ -420,18 +420,33 @@
             $('main').removeClass('mb-hidden');
             $("#dialog1").attr('hidden', true);
             $('.dialog-form-button button').removeAttr('id');
+            $('#js-definitions').html('');
             $(target).focus();
         });
     }
 
-    function callOxfordAJAX() {
+    function setOXSettings() {
+        let id;
+        let word;
         $('.dialog_form').on('submit', function (e) {
             e.preventDefault();
-            const id = $('.dialog-form-button button').attr('id');
-            $.ajax(`/wordtool/${$('.wordtool').val()}/book/${id}`)
+            id = $('.dialog-form-button button').attr('id');
+            word = $('.wordtool').val();
+            callOXAJAX(word, id);
+        });
+
+        $('#js-definitions').on('click', '.thesaurus-result', function (e) {
+            id = "thesaurus";
+            word = $(this).text();
+            callOXAJAX(word, id);
+        })
+    }
+
+    function callOXAJAX(term, id) {
+        $.ajax(`/wordtool/${term}/book/${id}`)
                 .done(data => {
                     if (data === null) {
-                        return $('#js-definitions').html(`Unable to find ${$('.wordtool').val()}`);
+                        return $('#js-definitions').html(`Unable to find ${term}`);
                     } else if (data.type === 'dictionary') {
                         markupDefinitions(data.response);
                     } else if (data.type === 'thesaurus') {
@@ -441,7 +456,6 @@
                 .fail(err => {
                     console.log(err);
                 });
-        });
     }
 
     function markupDefinitions(data) {
@@ -495,7 +509,7 @@
         deleteNotebook();
         saveContentAuto();
         openWordTools();
-        callOxfordAJAX();
+        setOXSettings();
     }
 
     $(main);
