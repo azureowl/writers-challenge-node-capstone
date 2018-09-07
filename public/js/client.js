@@ -26,6 +26,7 @@
             $.ajax(`/notebooks/book/${id}`)
                 .done((content) => {
                     $('.ql-editor').html(content);
+                    $('.ql-editor').focus();
                 })
                 .fail(err => {
                     console.log(err);
@@ -75,6 +76,7 @@
                 $('#js-notebook').click();
                 $('#editor').attr('data-book', data.notebooks.id);
                 $('.notebook-container').append(markupNotebooks([data.notebooks]));
+                $('.ql-editor').focus();
                 updateNotebookContent();
             })
             .fail(err => {
