@@ -526,6 +526,18 @@
         $('#js-definitions').html(markup);
     }
 
+    function getPrompt() {
+        $('#js-prompt').on('click', function () {
+            $.getJSON('https://ineedaprompt.com/dictionary/default/prompt?q=adj+noun+adv+verb+noun+location')
+                .done(data => {
+                    $('.ql-editor').prepend(data.english);
+                })
+                .fail(err => {
+                    console.log(err);
+                });
+        })
+    }
+
     function main() {
         toggleCollapseMenu();
         login();
@@ -543,6 +555,7 @@
         saveContentAuto();
         openWordTools();
         setOXSettings();
+        getPrompt();
     }
 
     $(main);
