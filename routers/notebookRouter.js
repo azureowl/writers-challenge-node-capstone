@@ -4,6 +4,7 @@ const {User} = require('../models/user');
 var ObjectId = require('mongodb').ObjectID;
 const router = express.Router();
 
+// ************ Get User's notebooks ************
 router.get('/:userID', (req, res) => {
   Notebook.find({user: ObjectId(req.params.userID)})
     .then(notebooks => {
@@ -23,8 +24,8 @@ router.get('/:userID', (req, res) => {
     });
 });
 
+// ************ Get specific notebook ************
 router.get('/book/:id', (req, res) => {
-  console.log(req.params.id);
   Notebook.findById(req.params.id)
     .then(notebook => {
       res.json(notebook.content);
@@ -35,6 +36,7 @@ router.get('/book/:id', (req, res) => {
     });
 });
 
+// ************ Add notebook ************
 router.post('/add', (req, res) => {
 
   if (!('title' in req.body)) {
@@ -69,6 +71,7 @@ router.post('/add', (req, res) => {
 
 });
 
+// ************ Update titles in the nav area ************
 router.put('/:id', (req, res) => {
   if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
     res.status(400).json({
@@ -79,9 +82,6 @@ router.put('/:id', (req, res) => {
   const permitted = ['title', 'content'];
   const updated = {
     id: req.params.id
-    // meta: {
-    //   dateUpdated: Date.now()
-    // }
   };
 
   permitted.forEach(field => {
@@ -98,16 +98,9 @@ router.put('/:id', (req, res) => {
       console.log(err);
       return runErrorMess(res);
     });
-
-    // ask mentor or SO
-    // Notebook.findByIdAndUpdate(req.params.id, {$set: {'meta.dateUpdated': Date.now()}})
-    // .then(notebook => res.status(204).end())
-    // .catch(err => {
-    //   console.log(err);
-    //   return runErrorMess(res);
-    // });
 });
 
+// ************ Update notebook's content ************
 router.put('/book/:id', (req, res) => {
   if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
     res.status(400).json({
@@ -126,6 +119,7 @@ router.put('/book/:id', (req, res) => {
 
 });
 
+// ************ Delete notebook ************
 router.delete('/:id', (req, res) => {
   Notebook.findByIdAndRemove(req.params.id)
     .then(notebook => res.status(204).end())

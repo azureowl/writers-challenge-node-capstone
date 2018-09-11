@@ -18,6 +18,7 @@
         });
     }
 
+    // Display one notebook's content in the editor
     function getNotebookContent() {
         $('.collections').on('click', '.js-open-notebook', function () {
             const id = $(this).attr('id');
@@ -65,6 +66,7 @@
         });
     }
 
+    // AJAX request shared between manual notebook creation and direct typing to the editor without a notebook
     function createNotebookAJAX(user) {
         $.ajax('/notebooks/add', {
                 method: 'POST',
@@ -235,6 +237,7 @@
         });
     }
 
+    // User forms are login and registration
     function toggleUserForms() {
         $('.js-change-form').on('click', function (e) {
             const current = $(this).closest('section');
@@ -289,7 +292,7 @@
                         dataType: 'json'
                     })
                     .done(function (data) {
-                        showDashboard();
+                        toggleDashboard();
                         setAccountDetails(data);
                         $('p.error').remove();
                     })
@@ -311,7 +314,6 @@
                 password: $("#reg-pw").val()
             };
 
-            // refactor!
             if (userObject.name == "") {
                 alert('Name is required.');
             } else if (userObject.username == "") {
@@ -326,7 +328,7 @@
                         dataType: 'json'
                     })
                     .done(function (data) {
-                        showDashboard();
+                        toggleDashboard();
                         setAccountDetails(data);
                         $('p.error').remove();
                     })
@@ -399,6 +401,7 @@
             });
     }
 
+    // Check goal and check if completed
     function getGoal(id, count) {
         $.ajax(`/users/profile/${id}`)
             .done(function (goal) {
@@ -406,7 +409,7 @@
                 $('progress').attr('aria-valuemax', goal);
                 if (count/goal >= 1) {
                     $('.my-progress h2').text(`Congratulations! You completed your goal of writing ${goal} words!`);
-                } else if (count/goal >= .60) {
+                } else if (count/goal >= 0.60) {
                     $('.my-progress h2').text(`Good job! You've written ${count} words out of your goal of ${goal}.`);
                 } else {
                     $('.my-progress h2').text(`You've written ${count} words out of ${goal}.`);
@@ -417,7 +420,8 @@
             });
     }
 
-    function showDashboard() {
+    // Toggles the dashboard when user logs in and out
+    function toggleDashboard() {
         ['main', '#js-logout', '#js-user', '.landing-page'].forEach(el => {
             if (el === '.landing-page') {
                 $(el).attr('hidden', true);
@@ -436,6 +440,7 @@
         return notebookTitles;
     }
 
+    // Identify the user profile with displayed email
     function setAccountDetails(data) {
         $('.profile').find('legend').text(data.user);
         $('.profile').find('legend').attr('class', data.id);
@@ -473,6 +478,7 @@
         });
     }
 
+    // Oxford dictionary AJAX settings for typed word or clicked word button
     function setOXSettings() {
         let id;
         let word;
@@ -487,7 +493,7 @@
             id = "thesaurus";
             word = $(this).text();
             callOXAJAX(word, id);
-        })
+        });
     }
 
     function callOXAJAX(term, id) {

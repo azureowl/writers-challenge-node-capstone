@@ -19,7 +19,9 @@
     padding: 0 1.04166667% 0 1.04166667%;
 }
 
-nav.col, .pages.col, .pages section.col {
+nav.col,
+.pages.col,
+.pages section.col {
     padding: 0;
 }
 
@@ -37,9 +39,11 @@ header.row {
     .col-2 {
         width: 16.6666667%;
     }
+
     .col-6 {
         width: 50%;
     }
+
     .col-8 {
         width: 66.6666667%;
     }

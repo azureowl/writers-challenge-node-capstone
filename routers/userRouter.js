@@ -25,7 +25,6 @@ router.post('/login', (req, res) => {
                 if (!isValid) {
                     return res.status(401).json('Password Invalid');
                 } else {
-                    console.log(`User ${username} logged in. at line 27`);
                     return res.json({user: user.username, id: user._id});
                 }
             });
@@ -58,8 +57,6 @@ router.post('/register', (req, res) => {
                     password: hash
                 })
                 .then(user => {
-                    console.log(`User ${username} created.`);
-                    console.log(user, ' at line 60');
                     return res.json({user: user.username, id: user._id});
                 })
                 .catch(err => {
