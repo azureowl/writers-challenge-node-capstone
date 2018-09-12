@@ -148,6 +148,7 @@ describe('Writing App Capstone Resource', function () {
             const updatedData = {
                 content: faker.lorem.words()
             };
+            let res;
             return Notebook.findOne()
                 .then(notebook => {
                     const id = notebook._id;
@@ -155,13 +156,15 @@ describe('Writing App Capstone Resource', function () {
                     return chai.request(app)
                         .put(`/notebooks/book/${id}`)
                         .send(updatedData)
-                        .then(function (res) {
+                        .then(function (_res) {
+                            res = _res;
                             expect(res).to.have.status(201);
                             expect(res).to.be.json;
                             expect(res.body).to.be.an('object');
                             return Notebook.findById(id);
                         })
                         .then(notebook => {
+                            console.log(res.body.content);
                             expect(res.body.content).to.not.equal(notebook.content);
                         })
                         .catch(err => {console.log(err);});
@@ -182,7 +185,8 @@ describe('Writing App Capstone Resource', function () {
                             return Notebook.findById(id);
                         })
                         .then(notebook => {
-                            expect(_restaurant).to.be.null;
+                            console.log(notebook);
+                            expect(notebook).to.be.null;
                         })
                         .catch(err => {console.log(err);});
                 })
