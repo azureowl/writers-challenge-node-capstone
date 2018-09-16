@@ -519,13 +519,26 @@
 
             const end = `</ul></li></ul>`;
             const definitions = item.entries[0].senses.map((defs, index) => {
-                return `<li>${index+1} <span>${defs.definitions[0]}</span></li>`;
+
+                if ('definitions' in defs) {
+                    return `<li>${index+1} <span>${defs.definitions[0]}</span></li>`;
+                }
+
+                if ('crossReferenceMarkers' in defs) {
+                    // it's a link
+                    return `<li>${index+1} <span>${defs.crossReferenceMarkers[0]}</span></li>`;
+                }
+
             });
 
             markup.push(`${start}${definitions.join('')}${end}`);
         });
 
-        $('#js-definitions').html(markup);
+        if (markup.length > 0) {
+            $('#js-definitions').html(markup);
+        } else {
+            return $('#js-definitions').html(`No entry available`);
+        }
     }
 
     function markupThesaurus(data) {
@@ -561,7 +574,7 @@
                 .fail(err => {
                     console.log(err);
                 });
-        })
+        });
     }
 
     function main() {
