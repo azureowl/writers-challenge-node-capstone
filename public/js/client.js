@@ -452,7 +452,6 @@
     function openWordTools() {
         $('.tools').on('click', function (e) {
             e.stopPropagation();
-            console.log($(e.target));
             $('main').addClass('mb-hidden');
             if ($(e.target).attr('id') === 'js-open-dictionary') {
                 $('#dialog1_label').text('Search Dictionary');
