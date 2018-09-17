@@ -122,6 +122,11 @@
                             Thesaurus
                         </button>
                     </h2>
+                    <h2 class="help">
+                        <button id="js-help">
+                            How to Use
+                        </button>
+                    </h2>
                 </div>
                 <div class="shelf">
                     <h2>
@@ -155,7 +160,7 @@
         </main>
         <section role="region" class="row lightbox">
             <div role="dialog" id="dialog1" aria-labelledby="dialog1_label" aria-modal="true" hidden>
-                <button id="js-close-tools">Close</button>
+                <button class="js-close-tools">Close</button>
                 <h2 id="dialog1_label" class="dialog_label">
                     Search ToolNameHere
                 </h2>
@@ -170,6 +175,25 @@
                 <div class="row results">
                     <ul id="js-definitions"></ul>
                 </div>
+            </div>
+        </section>
+        <section role="region" class="row lightbox">
+            <div role="dialog" class="help-info" id="dialog2" aria-labelledby="dialog2_label" aria-modal="true" hidden>
+                <button class="js-close-tools">Close</button>
+                <h2 id="dialog2_label" class="dialog_label">
+                    Word Seed Manual
+                </h2>
+                <p>Welcome, writers! Here's a bit of help to get started with Word Seed!</p>
+                <ul>
+                    <li><span>Profile</span> - To view your account information, click on the person icon next to the logout button at the top right. You can edit your profile name, password, and set your writing word count goal.</li>
+                    <li><span>Editor</span> - Word Seed uses Quill.js editor which includes basic formatting tools. Upon login, if a notebook is not selected, you can still write in the editor. The automatic saving feature will create a generically-named notebook for you.</li>
+                    <li><span>Notebook</span> - To view your notebook collection, click on "Notebook" in the navigation menu. Notebooks can be renamed by clicking on the "pencil" icon or deleted by clicking on the "trash" icon.</li>
+                    <li><span>Add Notebook</span> - By clicking on "+ Notebook", you'll toggle a title field into which you can enter the title of your notebook. Hit 'ESC' to cancel or 'ENTER' to proceed.</li>
+                    <li><span>Saving</span> - Your work is automatically saved!</li>
+                    <li><span>Word Tools</span> - Word Seed includes helpful dictionary and thesaurus tools to lookup words, synonyms, and antonyms.</li>
+                    <li><span>Progress</span> - View your progress by clicking on My Progress in the navigation menu. The word count goal you set in your account information is displayed here along with the total word count across all of your notebooks. To update any changes, just click on My Progress again.</li>
+                    <li><span>Inspirational Seed</span> - This button will generate a writing prompt. At this time, Word Seed generates light-hearted writing prompts but there is a plan to add serious prompt options in the future.</li>
+                </ul>
             </div>
         </section>
     </div>

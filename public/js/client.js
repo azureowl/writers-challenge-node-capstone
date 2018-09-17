@@ -295,6 +295,7 @@
                         toggleDashboard();
                         setAccountDetails(data);
                         $('p.error').remove();
+                        $('#js-help').focus();
                     })
                     .fail(function (error) {
                         const html = `<p class="row error">${error.responseText}</p>`;
@@ -331,6 +332,7 @@
                         toggleDashboard();
                         setAccountDetails(data);
                         $('p.error').remove();
+                        $('#js-help').focus();
                     })
                     .fail(function (error) {
                         console.log(error);
@@ -450,28 +452,39 @@
     function openWordTools() {
         $('.tools').on('click', function (e) {
             e.stopPropagation();
+            console.log($(e.target));
             $('main').addClass('mb-hidden');
             if ($(e.target).attr('id') === 'js-open-dictionary') {
                 $('#dialog1_label').text('Search Dictionary');
-                $('#js-definitions').html('');
                 $('.dialog-form-button button').attr('id', 'dictionary');
+                triggerDialog1();
             }
             if ($(e.target).attr('id') === 'js-open-thesaurus') {
                 $('#dialog1_label').text('Search Thesaurus');
-                $('#js-definitions').html('');
                 $('.dialog-form-button button').attr('id', 'thesaurus');
+                triggerDialog1();
+            }
+            if ($(e.target).attr('id') === 'js-help') {
+                $("#dialog2").attr('hidden', false);
+                $('.js-close-tools').focus();
             }
 
-            $("#dialog1").attr('hidden', false);
-            $('.dialog-form-item input').focus();
+            function triggerDialog1() {
+                $("#dialog1").attr('hidden', false);
+                $("#dialog2").attr('hidden', true);
+                $('#js-definitions').html('');
+                $('.dialog-form-item input').focus();
+            }
+
             closeWordTools($(e.target));
         });
     }
 
     function closeWordTools(target) {
-        $('#js-close-tools').on('click', function () {
+        $('.js-close-tools').on('click', function () {
             $('main').removeClass('mb-hidden');
             $("#dialog1").attr('hidden', true);
+            $("#dialog2").attr('hidden', true);
             $('.dialog-form-button button').removeAttr('id');
             $('#js-definitions').html('');
             $(target).focus();

@@ -131,6 +131,7 @@ nav {
 nav button:hover,
 nav button:focus {
     background-color: #373737;
+    color: #45c34a;
     outline: none;
 }
 
@@ -246,7 +247,6 @@ progress[value]::-webkit-progress-value {
     background-color: rgba(40, 49, 28, 0.6);
     padding: 10px;
     font-size: 18px;
-    line-height: 28px;
 }
 
 .editor-form {
@@ -482,7 +482,7 @@ sup,
     padding-left: 8px;
 }
 
-.definition li {
+.definition li, .intro, .help-info li, .help-info p {
     line-height: 28px;
 }
 
@@ -500,6 +500,28 @@ sup,
     color: black;
     background-color: #eaeaea;
     margin-bottom: 2.5px;
+}
+
+.help-info {
+    overflow: scroll;
+}
+
+.help-info h2 {
+    margin: initial;
+}
+
+.help-info h2, .help-info span {
+    font-weight: bold;
+    color: #45c34a;
+}
+
+.help-info ul {
+    margin: 0;
+    padding: 5px 20px 20px 20px;
+}
+
+.help-info li {
+    margin-top: 15px;
 }
 
 @media screen and (min-width: 460px) {
