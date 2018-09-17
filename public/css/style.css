@@ -510,6 +510,10 @@ sup,
     margin: initial;
 }
 
+.help-info p {
+    padding-left: 20px;
+}
+
 .help-info h2, .help-info span {
     font-weight: bold;
     color: #45c34a;
@@ -521,7 +525,7 @@ sup,
 }
 
 .help-info li {
-    margin-top: 15px;
+    margin-top: 13px;
 }
 
 @media screen and (min-width: 460px) {
