@@ -5,6 +5,7 @@
         theme: 'snow'
     });
 
+    // Get all of user's notebooks and list them in the navigation sidebar
     function getNotebooks() {
         $('#js-getNotebooks').on('click', function () {
             const userID = $('legend').attr('class');
@@ -18,7 +19,7 @@
         });
     }
 
-    // Display one notebook's content in the editor
+    // Select a notebook and display its content in the editor
     function getNotebookContent() {
         $('.collections').on('click', '.js-open-notebook', function () {
             const id = $(this).attr('id');
@@ -87,7 +88,8 @@
     }
 
 
-    // Automatic saving after *wait* milliseconds. Debounce function postpones call to updateNotebookContent()
+    // * Automatic saving after *wait* milliseconds. Debounce function postpones call to
+    // updateNotebookContent()
     var saveText = _.debounce(updateNotebookContent, 500);
 
     function saveContentAuto() {
@@ -221,6 +223,7 @@
         });
     }
 
+    // For the profile and notebook form
     function toggleExpand(el) {
         const target = el.next();
         const expanded = el.attr('aria-expanded') === 'true' || false;
@@ -228,6 +231,7 @@
         target.attr('hidden', expanded);
     }
 
+    // FOr the navigation sidebar collapsible menu
     function toggleCollapseMenu(bool) {
         $('.nav').on('click', '.expandable', function (e) {
             const target = $(this).next();
@@ -237,7 +241,7 @@
         });
     }
 
-    // User forms are login and registration
+    // Hide one form when the other is toggled: login and registration
     function toggleUserForms() {
         $('.js-change-form').on('click', function (e) {
             const current = $(this).closest('section');
@@ -252,7 +256,7 @@
             e.preventDefault();
             $('.my-progress').attr('hidden', false);
             $('#js-close-progress').focus();
-            getProgress();
+            getWordCount();
             hideProgress();
         });
     }
@@ -381,26 +385,25 @@
         });
     }
 
+    // Update the word count goal, then update progress
     function updateGoal(goal) {
         $('progress').attr('max', goal);
         $('progress').attr('aria-valuemax', goal);
+        getWordCount();
     }
 
-    function getProgress() {
+    // Calc total word count across all notebooks
+    function getWordCount() {
         const id = $('legend').attr('class');
-        getWordCount(id);
-    }
-
-    function getWordCount(id) {
         $.ajax(`/notebooks/${id}`)
-            .done((data) => {
-                $('progress').attr('value', data.wordCountTotal);
-                $('progress').attr('aria-valuenow', data.wordCountTotal);
-                getGoal(id, data.wordCountTotal);
-            })
-            .fail(function (error) {
-                console.log(error);
-            });
+        .done((data) => {
+            $('progress').attr('value', data.wordCountTotal);
+            $('progress').attr('aria-valuenow', data.wordCountTotal);
+            getGoal(id, data.wordCountTotal);
+        })
+        .fail(function (error) {
+            console.log(error);
+        });
     }
 
     // Check goal and check if completed
@@ -449,6 +452,7 @@
         accessProfile(data);
     }
 
+    // Display dictionary, thesaurus, or help box dialogue
     function openWordTools() {
         $('.tools').on('click', function (e) {
             e.stopPropagation();
