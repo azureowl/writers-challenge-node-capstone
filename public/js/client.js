@@ -139,7 +139,7 @@
 
             // Save the current element to replace the toggled field should user change his mind
             const current = $(this).closest('.notebook');
-            const notebookInfo = {
+            const notebookObj = {
                 id: $(this).parent().siblings('.js-open-notebook').attr('id'),
                 title: $(this).parent().siblings('.js-open-notebook').text()
             };
@@ -147,19 +147,17 @@
             // Create the toggled field
             $(this).closest('h3').html(`<div class="change-title"><input class="notebook-title" type="text" placeholder="Change title or ESC" aria-label="Edit Notebook Title or hit ESC key"></div>`);
 
-            const userObject = {};
-
             $('.change-title').on('keypress', function (e) {
                 if (e.which === 13) {
                     if ($(this).find('input').val() === "") {
-                        $(current).replaceWith(markupNotebooks([notebookInfo]));
+                        $(current).replaceWith(markupNotebooks([notebookObj]));
                     } else {
-                        userObject.title = $('.change-title .notebook-title').val();
-                        userObject.id = notebookInfo.id;
-                        $.ajax(`/notebooks/${notebookInfo.id}`, {
+                        notebookObj.title = $('.change-title .notebook-title').val();
+
+                        $.ajax(`/notebooks/${notebookObj.id}`, {
                                 method: 'PUT',
                                 contentType: 'application/json',
-                                data: JSON.stringify(userObject),
+                                data: JSON.stringify(notebookObj),
                                 dataType: 'json'
                             })
                             .done(function (data) {
@@ -177,7 +175,7 @@
 
             $('.change-title').on('keyup', function (e) {
                 if (e.which === 27) {
-                    $(current).replaceWith(markupNotebooks([notebookInfo]));
+                    $(current).replaceWith(markupNotebooks([notebookObj]));
                 }
             });
         });
