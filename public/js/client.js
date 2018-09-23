@@ -39,7 +39,7 @@
     function createNotebook() {
         $('.notebook-form').on('keypress', function (e) {
             const userObject = {
-                username: $("#email").val(),
+                username: $('.profile').find('legend').text(),
                 title: $('#title').val()
             };
 
@@ -107,7 +107,7 @@
         if (notebookObj.id === undefined) {
             // if editor receives changes without a notebook, create a notebook
             const userObject = {
-                username: $("#email").val(),
+                username: $('.profile').find('legend').text(),
                 title: 'My Notebook'
             };
             createNotebookAJAX(userObject);
