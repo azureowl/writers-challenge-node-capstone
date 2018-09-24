@@ -283,7 +283,7 @@
     }
 
     function login() {
-        $('#js-login').on('click', function (e) {
+        $('.login-form').on('submit', function (e) {
             e.preventDefault();
 
             const userObject = {
@@ -314,7 +314,7 @@
     }
 
     function register() {
-        $('#js-register').on('click', function (e) {
+        $('.registration-form').on('submit', function (e) {
             e.preventDefault();
 
             const userObject = {
