@@ -3,6 +3,8 @@ const { TEST_DATABASE_URL } = require('../config');
 const { Notebook } = require('../models/notebook');
 const { User } = require('../models/user');
 var ObjectId = require('mongodb').ObjectID;
+var jwt = require('jsonwebtoken');
+const { JWT_SECRET } = require('../config');
 const faker = require('faker');
 const mongoose = require('mongoose');
 
@@ -22,8 +24,17 @@ function seedNotebooks() {
         "name": "Boston Bauer",
         "username": "boston@gmail.com",
         "password": 123456,
-        "_id": ObjectId('5b8de6abc7147a5a52c21762')
+        "_id": ObjectId('5b8de6abc7147a5a52c21762'),
+        "token": 123456789
     };
+
+    // const token = jwt.sign({
+    //     id: user._id
+    // }, JWT_SECRET, { expiresIn: 60 * 60 });
+
+    // user.token = token;
+
+    // console.log(user);
 
     return User.create(user)
         .then(user => {
@@ -71,8 +82,12 @@ describe('Writing App Capstone Resource', function () {
     // ******* TESTING GET ******* //
     describe('GET notebooks endpoint', function () {
         it('GET /notebooks/:userID/all Should return all notebooks for user', function () {
+            const token = jwt.sign({
+                id: '5b8de6abc7147a5a52c21762'
+            }, JWT_SECRET, { expiresIn: 60 * 60 });
             return chai.request(app)
                 .get(`/notebooks/${'5b8de6abc7147a5a52c21762'}/all`)
+                .set( 'Authorization', `Bearer ${token}`)
                 .then(function (res) {
                     expect(res).to.have.status(200);
                     expect(res).to.be.json;
@@ -82,11 +97,15 @@ describe('Writing App Capstone Resource', function () {
         });
 
         it('GET /notebooks/:id Should return notebook content', function () {
+            const token = jwt.sign({
+                id: '5b8de6abc7147a5a52c21762'
+            }, JWT_SECRET, { expiresIn: 60 * 60 });
             return Notebook.findOne({})
                 .then(notebook => {
                     const id = notebook._id;
                     return chai.request(app)
                         .get(`/notebooks/${id}`)
+                        .set( 'Authorization', `Bearer ${token}`)
                         .then(function (res) {
                             expect(res).to.have.status(200);
                             expect(res).to.be.json;
@@ -101,11 +120,15 @@ describe('Writing App Capstone Resource', function () {
     // ******* TESTING POST ******* //
     describe('POST notebooks endpoint', function () {
         it('POST /notebooks Should add a notebooks for user', function () {
+            const token = jwt.sign({
+                id: '5b8de6abc7147a5a52c21762'
+            }, JWT_SECRET, { expiresIn: 60 * 60 });
             return User.findOne()
                 .then(user => {
                     const username = user.username;
                     return chai.request(app)
                         .post('/notebooks')
+                        .set( 'Authorization', `Bearer ${token}`)
                         .send({
                             title: faker.lorem.words(),
                             content: faker.lorem.paragraph(),
@@ -125,11 +148,15 @@ describe('Writing App Capstone Resource', function () {
     // ******* TESTING PUT ******* //
     describe('PUT notebooks endpoint', function () {
         it('PUT /notebooks/:id Should update a notebook\'s title for user', function () {
+            const token = jwt.sign({
+                id: '5b8de6abc7147a5a52c21762'
+            }, JWT_SECRET, { expiresIn: 60 * 60 });
             return Notebook.findOneAndUpdate()
                 .then(notebook => {
                     const id = notebook._id;
                     return chai.request(app)
                         .put(`/notebooks/${id}`)
+                        .set( 'Authorization', `Bearer ${token}`)
                         .send({
                             title: faker.lorem.words(),
                             id: id})
@@ -175,11 +202,15 @@ describe('Writing App Capstone Resource', function () {
     // ******* TESTING DELETE ******* //
     describe('DELETE notebooks endpoint', function () {
         it('DELETE /notebooks/:id Should delete notebook for user', function () {
+            const token = jwt.sign({
+                id: '5b8de6abc7147a5a52c21762'
+            }, JWT_SECRET, { expiresIn: 60 * 60 });
             return Notebook.findOne()
                 .then(notebook => {
                     const id = notebook._id;
                     return chai.request(app)
                         .delete(`/notebooks/${id}`)
+                        .set( 'Authorization', `Bearer ${token}`)
                         .then(function (res) {
                             expect(res).to.have.status(204);
                             return Notebook.findById(id);
