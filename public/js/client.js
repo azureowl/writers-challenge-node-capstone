@@ -112,24 +112,7 @@
             };
             createNotebookAJAX(userObject);
         } else {
-            $.ajax(`/notebooks/book/${notebookObj.id}`, {
-                    method: 'PUT',
-                    contentType: 'application/json',
-                    data: JSON.stringify(notebookObj),
-                    dataType: 'json'
-                })
-                .done(function (data) {
-                    $('.js-save').text('Saved!');
-                    const reset = setTimeout(() => {
-                        $('.js-save').text('');
-                    }, 3000);
-                    $('p.error').remove();
-                })
-                .fail(function (error) {
-                    console.log(error);
-                    const html = `<p class="row error">${error.responseText}</p>`;
-                    $(html).insertAfter('header');
-                });
+            updateNotebookAJAX(notebookObj);
         }
     }
 
@@ -137,8 +120,8 @@
         $('.notebook-container').on('click', '#edit-notebook', function (e) {
             e.stopPropagation();
 
-            // Save the current element to replace the toggled field should user change his mind
-            const current = $(this).closest('.notebook');
+            // Save the default element to be put back should user change his mind
+            const defaultValue = $(this).closest('.notebook');
             const notebookObj = {
                 id: $(this).parent().siblings('.js-open-notebook').attr('id'),
                 title: $(this).parent().siblings('.js-open-notebook').text()
@@ -150,34 +133,44 @@
             $('.change-title').on('keypress', function (e) {
                 if (e.which === 13) {
                     if ($(this).find('input').val() === "") {
-                        $(current).replaceWith(markupNotebooks([notebookObj]));
+                        $(defaultValue).replaceWith(markupNotebooks([notebookObj]));
                     } else {
+                        // User confirms title change
                         notebookObj.title = $('.change-title .notebook-title').val();
-
-                        $.ajax(`/notebooks/${notebookObj.id}`, {
-                                method: 'PUT',
-                                contentType: 'application/json',
-                                data: JSON.stringify(notebookObj),
-                                dataType: 'json'
-                            })
-                            .done(function (data) {
-                                $(current).replaceWith(markupNotebooks([data]));
-                                $('p.error').remove();
-                            })
-                            .fail(function (error) {
-                                console.log(error);
-                                const html = `<p class="row error">${error.responseText}</p>`;
-                                $(html).insertAfter('header');
-                            });
+                        updateNotebookAJAX(notebookObj, e);
                     }
                 }
             });
 
             $('.change-title').on('keyup', function (e) {
                 if (e.which === 27) {
-                    $(current).replaceWith(markupNotebooks([notebookObj]));
+                    $(defaultValue).replaceWith(markupNotebooks([notebookObj]));
                 }
             });
+        });
+    }
+
+    function updateNotebookAJAX (notebookObj, event) {
+        $.ajax(`/notebooks/${notebookObj.id}`, {
+            method: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify(notebookObj),
+            dataType: 'json'
+        })
+        .done(function (data) {
+            if ('title' in data) {
+                $(event.currentTarget).closest('.notebook').replaceWith(markupNotebooks([data]));
+            }
+            $('.js-save').text('Saved!');
+            const reset = setTimeout(() => {
+                $('.js-save').text('');
+            }, 3000);
+            $('p.error').remove();
+        })
+        .fail(function (error) {
+            console.log(error);
+            const html = `<p class="row error">${error.responseText}</p>`;
+            $(html).insertAfter('header');
         });
     }
 
@@ -452,7 +445,7 @@
 
     // Display dictionary, thesaurus, or help box dialogue
     function openWordTools() {
-        $('.tools').on('click', function (e) {
+        $('.tools').on('click', 'h2', function (e) {
             e.stopPropagation();
             $('main').addClass('mb-hidden');
             if ($(e.target).attr('id') === 'js-open-dictionary') {

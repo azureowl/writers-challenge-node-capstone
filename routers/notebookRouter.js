@@ -71,7 +71,7 @@ router.post('/add', (req, res) => {
 
 });
 
-// ************ Update titles in the nav area ************
+// ************ Update Notebook title or content ************
 router.put('/:id', (req, res) => {
   if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
     res.status(400).json({
@@ -79,12 +79,12 @@ router.put('/:id', (req, res) => {
     });
   }
 
-  const permitted = ['title', 'content'];
+  const updatable = ['title', 'content'];
   const updated = {
     id: req.params.id
   };
 
-  permitted.forEach(field => {
+  updatable.forEach(field => {
     if (field in req.body) {
       updated[field] = req.body[field];
     }
@@ -92,31 +92,13 @@ router.put('/:id', (req, res) => {
 
   Notebook.findByIdAndUpdate(req.params.id, {$set: updated})
     .then(notebook => {
+      console.log(updated, '**');
       res.status(201).json(updated);
     })
     .catch(err => {
       console.log(err);
       return runErrorMess(res);
     });
-});
-
-// ************ Update notebook's content ************
-router.put('/book/:id', (req, res) => {
-  if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
-    res.status(400).json({
-      message: 'Request requires a valid and matching id.'
-    });
-  }
-
-  Notebook.findByIdAndUpdate(req.params.id, {$set: {content: req.body.content}})
-    .then(notebook => {
-      res.status(201).json(notebook);
-    })
-    .catch(err => {
-      console.log(err);
-      return runErrorMess(res);
-    });
-
 });
 
 // ************ Delete notebook ************
