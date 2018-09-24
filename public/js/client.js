@@ -104,7 +104,7 @@
     var saveText = _.debounce(updateNotebookContent, 500);
 
     function saveContentAuto() {
-        $('.ql-editor').on('keypress', function (e) {
+        $('.ql-editor').on('keyup', function (e) {
             saveText();
         });
     }
