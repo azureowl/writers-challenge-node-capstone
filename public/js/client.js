@@ -178,12 +178,12 @@
             const reset = setTimeout(() => {
                 $('.js-save').text('');
             }, 3000);
-            $('p.error').remove();
+            $('.error').attr('hidden', true);
         })
         .fail(function (error) {
             console.log(error);
-            const html = `<p class="row error">${error.responseText}</p>`;
-            $(html).insertAfter('header');
+            $('.error').attr('hidden', false);
+            $('.error').html(`${error.responseText}`);
         });
     }
 
@@ -206,12 +206,12 @@
                         $('#editor').removeAttr('data-book');
                         $('.ql-editor').html('');
                         target.remove();
-                        $('p.error').remove();
+                        $('.error').attr('hidden', true);
                     })
                     .fail(function (error) {
                         console.log(error);
-                        const html = `<p class="row error">${error.responseText}</p>`;
-                        $(html).insertAfter('header');
+                        $('.error').attr('hidden', false);
+                        $('.error').html(`${error.responseText}`);
                     });
             }
         });
@@ -306,8 +306,8 @@
                         onloginRegistration(data);
                     })
                     .fail(function (error) {
-                        const html = `<p class="row error">${error.responseText}</p>`;
-                        $(html).insertAfter('header');
+                        $('.error').attr('hidden', false);
+                        $('.error').html(`${error.responseText}`);
                     });
             }
         });
@@ -341,8 +341,8 @@
                     })
                     .fail(function (error) {
                         console.log(error);
-                        const html = `<p class="row error">${error.responseText}</p>`;
-                        $(html).insertAfter('header');
+                        $('.error').attr('hidden', false);
+                        $('.error').html(`${error.responseText}`);
                     });
             }
 
@@ -353,7 +353,7 @@
         localStorage.setItem('token', data.token);
         toggleDashboard();
         setAccountDetails(data);
-        $('p.error').remove();
+        $('.error').attr('hidden', true);
         $('#js-help').focus();
     }
 
@@ -385,12 +385,12 @@
                     })
                     .done(function (data) {
                         updateGoal(data);
-                        $('p.error').remove();
+                        $('.error').attr('hidden', true);
                     })
                     .fail(function (error) {
                         console.log(error);
-                        const html = `<p class="row error">${error.responseText}</p>`;
-                        $(html).insertAfter('header');
+                        $('.error').attr('hidden', false);
+                        $('.error').html(`${error.responseText}`);
                     });
             }
 
