@@ -139,7 +139,7 @@
 
             // Create the toggled field
             $(this).closest('h3').html(`<div class="change-title"><input class="notebook-title" type="text" placeholder="Change title or ESC" aria-label="Edit Notebook Title or hit ESC key"></div>`);
-
+            $('input.notebook-title').focus();
             $('.change-title').on('keypress', function (e) {
                 if (e.which === 13) {
                     if ($(this).find('input').val() === "") {
@@ -221,12 +221,14 @@
         $('#js-user').on('click', function (e) {
             e.preventDefault();
             toggleExpand($(this));
+            $('#profile-name').focus();
         });
     }
 
     function toggleAddNotebookForm() {
         $('#js-notebook').on('click', function (e) {
             toggleExpand($(this));
+            $('input.notebook-title').focus();
         });
     }
 
@@ -238,7 +240,7 @@
         target.attr('hidden', expanded);
     }
 
-    // FOr the navigation sidebar collapsible menu
+    // For the navigation sidebar collapsible menu
     function toggleCollapseMenu(bool) {
         $('.nav').on('click', '.expandable', function (e) {
             const target = $(this).next();
@@ -384,6 +386,7 @@
                         dataType: 'json'
                     })
                     .done(function (data) {
+                        $('#js-user').click();
                         updateGoal(data);
                         $('.error').attr('hidden', true);
                     })
