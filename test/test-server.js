@@ -70,9 +70,9 @@ describe('Writing App Capstone Resource', function () {
 
     // ******* TESTING GET ******* //
     describe('GET notebooks endpoint', function () {
-        it('GET /notebooks/:userID Should return all notebooks for user', function () {
+        it('GET /notebooks/:userID/all Should return all notebooks for user', function () {
             return chai.request(app)
-                .get(`/notebooks/${'5b8de6abc7147a5a52c21762'}`)
+                .get(`/notebooks/${'5b8de6abc7147a5a52c21762'}/all`)
                 .then(function (res) {
                     expect(res).to.have.status(200);
                     expect(res).to.be.json;
@@ -81,12 +81,12 @@ describe('Writing App Capstone Resource', function () {
                 .catch(err => {console.log(err);});
         });
 
-        it('GET /notebooks/book/:id Should return notebook content', function () {
+        it('GET /notebooks/:id Should return notebook content', function () {
             return Notebook.findOne({})
                 .then(notebook => {
                     const id = notebook._id;
                     return chai.request(app)
-                        .get(`/notebooks/book/${id}`)
+                        .get(`/notebooks/${id}`)
                         .then(function (res) {
                             expect(res).to.have.status(200);
                             expect(res).to.be.json;
@@ -100,12 +100,12 @@ describe('Writing App Capstone Resource', function () {
 
     // ******* TESTING POST ******* //
     describe('POST notebooks endpoint', function () {
-        it('POST /notebooks/add Should add a notebooks for user', function () {
+        it('POST /notebooks Should add a notebooks for user', function () {
             return User.findOne()
                 .then(user => {
                     const username = user.username;
                     return chai.request(app)
-                        .post('/notebooks/add')
+                        .post('/notebooks')
                         .send({
                             title: faker.lorem.words(),
                             content: faker.lorem.paragraph(),
