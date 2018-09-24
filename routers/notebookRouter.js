@@ -4,8 +4,8 @@ const {User} = require('../models/user');
 var ObjectId = require('mongodb').ObjectID;
 const router = express.Router();
 
-// ************ Get User's notebooks ************
-router.get('/:userID', (req, res) => {
+// ************ GET User's notebooks ************
+router.get('/:userID/all', (req, res) => {
   Notebook.find({user: ObjectId(req.params.userID)})
     .then(notebooks => {
       let wordCount = 0;
@@ -24,8 +24,10 @@ router.get('/:userID', (req, res) => {
     });
 });
 
-// ************ Get specific notebook ************
-router.get('/book/:id', (req, res) => {
+// ************ GET specific notebook ************
+router.get('/:id', (req, res) => {
+  console.log(req.params.id, '%%%%');
+  console.log('GET', req.method, req.path);
   Notebook.findById(req.params.id)
     .then(notebook => {
       res.json(notebook.content);
@@ -36,8 +38,8 @@ router.get('/book/:id', (req, res) => {
     });
 });
 
-// ************ Add notebook ************
-router.post('/add', (req, res) => {
+// ************ POST notebook ************
+router.post('/', (req, res) => {
 
   if (!('title' in req.body)) {
     return res.status(400).send({
@@ -71,7 +73,7 @@ router.post('/add', (req, res) => {
 
 });
 
-// ************ Update Notebook title or content ************
+// ************ PUT Notebook title or content ************
 router.put('/:id', (req, res) => {
   if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
     res.status(400).json({
@@ -79,6 +81,7 @@ router.put('/:id', (req, res) => {
     });
   }
 
+  console.log('put', req.method, req.path);
   const updatable = ['title', 'content'];
   const updated = {
     id: req.params.id
@@ -92,7 +95,6 @@ router.put('/:id', (req, res) => {
 
   Notebook.findByIdAndUpdate(req.params.id, {$set: updated})
     .then(notebook => {
-      console.log(updated, '**');
       res.status(201).json(updated);
     })
     .catch(err => {
@@ -101,7 +103,7 @@ router.put('/:id', (req, res) => {
     });
 });
 
-// ************ Delete notebook ************
+// ************ DELETE notebook ************
 router.delete('/:id', (req, res) => {
   Notebook.findByIdAndRemove(req.params.id)
     .then(notebook => res.status(204).end())

@@ -9,7 +9,7 @@
     function getNotebooks() {
         $('#js-getNotebooks').on('click', function () {
             const userID = $('legend').attr('class');
-            $.ajax(`/notebooks/${userID}`)
+            $.ajax(`/notebooks/${userID}/all`)
                 .done((data) => {
                     $('.notebook-container').html(markupNotebooks(data.notebooks));
                 })
@@ -25,7 +25,7 @@
             const id = $(this).attr('id');
             const title = $(this).text();
             $('#editor').attr('data-book', id);
-            $.ajax(`/notebooks/book/${id}`)
+            $.ajax(`/notebooks/${id}`)
                 .done((content) => {
                     $('.ql-editor').html(content);
                     $('.ql-editor').focus();
@@ -69,7 +69,7 @@
 
     // AJAX request shared between manual notebook creation and direct typing to the editor without a notebook
     function createNotebookAJAX(user) {
-        $.ajax('/notebooks/add', {
+        $.ajax('/notebooks', {
                 method: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(user),
@@ -93,12 +93,12 @@
     var saveText = _.debounce(updateNotebookContent, 500);
 
     function saveContentAuto() {
-        $('#editor').on('keyup', function (e) {
+        $('.ql-editor').on('keypress', function (e) {
             saveText();
         });
     }
 
-    function updateNotebookContent() {
+    function updateNotebookContent(e) {
         const notebookObj = {
             content: $('.ql-editor').html(),
             id: $('#editor').attr('data-book')
@@ -119,7 +119,6 @@
     function updateNotebookTitle() {
         $('.notebook-container').on('click', '#edit-notebook', function (e) {
             e.stopPropagation();
-
             // Save the default element to be put back should user change his mind
             const defaultValue = $(this).closest('.notebook');
             const notebookObj = {
@@ -177,13 +176,13 @@
     function deleteNotebook() {
         $('.notebook-container').on('click', '#delete-notebook', function (e) {
             e.stopPropagation();
-            const notebookInfo = {
+            const notebookObj = {
                 id: $(this).parent().siblings('.js-open-notebook').attr('id'),
                 title: $(this).parent().siblings('.js-open-notebook').text()
             };
             const target = $(this).closest('.notebook');
-            if (window.confirm(`Delete ${notebookInfo.title} notebook? This cannot be undone.`)) {
-                $.ajax(`/notebooks/${notebookInfo.id}`, {
+            if (window.confirm(`Delete ${notebookObj.title} notebook? This cannot be undone.`)) {
+                $.ajax(`/notebooks/${notebookObj.id}`, {
                         method: 'DELETE'
                     })
                     .done(function (data) {
@@ -385,12 +384,12 @@
 
     // Calc total word count across all notebooks
     function getWordCount() {
-        const id = $('legend').attr('class');
-        $.ajax(`/notebooks/${id}`)
+        const userID = $('legend').attr('class');
+        $.ajax(`/notebooks/${userID}/all`)
         .done((data) => {
             $('progress').attr('value', data.wordCountTotal);
             $('progress').attr('aria-valuenow', data.wordCountTotal);
-            getGoal(id, data.wordCountTotal);
+            getGoal(userID, data.wordCountTotal);
         })
         .fail(function (error) {
             console.log(error);
@@ -398,8 +397,8 @@
     }
 
     // Check goal and check if completed
-    function getGoal(id, count) {
-        $.ajax(`/users/profile/${id}`)
+    function getGoal(userID, count) {
+        $.ajax(`/users/profile/${userID}`)
             .done(function (goal) {
                 $('progress').attr('max', goal);
                 $('progress').attr('aria-valuemax', goal);
