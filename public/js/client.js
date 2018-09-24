@@ -9,7 +9,11 @@
     function getNotebooks() {
         $('#js-getNotebooks').on('click', function () {
             const userID = $('legend').attr('class');
-            $.ajax(`/notebooks/${userID}/all`)
+            $.ajax(`/notebooks/${userID}/all`, {
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`);
+                    }
+                })
                 .done((data) => {
                     $('.notebook-container').html(markupNotebooks(data.notebooks));
                 })
@@ -25,7 +29,11 @@
             const id = $(this).attr('id');
             const title = $(this).text();
             $('#editor').attr('data-book', id);
-            $.ajax(`/notebooks/${id}`)
+            $.ajax(`/notebooks/${id}`, {
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`);
+                    }
+                })
                 .done((content) => {
                     $('.ql-editor').html(content);
                     $('.ql-editor').focus();
@@ -72,6 +80,9 @@
         $.ajax('/notebooks', {
                 method: 'POST',
                 contentType: 'application/json',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`);
+                },
                 data: JSON.stringify(user),
                 dataType: 'json'
             })
@@ -153,6 +164,9 @@
         $.ajax(`/notebooks/${notebookObj.id}`, {
             method: 'PUT',
             contentType: 'application/json',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`);
+            },
             data: JSON.stringify(notebookObj),
             dataType: 'json'
         })
@@ -183,7 +197,10 @@
             const target = $(this).closest('.notebook');
             if (window.confirm(`Delete ${notebookObj.title} notebook? This cannot be undone.`)) {
                 $.ajax(`/notebooks/${notebookObj.id}`, {
-                        method: 'DELETE'
+                        method: 'DELETE',
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`);
+                        }
                     })
                     .done(function (data) {
                         $('#editor').removeAttr('data-book');
@@ -286,10 +303,7 @@
                         dataType: 'json'
                     })
                     .done(function (data) {
-                        toggleDashboard();
-                        setAccountDetails(data);
-                        $('p.error').remove();
-                        $('#js-help').focus();
+                        onloginRegistration(data);
                     })
                     .fail(function (error) {
                         const html = `<p class="row error">${error.responseText}</p>`;
@@ -323,10 +337,7 @@
                         dataType: 'json'
                     })
                     .done(function (data) {
-                        toggleDashboard();
-                        setAccountDetails(data);
-                        $('p.error').remove();
-                        $('#js-help').focus();
+                        onloginRegistration(data);
                     })
                     .fail(function (error) {
                         console.log(error);
@@ -336,6 +347,14 @@
             }
 
         });
+    }
+
+    function onloginRegistration(data) {
+        localStorage.setItem('token', data.token);
+        toggleDashboard();
+        setAccountDetails(data);
+        $('p.error').remove();
+        $('#js-help').focus();
     }
 
     function modifyUserProfile() {
@@ -358,6 +377,9 @@
                 $.ajax('/users/profile', {
                         method: 'PUT',
                         contentType: 'application/json',
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`);
+                        },
                         data: JSON.stringify(userObject),
                         dataType: 'json'
                     })
@@ -385,7 +407,11 @@
     // Calc total word count across all notebooks
     function getWordCount() {
         const userID = $('legend').attr('class');
-        $.ajax(`/notebooks/${userID}/all`)
+        $.ajax(`/notebooks/${userID}/all`, {
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`);
+            }
+        })
         .done((data) => {
             $('progress').attr('value', data.wordCountTotal);
             $('progress').attr('aria-valuenow', data.wordCountTotal);
@@ -398,7 +424,11 @@
 
     // Check goal and check if completed
     function getGoal(userID, count) {
-        $.ajax(`/users/profile/${userID}`)
+        $.ajax(`/users/profile/${userID}`, {
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`);
+                }
+            })
             .done(function (goal) {
                 $('progress').attr('max', goal);
                 $('progress').attr('aria-valuemax', goal);

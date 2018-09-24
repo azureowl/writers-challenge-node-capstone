@@ -2,7 +2,29 @@ const express = require('express');
 const {Notebook} = require('../models/notebook');
 const {User} = require('../models/user');
 var ObjectId = require('mongodb').ObjectID;
+var jwt = require('jsonwebtoken');
+const { JWT_SECRET } = require('../config');
 const router = express.Router();
+
+function verifyToken (req, res, next) {
+  let token = req.headers['x-access-token'] || req.headers.authorization;
+  if (token.startsWith('Bearer')) {
+    token = token.slice(7);
+  }
+
+  if (token) {
+    jwt.verify(token, JWT_SECRET, function(err, decoded) {
+      if (err) {
+        return res.status(401).json('User is not authorized');
+      } else {
+        req.decoded = decoded;
+        next();
+      }
+    });
+  }
+}
+
+router.all('*', verifyToken);
 
 // ************ GET User's notebooks ************
 router.get('/:userID/all', (req, res) => {
@@ -26,8 +48,6 @@ router.get('/:userID/all', (req, res) => {
 
 // ************ GET specific notebook ************
 router.get('/:id', (req, res) => {
-  console.log(req.params.id, '%%%%');
-  console.log('GET', req.method, req.path);
   Notebook.findById(req.params.id)
     .then(notebook => {
       res.json(notebook.content);
@@ -81,7 +101,6 @@ router.put('/:id', (req, res) => {
     });
   }
 
-  console.log('put', req.method, req.path);
   const updatable = ['title', 'content'];
   const updated = {
     id: req.params.id
