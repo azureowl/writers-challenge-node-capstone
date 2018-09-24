@@ -45,7 +45,8 @@ The app's functionality includes:
 
 #### Technology
 Frontend: HTML5 | CSS3 | JavaScript ES6 | jQuery  
-Backend: Node.js | Express.js | Mocha | Chai | RESTful API Endpoints | MongoDB | Mongoose
+Backend: Node.js | Express.js | Mocha | Chai | RESTful API Endpoints | MongoDB | Mongoose  
+Security: bcrypt.js, JWT, Passport.js in progress
 
 #### Responsive
 App is responsive across most mobile, tablet, laptop, and desktop screen resolutions.
