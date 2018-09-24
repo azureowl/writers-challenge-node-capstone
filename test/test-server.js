@@ -144,33 +144,33 @@ describe('Writing App Capstone Resource', function () {
                 .catch(err => {console.log(err);});
         });
 
-        it('PUT /notebooks/book/:id Should update notebook content', function () {
-            const updatedData = {
-                content: faker.lorem.words()
-            };
-            let res;
-            return Notebook.findOne()
-                .then(notebook => {
-                    const id = notebook._id;
-                    updatedData.id = id;
-                    return chai.request(app)
-                        .put(`/notebooks/book/${id}`)
-                        .send(updatedData)
-                        .then(function (_res) {
-                            res = _res;
-                            expect(res).to.have.status(201);
-                            expect(res).to.be.json;
-                            expect(res.body).to.be.an('object');
-                            return Notebook.findById(id);
-                        })
-                        .then(notebook => {
-                            console.log(res.body.content);
-                            expect(res.body.content).to.not.equal(notebook.content);
-                        })
-                        .catch(err => {console.log(err);});
-                })
-                .catch(err => {console.log(err);});
-        });
+        // it('PUT /notebooks/book/:id Should update notebook content', function () {
+        //     const updatedData = {
+        //         content: faker.lorem.words()
+        //     };
+        //     let res;
+        //     return Notebook.findOne()
+        //         .then(notebook => {
+        //             const id = notebook._id;
+        //             updatedData.id = id;
+        //             return chai.request(app)
+        //                 .put(`/notebooks/book/${id}`)
+        //                 .send(updatedData)
+        //                 .then(function (_res) {
+        //                     res = _res;
+        //                     expect(res).to.have.status(201);
+        //                     expect(res).to.be.json;
+        //                     expect(res.body).to.be.an('object');
+        //                     return Notebook.findById(id);
+        //                 })
+        //                 .then(notebook => {
+        //                     console.log(res.body.content);
+        //                     expect(res.body.content).to.not.equal(notebook.content);
+        //                 })
+        //                 .catch(err => {console.log(err);});
+        //         })
+        //         .catch(err => {console.log(err);});
+        // });
     });
     // ******* TESTING DELETE ******* //
     describe('DELETE notebooks endpoint', function () {
