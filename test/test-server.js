@@ -18,23 +18,13 @@ chai.use(chaiHttp);
 // Create placeholder notebooks with one user
 
 function seedNotebooks() {
-    console.info('Seeding notebook data for one user');
     const notebookData = [];
     const user = {
         "name": "Boston Bauer",
         "username": "boston@gmail.com",
         "password": 123456,
-        "_id": ObjectId('5b8de6abc7147a5a52c21762'),
-        "token": 123456789
+        "_id": ObjectId('5b8de6abc7147a5a52c21762')
     };
-
-    // const token = jwt.sign({
-    //     id: user._id
-    // }, JWT_SECRET, { expiresIn: 60 * 60 });
-
-    // user.token = token;
-
-    // console.log(user);
 
     return User.create(user)
         .then(user => {
@@ -83,8 +73,9 @@ describe('Writing App Capstone Resource', function () {
     describe('GET notebooks endpoint', function () {
         it('GET /notebooks/:userID/all Should return all notebooks for user', function () {
             const token = jwt.sign({
+                name: "Boston Bauer",
                 id: '5b8de6abc7147a5a52c21762'
-            }, JWT_SECRET, { expiresIn: 60 * 60 });
+            }, JWT_SECRET);
             return chai.request(app)
                 .get(`/notebooks/${'5b8de6abc7147a5a52c21762'}/all`)
                 .set( 'Authorization', `Bearer ${token}`)
@@ -98,8 +89,9 @@ describe('Writing App Capstone Resource', function () {
 
         it('GET /notebooks/:id Should return notebook content', function () {
             const token = jwt.sign({
+                name: "Boston Bauer",
                 id: '5b8de6abc7147a5a52c21762'
-            }, JWT_SECRET, { expiresIn: 60 * 60 });
+            }, JWT_SECRET);
             return Notebook.findOne({})
                 .then(notebook => {
                     const id = notebook._id;
@@ -121,8 +113,9 @@ describe('Writing App Capstone Resource', function () {
     describe('POST notebooks endpoint', function () {
         it('POST /notebooks Should add a notebooks for user', function () {
             const token = jwt.sign({
+                name: "Boston Bauer",
                 id: '5b8de6abc7147a5a52c21762'
-            }, JWT_SECRET, { expiresIn: 60 * 60 });
+            }, JWT_SECRET);
             return User.findOne()
                 .then(user => {
                     const username = user.username;
@@ -149,8 +142,9 @@ describe('Writing App Capstone Resource', function () {
     describe('PUT notebooks endpoint', function () {
         it('PUT /notebooks/:id Should update a notebook\'s title for user', function () {
             const token = jwt.sign({
+                name: "Boston Bauer",
                 id: '5b8de6abc7147a5a52c21762'
-            }, JWT_SECRET, { expiresIn: 60 * 60 });
+            }, JWT_SECRET);
             return Notebook.findOneAndUpdate()
                 .then(notebook => {
                     const id = notebook._id;
@@ -203,8 +197,9 @@ describe('Writing App Capstone Resource', function () {
     describe('DELETE notebooks endpoint', function () {
         it('DELETE /notebooks/:id Should delete notebook for user', function () {
             const token = jwt.sign({
+                name: "Boston Bauer",
                 id: '5b8de6abc7147a5a52c21762'
-            }, JWT_SECRET, { expiresIn: 60 * 60 });
+            }, JWT_SECRET);
             return Notebook.findOne()
                 .then(notebook => {
                     const id = notebook._id;
