@@ -260,23 +260,6 @@
         });
     }
 
-    function toggleProgressBox() {
-        $('#js-progress').on('click', function (e) {
-            e.preventDefault();
-            $('.my-progress').attr('hidden', false);
-            $('#js-close-progress').focus();
-            getWordCount();
-            hideProgress();
-        });
-    }
-
-    function hideProgress() {
-        $('#js-close-progress').on('click', function (e) {
-            e.preventDefault();
-            $('.my-progress').attr('hidden', true);
-        });
-    }
-
     function logout() {
         $('#js-logout').on('click', function () {
             $('.profile').find('legend').removeClass();
@@ -397,6 +380,34 @@
                     });
             }
 
+        });
+    }
+
+    function handleProgressToggle() {
+        $('#js-progress').on('click', function (e) {
+            e.preventDefault();
+            toggleProgressBox();
+            $('#js-close-progress').focus();
+            getWordCount();
+            refreshProgress();
+        });
+
+        $('#js-close-progress').on('click', function (e) {
+            toggleProgressBox();
+            $('#js-progress').focus();
+        });
+    }
+
+    function toggleProgressBox() {
+        const target = $('.my-progress');
+        const expanded = $('#js-progress').attr('aria-expanded') === 'true' || false;
+        $('#js-progress').attr('aria-expanded', !expanded);
+        target.attr('hidden', expanded);
+    }
+
+    function refreshProgress() {
+        $('#js-refresh-progress').on('click', function () {
+            getWordCount();
         });
     }
 
@@ -621,7 +632,7 @@
         login();
         logout();
         register();
-        toggleProgressBox();
+        handleProgressToggle();
         toggleUserForms();
         modifyUserProfile();
         toggleAddNotebookForm();
