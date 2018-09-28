@@ -17,8 +17,8 @@
                 .done((data) => {
                     $('.notebook-container').html(markupNotebooks(data.notebooks));
                 })
-                .fail(err => {
-                    console.log(err);
+                .fail(function (error) {
+                    showErrorMess(error);
                 });
         });
     }
@@ -38,8 +38,8 @@
                     $('.ql-editor').html(content);
                     $('.ql-editor').focus();
                 })
-                .fail(err => {
-                    console.log(err);
+                .fail(function (error) {
+                    showErrorMess(error);
                 });
         });
     }
@@ -93,8 +93,8 @@
                 $('.ql-editor').focus();
                 updateNotebookContent();
             })
-            .fail(err => {
-                console.log(err);
+            .fail(function (error) {
+                showErrorMess(error);
             });
     }
 
@@ -160,31 +160,29 @@
         });
     }
 
-    function updateNotebookAJAX (notebookObj, event) {
+    function updateNotebookAJAX(notebookObj, event) {
         $.ajax(`/notebooks/${notebookObj.id}`, {
-            method: 'PUT',
-            contentType: 'application/json',
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`);
-            },
-            data: JSON.stringify(notebookObj),
-            dataType: 'json'
-        })
-        .done(function (data) {
-            if ('title' in data) {
-                $(event.currentTarget).closest('.notebook').replaceWith(markupNotebooks([data]));
-            }
-            $('.js-save').text('Saved!');
-            const reset = setTimeout(() => {
-                $('.js-save').text('');
-            }, 3000);
-            $('.error').attr('hidden', true);
-        })
-        .fail(function (error) {
-            console.log(error);
-            $('.error').attr('hidden', false);
-            $('.error').html(`${error.responseText}`);
-        });
+                method: 'PUT',
+                contentType: 'application/json',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`);
+                },
+                data: JSON.stringify(notebookObj),
+                dataType: 'json'
+            })
+            .done(function (data) {
+                if ('title' in data) {
+                    $(event.currentTarget).closest('.notebook').replaceWith(markupNotebooks([data]));
+                }
+                $('.js-save').text('Saved!');
+                const reset = setTimeout(() => {
+                    $('.js-save').text('');
+                }, 3000);
+                $('.error').attr('hidden', true);
+            })
+            .fail(function (error) {
+                showErrorMess(error);
+            });
     }
 
     function deleteNotebook() {
@@ -209,9 +207,7 @@
                         $('.error').attr('hidden', true);
                     })
                     .fail(function (error) {
-                        console.log(error);
-                        $('.error').attr('hidden', false);
-                        $('.error').html(`${error.responseText}`);
+                        showErrorMess(error);
                     });
             }
         });
@@ -291,8 +287,7 @@
                         onloginRegistration(data);
                     })
                     .fail(function (error) {
-                        $('.error').attr('hidden', false);
-                        $('.error').html(`${error.responseText}`);
+                        showErrorMess(error);
                     });
             }
         });
@@ -325,9 +320,7 @@
                         onloginRegistration(data);
                     })
                     .fail(function (error) {
-                        console.log(error);
-                        $('.error').attr('hidden', false);
-                        $('.error').html(`${error.responseText}`);
+                        showErrorMess(error);
                     });
             }
 
@@ -374,9 +367,7 @@
                         $('.error').attr('hidden', true);
                     })
                     .fail(function (error) {
-                        console.log(error);
-                        $('.error').attr('hidden', false);
-                        $('.error').html(`${error.responseText}`);
+                        showErrorMess(error);
                     });
             }
 
@@ -422,18 +413,18 @@
     function getWordCount() {
         const userID = $('legend').attr('class');
         $.ajax(`/notebooks/${userID}/all`, {
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`);
-            }
-        })
-        .done((data) => {
-            $('progress').attr('value', data.wordCountTotal);
-            $('progress').attr('aria-valuenow', data.wordCountTotal);
-            getGoal(userID, data.wordCountTotal);
-        })
-        .fail(function (error) {
-            console.log(error);
-        });
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', `Bearer ${localStorage.getItem('token')}`);
+                }
+            })
+            .done((data) => {
+                $('progress').attr('value', data.wordCountTotal);
+                $('progress').attr('aria-valuenow', data.wordCountTotal);
+                getGoal(userID, data.wordCountTotal);
+            })
+            .fail(function (error) {
+                showErrorMess(error);
+            });
     }
 
     // Check goal and check if completed
@@ -446,16 +437,16 @@
             .done(function (goal) {
                 $('progress').attr('max', goal);
                 $('progress').attr('aria-valuemax', goal);
-                if (count/goal >= 1) {
+                if (count / goal >= 1) {
                     $('.my-progress h2').text(`Congratulations! You completed your goal of writing ${goal} words!`);
-                } else if (count/goal >= 0.60) {
+                } else if (count / goal >= 0.60) {
                     $('.my-progress h2').text(`Good job! You've written ${count} words out of your goal of ${goal}.`);
                 } else {
                     $('.my-progress h2').text(`You've written ${count} words out of ${goal}.`);
                 }
             })
             .fail(function (error) {
-                console.log(error);
+                showErrorMess(error);
             });
     }
 
@@ -557,8 +548,8 @@
                     markupThesaurus(data.response);
                 }
             })
-            .fail(err => {
-                console.log(err);
+            .fail(function (error) {
+                showErrorMess(error);
             });
     }
 
@@ -598,7 +589,8 @@
         const end = `</ul></div></li>`;
         const synonymArr = data.results[0].lexicalEntries[0].entries[0].senses[0].synonyms;
         const antonymArr = data.results[0].lexicalEntries[0].entries[0].senses[0].antonyms;
-        let synonyms = [], antonyms = [];
+        let synonyms = [],
+            antonyms = [];
 
         if (synonymArr !== undefined) {
             synonyms = synonymArr.map(item => {
@@ -621,10 +613,20 @@
                 .done(data => {
                     $('.ql-editor').prepend(data.english);
                 })
-                .fail(err => {
-                    console.log(err);
+                .fail(function (error) {
+                    showErrorMess(error);
                 });
         });
+    }
+
+    function showErrorMess(error) {
+        console.log(error);
+        $('.error').attr('hidden', false);
+        $('.error').html(`${error.responseText}`);
+        if (error.statusText === 'Unauthorized') {
+            location.reload();
+            alert('Your session timed out.');
+        }
     }
 
     function main() {
