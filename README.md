@@ -30,6 +30,8 @@ Writing -- The app is open for any type of writing be it creative, general note-
 
 
 #### Working Prototype
+Demo credentials: WillWrite@writetoday(dot)com | password1
+
 [Demo](https://writers-challenge.herokuapp.com/)
 
 #### Functionality
