@@ -287,7 +287,9 @@
                         onloginRegistration(data);
                     })
                     .fail(function (error) {
-                        showErrorMess(error);
+                        console.log(error);
+                        $('.error').attr('hidden', false);
+                        $('.error').html(`${error.responseText}`);
                     });
             }
         });
@@ -625,7 +627,7 @@
         $('.error').html(`${error.responseText}`);
         if (error.statusText === 'Unauthorized') {
             location.reload();
-            alert('Your session timed out.');
+            alert('Sorry, you are not authorized.');
         }
     }
 

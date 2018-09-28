@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 const { JWT_SECRET } = require('../config');
 const mongoose = require('mongoose');
+const verifyToken = require('./middleware');
 
 const router = express.Router();
 
@@ -27,7 +28,7 @@ router.post('/login', (req, res) => {
                 if (!isValid) {
                     return res.status(401).json('Password Invalid');
                 } else {
-                    const token = jwt.sign({ user }, JWT_SECRET, { expiresIn: '24h' }, { algorithm: 'RS256' }, function(err, token) {
+                    const token = jwt.sign({ user }, JWT_SECRET, { expiresIn: '20s' }, { algorithm: 'RS256' }, function(err, token) {
                         console.log(user, token);
                     });
                     return res.json({user: user.username, id: user._id, token});
@@ -62,7 +63,7 @@ router.post('/register', (req, res) => {
                     password: hash
                 })
                 .then(user => {
-                    const token = jwt.sign({ user }, JWT_SECRET, { expiresIn: '24h' }, { algorithm: 'RS256' }, function(err, token) {
+                    const token = jwt.sign({ user }, JWT_SECRET, { expiresIn: '20s' }, { algorithm: 'RS256' }, function(err, token) {
                         console.log(user, token);
                     });
                     return res.json({user: user.username, id: user._id, token});
@@ -78,7 +79,7 @@ router.post('/register', (req, res) => {
 });
 
 // ************ Update User ************
-router.put('/profile', (req, res) => {
+router.put('/profile', verifyToken, (req, res) => {
     const user = req.body.user;
     const updateableFields = ['name', 'password', 'goal'];
     const toUpdate = {};
@@ -131,7 +132,7 @@ router.put('/profile', (req, res) => {
 });
 
 // ************ Get User Goal ************
-router.get('/profile/:id', (req, res) => {
+router.get('/profile/:id', verifyToken, (req, res) => {
     const id = req.params.id;
 
     User.findById(id)
