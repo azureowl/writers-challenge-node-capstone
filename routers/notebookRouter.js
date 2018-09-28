@@ -26,6 +26,7 @@ function verifyToken (req, res, next) {
 
 router.all('*', verifyToken);
 
+// ************ User Specific ************
 // ************ GET User's notebooks ************
 router.get('/:userID/all', (req, res) => {
   Notebook.find({user: ObjectId(req.params.userID)})
@@ -46,6 +47,22 @@ router.get('/:userID/all', (req, res) => {
     });
 });
 
+// ************ admin only ************
+// ************ DELETE User's notebooks ************
+router.delete('/:userID/all', (req, res) => {
+  Notebook.find({user: ObjectId(req.params.userID)})
+    .then(notebooks => {
+      notebooks.forEach(notebook => notebook.remove());
+      res.status(204).end();
+    })
+    .catch(err => {
+      console.log(err);
+      return runErrorMess(res);
+    });
+});
+
+
+// ************ Sepcific Notebook ************
 // ************ GET specific notebook ************
 router.get('/:id', (req, res) => {
   Notebook.findById(req.params.id)
