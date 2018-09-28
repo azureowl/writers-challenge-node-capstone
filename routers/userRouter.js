@@ -28,7 +28,7 @@ router.post('/login', (req, res) => {
                 if (!isValid) {
                     return res.status(401).json('Password Invalid');
                 } else {
-                    const token = jwt.sign({ user }, JWT_SECRET, { expiresIn: '20s' }, { algorithm: 'RS256' }, function(err, token) {
+                    const token = jwt.sign({ user }, JWT_SECRET, { expiresIn: '24h' }, { algorithm: 'RS256' }, function(err, token) {
                         console.log(user, token);
                     });
                     return res.json({user: user.username, id: user._id, token});
@@ -63,7 +63,7 @@ router.post('/register', (req, res) => {
                     password: hash
                 })
                 .then(user => {
-                    const token = jwt.sign({ user }, JWT_SECRET, { expiresIn: '20s' }, { algorithm: 'RS256' }, function(err, token) {
+                    const token = jwt.sign({ user }, JWT_SECRET, { expiresIn: '24h' }, { algorithm: 'RS256' }, function(err, token) {
                         console.log(user, token);
                     });
                     return res.json({user: user.username, id: user._id, token});
