@@ -198,8 +198,10 @@ progress[value]::-webkit-progress-value {
     background-size: cover;
     background-position: center center;
     padding-top: 10px;
+    padding: 10px 0 0 0;
     position: relative;
-    height: 80%;
+    height: 600px;
+    min-height: 480px;
 }
 
 .landing-page span {
@@ -244,7 +246,7 @@ progress[value]::-webkit-progress-value {
 }
 
 .intro {
-    background-color: rgba(40, 49, 28, 0.6);
+    background-color: rgba(48, 60, 32, 0.9);
     padding: 10px;
     font-size: 18px;
 }
@@ -426,6 +428,7 @@ h3.expandable button {
 }
 
 [role="dialog"] .results {
+    border-top: 5px double #91d263;
     padding: 10px;
     margin-top: 5px;
 }
@@ -437,6 +440,7 @@ h3.expandable button {
 .dialog_form {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     margin: 15px;
 }
 
