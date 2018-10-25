@@ -6,6 +6,11 @@ Sow words across the blank white page, invite the creative Muse for a quick romp
 | -- | -- | -- | -- | -- |
 | <img src="./github-images/wc-login.png" alt="login" width="600"/> | <img src="./github-images/wc-notebook.png" alt="notebook" width="600"/> |  <img src="./github-images/wc-dictionary.png" alt="dictionary" width="600"/> | <img src="./github-images/wc-thesaurus.png" alt="thesaurus" width="600"/> | <img src="./github-images/wc-progress1.png" alt="progress" width="600"/> |
 
+#### DEMO
+Demo credentials: demo@app.com | password1
+
+[Demo](https://writers-challenge.herokuapp.com/)
+
 #### User Cases
 Writing -- The app is open for any type of writing be it creative, general note-taking, or general writing. The notebook feature is there to divide up topics according to the user's wants.
 
@@ -27,12 +32,6 @@ Writing -- The app is open for any type of writing be it creative, general note-
 |  userflow  | dashboard   |  dashboard mobile  |  dictionary/thesaurus  |
 | -- | -- | -- | -- |
 | <img src="./github-images/wc-user-flow.jpg" alt="userflow" width="600"/> | <img src="./github-images/wc-dashboard.jpg" alt="dashboard" width="600"/> |  <img src="./github-images/wc-mobile-dashboard.jpg" alt="dashboard mobile" width="600"/> | <img src="./github-images/wc-dictionary.jpg" alt="dashboard/thesaurus" width="600"/>
-
-
-#### Working Prototype
-Demo credentials: WillWrite@writetoday(dot)com | password1
-
-[Demo](https://writers-challenge.herokuapp.com/)
 
 #### Functionality
 The app's functionality includes:
