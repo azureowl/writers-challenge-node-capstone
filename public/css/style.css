@@ -18,6 +18,7 @@ h1 {
 }
 
 h1,
+.detail-aside h2,
 .clear-style {
     color: #45c34a;
     font-weight: 400;
@@ -193,15 +194,41 @@ progress[value]::-webkit-progress-value {
     background-color: white;
 }
 
+.landing-page-cont {
+    display: flex;
+    justify-content: space-around;
+}
+
+.detail-aside {
+    border: 10px solid #f7f7f7;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+.detail-aside div {
+    border-radius: 5px;
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    margin: 5px;
+    padding: 5px;
+    text-align: center;
+}
+
 .landing-page {
     background: url('../images/sprout2.jpg') no-repeat;
     background-size: cover;
     background-position: center center;
     padding-top: 10px;
+    margin: 0 5px;
     padding: 10px 0 0 0;
     position: relative;
     height: 600px;
     min-height: 480px;
+    width: 600px;
 }
 
 .landing-page span {
@@ -558,13 +585,18 @@ sup,
         border: 10px solid #f7f7f7;
     }
 
+    .landing-page h2 {
+        font-size: 24px;
+        font-weight: 400;
+    }
+
     .landing-page h2,
     .intro {
-        font-size: 24px;
         letter-spacing: 2px;
     }
 
     .intro {
+        font-size: 18px;
         padding: 25px;
     }
 
