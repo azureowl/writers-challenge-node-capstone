@@ -155,7 +155,8 @@ button {
     height: 300px;
 }
 
-.my-progress h2, .landing-page h2 {
+.my-progress h2,
+.landing-page h2 {
     font-weight: 400;
 }
 
@@ -213,6 +214,16 @@ progress[value]::-webkit-progress-value {
     margin: 5px;
     height: 100px;
     text-align: center;
+    position: relative;
+}
+
+.detail-aside .fas {
+    font-size: 50px;
+    position: absolute;
+    color: #81bc4c3d;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
 }
 
 .left-aside {
@@ -522,11 +533,15 @@ sup,
     padding-left: 8px;
 }
 
-.definition li, .intro, .help-info li, .help-info p {
+.definition li,
+.intro,
+.help-info li,
+.help-info p {
     line-height: 28px;
 }
 
-.mb-hidden, .hidden {
+.mb-hidden,
+.hidden {
     display: none;
 }
 
@@ -554,7 +569,8 @@ sup,
     padding-left: 20px;
 }
 
-.help-info h2, .help-info span {
+.help-info h2,
+.help-info span {
     font-weight: bold;
     color: #45c34a;
 }
@@ -643,13 +659,19 @@ sup,
         align-items: initial;
     }
 
+    .detail-aside .fas {
+        font-size: 100px;
+    }
+
     .left-aside {
         order: 1;
     }
+
     .landing-page {
         order: 2;
         margin: 0 10px;
     }
+
     .right-aside {
         order: 3;
     }
