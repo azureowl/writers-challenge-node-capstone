@@ -454,9 +454,9 @@
 
     // Toggles the dashboard when user logs in and out
     function toggleDashboard() {
-        ['main', '#js-logout', '#js-user', '.landing-page'].forEach(el => {
-            if (el === '.landing-page') {
-                $(el).attr('hidden', true);
+        ['main', '#js-logout', '#js-user', '.landing-page-cont'].forEach(el => {
+            if (el === '.landing-page-cont') {
+                $(el).toggleClass('hidden');
             } else {
                 $(el).attr('hidden', false);
             }
