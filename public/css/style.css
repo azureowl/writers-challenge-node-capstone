@@ -114,7 +114,8 @@ header button,
 .dialog-form-button button,
 footer a,
 .intro,
-.editor-tools button {
+.editor-tools button,
+.goal-form button {
     color: #fff;
 }
 
@@ -152,7 +153,7 @@ button {
 }
 
 .my-progress {
-    height: 300px;
+    height: auto;
 }
 
 .my-progress h2,
@@ -185,6 +186,18 @@ progress[value]::-webkit-progress-bar {
 
 progress[value]::-webkit-progress-value {
     background-color: #45c34a;
+}
+
+.goal-form {
+    margin: 15px;
+    display: flex;
+    border-top: 1px solid #eeeeee;
+    padding-top: 10px;
+    flex-direction: column;
+}
+
+.goal-form * {
+    margin: 5px 0;
 }
 
 .profile {
@@ -360,7 +373,8 @@ header button,
 header button,
 .registration-form button,
 [role="dialog"] button,
-.editor-tools button {
+.editor-tools button,
+.goal-form button {
     border-radius: 3px;
     font-weight: 400;
     padding: 4px 8px;
@@ -372,7 +386,8 @@ header button,
 .registration-form button:hover,
 [role="dialog"]>button:hover,
 .dialog-form-button button:hover,
-.editor-tools button:hover {
+.editor-tools button:hover,
+.goal-form button {
     background-color: #5edb62;
 }
 
@@ -591,6 +606,23 @@ sup,
 
     .thesaurus-result-list {
         flex-direction: row;
+    }
+}
+
+@media (min-width: 640px) {
+
+    .goal-form {
+        justify-content: center;
+        align-items: center;
+        flex-direction: row;
+    }
+    
+    .goal-form * {
+        margin: 0 10px;
+    }
+
+    .goal-form  button {
+        margin-top: 0;
     }
 }
 
