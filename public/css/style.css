@@ -204,6 +204,10 @@ progress[value]::-webkit-progress-value {
     background-color: white;
 }
 
+.profile form *, .my-progress * {
+    font-weight: 400;
+}
+
 .landing-page-cont {
     display: flex;
     flex-direction: column;
