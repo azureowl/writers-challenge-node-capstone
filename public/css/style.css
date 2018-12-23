@@ -110,7 +110,6 @@ nav button,
 .login-form button,
 .registration-form button,
 header button,
-[role="dialog"]>button,
 .dialog-form-button button,
 footer a,
 .intro,
@@ -364,10 +363,13 @@ progress[value]::-webkit-progress-value {
     border-bottom: 1px solid #45c34a;
 }
 
+[role="dialog"]>button {
+    background: transparent;
+}
+
 .login-form button,
 header button,
 .registration-form button,
-[role="dialog"]>button,
 .dialog-form-button button,
 .editor-tools button {
     background-color: #45c34a;
@@ -388,7 +390,6 @@ header button,
 .login-form button:hover,
 header button,
 .registration-form button:hover,
-[role="dialog"]>button:hover,
 .dialog-form-button button:hover,
 .editor-tools button:hover,
 .goal-form button {
