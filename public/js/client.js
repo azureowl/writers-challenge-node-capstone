@@ -338,18 +338,19 @@
     }
 
     function modifyUserProfile() {
-        $('#js-change').on('click', function (e) {
+        $('#js-change, #js-change2').on('click', function (e) {
             e.preventDefault();
             const userObject = {
                 user: $('.profile').find('legend').text()
             };
 
-            const fields = ["#profile-name", "#profile-password", "#profile-goal"];
+            const fields = ["#profile-name", "#profile-password", "#profile-goal", ".profile-goal"];
 
             fields.forEach(field => {
                 if ($(field).val() !== "") {
                     let prop = field.split('-')[1];
                     userObject[prop] = $(field).val();
+                    $(field).val('');
                 }
             });
 
@@ -364,7 +365,10 @@
                         dataType: 'json'
                     })
                     .done(function (data) {
-                        $('#js-user').click();
+                        // only auto-click if changes were done within account drop-down
+                        if ($('#js-user').attr('aria-expanded') === false) {
+                            $('#js-user').click();
+                        }
                         updateGoal(data);
                         $('.error').attr('hidden', true);
                     })
